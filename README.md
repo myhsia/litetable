@@ -1,8 +1,8 @@
 # The `litetable` class
 
-This class provides a beautiful design of timetable with colorful course blocks.
+This class provides a colorful timetable design.
 
-**Welcome to pull requests [here](https://github.com/xiamyphys/litetable).**
+**Welcome to pull requests [here](https://github.com/myhsia/litetable).**
 
 ## License
 

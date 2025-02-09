@@ -1,67 +1,35 @@
-\documentclass[letterpaper, svgnames]{litetable}
+\documentclass[svgnames]{litetable}
 
-\usepackage{twemojis,newtxtext}
-\usepackage[scaled = .9]{helvet}
-\renewcommand*\familydefault{\sfdefault}
+\usepackage{libertine, inconsolata, twemojis}
+\usepackage[T1]{fontenc}
 
 \begin{document}
 
-\timelist [ 13 ]
+\timelist [ numformat = \ttfamily \bfseries, timeformat = \ttfamily ]
   {
-    08:05 -> 08:50, 08:55 -> 09:40, 10:00 -> 10:45,
-    10:50 -> 11:35, 11:40 -> 12:25, 13:30 -> 14:15,
-    14:20 -> 15:05, 15:15 -> 16:00, 16:05 -> 16:50,
-    18:30 -> 19:15, 19:20 -> 20:05, 20:10 -> 20:55
+    08:05 -> 08:50, 08:55 -> 09:40, 10:00 -> 10:45, 10:50 -> 11:35,
+    11:40 -> 12:25, 13:30 -> 14:15, 14:20 -> 15:05, 15:15 -> 16:00,
+    16:05 -> 16:50, 18:30 -> 19:15, 19:20 -> 20:05, 20:10 -> 20:55
   }
-\weeklist [ Weeks 1 - 16 ]
+\weeklist [ format = \bfseries \scshape, sep = \textbar ]
   {
-    \scshape\texttwemoji{1f312} Mon -> 1,
-    \scshape\texttwemoji{1f525} Tue -> 1,
-    \scshape\texttwemoji{1f30a} Wed -> 1,
-    \scshape\texttwemoji{1f332} Thu -> 1,
-    \scshape\texttwemoji{1fa99} Fri -> 1
-  }
-\more
-  {
-    School Starts: 06 / 09 / 2024\quad Summer Vacation: 26 / 01 / 2025
+    \texttwemoji{1f312} Mon -> 1, \texttwemoji{1f525} Tue -> 1,
+    \texttwemoji{1f30a} Wed -> 1, \texttwemoji{1f332} Thu -> 1,
+    \texttwemoji{1fa99} Fri -> 1
   }
 
-\begin{tikzpicture} [ remember picture, overlay ]
-  \maketable [ color = MidnightBlue,
-               sem = SEM 6
-             ] { Skyrmion's Course Schedule }
-  \course [ color = DarkBlue, subject = interface3,
-            teacher = The \LaTeX{} Project
-          ] {4} {5}
+\begin{litetable} [ MidnightBlue, sem = SEM 7 ] { Course Schedule }
+  \course [ subject = interface3, comment = \TeX{} Live 2025,
+            lecture = The \LaTeX{} Project, DarkBlue ] {4} {5}
   \newday
-  \course [ color = Purple, subject = expl3,
-            teacher = The \LaTeX{} Project
-          ] {8} {8}
-  \course [ color = FireBrick, subject = usrguide,
-            teacher = \LaTeX{} Project Team, weeks = Weeks 7 - 14
-          ] {1} {2}
+  \course [ subject = expl3, lecture = The \LaTeX{} Project ] {8} {8}
   \newday
-  \course [ subject = Keep on \TeX{}ing ] {10} {11}
+  \course [ subject = Keep on \TeX ing, lecture = Donald E. Knuth,
+            location = Stanford University, Purple ] {10} {11}
   \newday
-  \course [ color = Crimson, subject = \textup{Ti\textit{k\/}Z},
-            teacher = The PGF/\textup{Ti\textit{k\/}Z} Team
-          ] {3} {5}
-  \newday
-  \course [ color = DarkSlateGray, subject = litetable,
-            location = Hong Kong, teacher = M.Y. Xia
-          ] {8} {8}
-\end{tikzpicture}
-
-\clearpage
-
-\timelist [ 12 ] { }
-\weeklist [ Weeks 1 - 16 ] { Mon -> 1, Tue -> 1, Wed -> 1, Thu -> 1, Fri -> 1 }
-
-\begin{tikzpicture} [ remember picture, overlay ]
-  \maketable { Skyrmion's Course Schedule }
-  %
-\end{tikzpicture}
+  \course [ subject = Ti\textit k\/Z, lecture = \textsc{pgf},
+            Crimson, comment = Version 3.1.10 ] {3} {5}
+  \more { Programme Duration: 09 / 2021 -- 07 / 2025 }
+\end{litetable}
 
 \end{document}
-
-%%

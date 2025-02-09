@@ -1,0 +1,166 @@
+\documentclass[quiet, 10pt, letterpaper]{l3doc}
+\usepackage{pdfpages}
+\AddToHook{env/function/before}{\vspace*{-.6\baselineskip}}
+\AddToHook{env/syntax/after}{\par\vspace*{.1\baselineskip}}
+\def \TFF {true\textbar \textbf{false}}
+\def \TTF {\textbf{true}\textbar false}
+\setlength \parindent {0pt}
+\setlist[description]{leftmargin = 0pt}
+\def \key #1{\textcolor{red}{\textbf{\texttt{#1}}}}
+\def \keyval #1#2{\key{#1} \normalfont \texttt{=} \meta{\textup{#2}}}
+\usepackage{ctex}
+\setCJKmainfont{LXGW WenKai}
+\setCJKsansfont{LXGW Marker Gothic}
+
+\title{^^X
+  \sffamily \cls{litetable} 文檔類 -- 多彩嘅課程表\thanks
+    {^^X
+      \url{https://github.com/myhsia/litetable},
+      \url{https://ctan.org/pkg/litetable}
+    }
+}
+\author{^^X
+  夏明宇 \texttt{<\href{mailto:myhsia@outlook.com}{myhsia@outlook.com}>}^^X
+  \thanks{
+    \href{https://github.com/ljguo1020}{郭李軍}
+    開發咗讀取 \meta{left} \cmd{->} \meta{right} 型數據結構嘅接口，
+    並為低版本 \hologo{TeX} Live 做兼容.
+  }
+}
+\date{Released 2025-02-10\quad \texttt{v3.2A}}
+
+\begin{document}
+
+\maketitle
+
+\section{介紹}
+
+\cls{litetable} 文檔類提供咗一個多彩嘅課程表設計，
+基於 \cls{article} 和 \pkg{tikz} 由 \pkg{expl3} 開發.
+其兼容發行版 \hologo{TeX} Live 2019 及更高版本，
+支持 \hologo{pdfLaTeX}，\hologo{XeLaTeX} 和 \hologo{LuaLaTeX} 等多種編譯方式.
+點擊跳轉至手冊嘅
+\href{http://mirrors.ctan.org/macros/latex/contrib/^^X
+  litetable/doc/litetable-en-us.pdf^^X
+}{[\textsf{English Version}]}
+\href{http://mirrors.ctan.org/macros/latex/contrib/^^X
+  litetable/doc/litetable-zh-hk.pdf^^X
+}{[\textsf{粵語版本}]}.
+
+\section{用戶接口}
+
+\DescribeEnv{litetable}
+呢個環境可生成一個空白課程表框架，
+需在命令 \cs{timelist}，\cs{weeklist} 後執行
+\begin{quote}
+  |\begin{litetable}|
+    \oarg{keys} \marg{title} \oarg{keys}| ... |^^X
+  |\end{litetable}|
+\end{quote}
+強制參數用於設定課程表標題，
+可選參數接受以下鍵
+\begin{description}
+  \item [\keyval{color}{color}] 可設置課程表框架嘅背景色，
+  默認值為 \cmd{gray}. 鍵名可省略.
+  \item [\keyval{sem}{string}]
+  可設置頁面右上角嘅學期信息.
+\end{description}
+
+\begin{function}{\weeklist}
+  \begin{syntax}
+    \cs{weeklist} \oarg{keys} \marg{list} \oarg{keys}
+  \end{syntax}
+  強制參數接收數組，
+  用於設置課程表頂部嘅工作日列表和列寬.
+  可選參數接受以下鍵
+  \begin{description}
+    \item [\keyval{format}{format commands}]
+    可設置工作日列表格式，默認為 \cmd{\bfseries}\cmd{\scshape}.
+    \item [\keyval{sep}{string}] 可設置工作日列表嘅分隔符，
+    默認為空.
+  \end{description}
+  \begin{verbatim}
+    \weeklist [ format = \bfseries \scshape, sep = \textbar ]
+      { Mon -> 1, Tue -> 1, Wed -> 1, Thu -> 1, Fri -> 1 }
+  \end{verbatim}
+\end{function}
+
+\begin{function}{\timelist}
+  \begin{syntax}
+    \cs{timelist} \oarg{keys} \marg{list} \oarg{keys}
+  \end{syntax}
+  強制參數均接收數組，用於設置課程表嘅左側嘅時間列表.
+  可選參數接受以下鍵
+  \begin{description}
+    \item [\keyval{numformat}{format}]
+    可設置時間列表嘅序號字體，
+    默認為 \cmd{\ttfamily}\cmd{\bfseries}.
+    \item [\keyval{timefont}{format}] 可設置時間列表嘅時間字體，
+    默認為 \cmd{\ttfamily}.
+    \item [\keyval{hidetime}\TFF] 用於隱藏時間列表中嘅時間，只保留序號.
+    初始為 \cmd{false}.
+  \end{description}
+  \begin{verbatim}
+    \timelist [ numformat = \bfseries, timeformat = \ttfamily ]
+      { 08:30 -> 10:00, 10:30 -> 12:00, 13:00 -> 14:30, 15:00 -> 16:30 }
+  \end{verbatim}
+\end{function}
+
+\begin{function}{\course}
+  \begin{syntax}
+    \cs{course} \oarg{keys} \marg{start} \oarg{keys} \marg{end} \oarg{keys}
+  \end{syntax}
+  用於在當前工作日添加課程盒子，
+  需在 \env{litetable} 環境中執行.
+  兩個強制參數分別用於設置課程嘅開始和結束序號.
+  可選參數接收下列鍵
+  \begin{description}
+    \item [\keyval{color}{color}] 用於設置課程盒子嘅顏色，
+    默認為 \cmd{teal}. 鍵名可省略.
+    \item [\keyval{subject}{string}] 用於設置課程名稱.
+    \item [\keyval{location}{string}] 用於設置課程地點.
+    \item [\keyval{lecture}{string}] 用於設置授課教師.
+    \item [\keyval{comment}{string}] 用於給課程添加腳注.
+  \end{description}
+  \begin{texnote}
+    \begin{itemize}
+      \item 若 \meta{start} \cmd{=} \meta{end}，即課程盒子嘅高度為 1，
+      則 \key{location} 和 \key{lecture} 將輸出在同一行，
+      \key{comment} 嘅值將會隱藏.
+      \item 即使誤將 \meta{start} 與 \meta{end} 寫反，
+      模板也會自動糾正.
+      \item 若 \key{location} \key{lecture} 均未使用，
+      則 \key{subject} 將輸出在課程盒子中心.
+      \item 超出課程表範圍嘅課程盒子將不顯示，
+      並會返回警告.
+      輸入用例見 Appendix \ref{mwe}.
+    \end{itemize}
+  \end{texnote}
+\end{function}
+
+\begin{function}{\newday}
+  \begin{syntax}
+    \cs{newday} \oarg{integral value}
+  \end{syntax}
+  使其後面添加嘅課程盒子後移 \meta{intergal value} 個工作日.
+  可選參數嘅默認值為 \cmd{1}.
+\end{function}
+
+\begin{function}{\more}
+  \begin{syntax}
+    \cs{more} \marg{comment}
+  \end{syntax}
+  在課程表嘅右下角添加備注.
+\end{function}
+
+\clearpage \appendix
+
+\section{工作示例} \label{mwe} \linespread{1.25}
+
+\verbatiminput{litetable-demo.tex}
+
+\includepdf[pages = 1]{litetable-demo.pdf}
+
+\end{document}
+
+% End of file litetable-zh-hk.tex
