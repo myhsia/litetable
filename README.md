@@ -1,7 +1,7 @@
 The `litetable` Package
 =======================
 
-The `litetable` package provides a coloorful design of timetable.
+The `litetable` package provides a colorful design of timetable.
 
 See `litetable.pdf` for more. Happy TeXing!
 
