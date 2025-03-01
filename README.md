@@ -1,13 +1,26 @@
-# The `litetable` class
+The `litetable` Package
+=======================
 
-This class provides a colorful timetable design.
+The `litetable` package provides a coloorful design of timetable.
 
-**Welcome to pull requests [here](https://github.com/myhsia/litetable).**
+See `litetable.pdf` for more. Happy TeXing!
 
-## License
+Issues
+------
 
-This work may be distributed and/or modified under the conditions of the [LaTeX Project Public License](http://www.latex-project.org/lppl.txt), either version 1.3c of this license or (at your option) any later version.
+The issue tracker for `litetable` is currently located
+[on GitHub](https://github.com/myhsia/litetable/issues).
 
-This work has the LPPL maintenance status `maintained`.
+Copyright and License
+---------------------
 
-The Current Maintainers of this work are [Mingyu Xia](https://www.ctan.org/author/xia-my) and [Lijun Guo](https://ctan.org/author/guo).
+  Copyright (C) 2023-2025 by Mingyu Xia <myhsia@outlook.com>
+
+  It may be distributed and/or modified under the conditions of the
+  LaTeX Project Public License (LPPL), either version 1.3c of this
+  license or (at your option) any later version. The latest version
+  of this license is in the file <http://www.latex-project.org/lppl.txt>
+
+  This work has the LPPL maintenance status `maintained`.
+
+  The Current Maintainer of this work is Mingyu Xia.

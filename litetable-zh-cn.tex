@@ -1,0 +1,226 @@
+\documentclass[svgnames, onlydoc]{l3doc}
+\usepackage{litetable, twemojis, titlesec}
+\usepackage[mono = false]{libertine}
+\usepackage[fontset = none]{ctex} \setlength \parindent {0pt}
+\setCJKmainfont{LXGW WenKai}
+\setCJKsansfont[AutoFakeBold]{LXGW Marker Gothic}
+\setCJKmonofont{LXGW WenKai Mono}
+\titleformat*{\section}{\sffamily\Large\bfseries}
+\AddToHook{env/function/before}{\vspace*{-.65\baselineskip}}
+\AddToHook{env/syntax/after}{\par\vspace*{.15\baselineskip}}
+\makeatletter
+\def \@key #1{\textcolor{red}{\textbf{\texttt{#1}}} \normalfont \texttt{=}}
+\def \s@key #1{\textcolor{red}{\textbf{\texttt{#1}}}}
+\DeclareRobustCommand \key {\@ifstar\s@key\@key}
+\def \val #1{\meta{\textup{#1}}}
+\def \TFF {true\textbar \textbf{false}}
+\def \TTF {\textbf{true}\textbar false}
+\def \HoLogo@ApTeX #1{\HOLOGO@mbox {Ap\kern -.1667em\TeX}}
+\makeatother
+\makeindex
+
+\title{%
+  \sffamily \cls{litetable} 文档类 --- 多彩的课程表\thanks{%
+    \url{https://github.com/myhsia/litetable},
+    \url{https://ctan.org/pkg/litetable}
+  }
+}
+
+\author{%
+  夏明宇
+  \texttt{<\href{mailto:myhsia@outlook.com}{myhsia@outlook.com}>}\thanks{
+    \href{https://github.com/ljguo1020}{郭李军}
+    开发了读取 \meta{left} \cmd[no-index]{->} \meta{right} 型数据结构的接口，
+    并为低版本 \hologo{TeX} Live 做兼容.
+  }
+}
+
+\date{Released 2025-03-01\quad \texttt{v3.3A}}
+
+\begin{document}
+
+\maketitle
+
+\section{介绍}
+
+\cls{litetable} 文档类提供了一个多彩的课程表设计，
+基于 \pkg{tikz} 由 \pkg{expl3} 开发.
+其兼容发行版 \hologo{TeX} Live 2019 及更高版本，
+支持 \hologo{pdfLaTeX}，\hologo{XeLaTeX}，\hologo{ApTeX} 和 \hologo{LuaLaTeX}
+等多种编译方式. 点击跳转至手册的
+\href{litetable-en-us.pdf}{[\textsf{English Version}]}
+\href{litetable-zh-hk.pdf}{[\textsf{粤語版本}]}.
+
+\section{用户接口}
+
+要加载此宏包，只需写下
+\begin{quote}
+  |\usepackage{litetable}|
+\end{quote}
+
+\DescribeEnv{litetable}
+环境 \env{litetable} 可生成空白课程表框架，
+需在命令 \cs{timelist} 和 \cs{weeklist} 后执行
+\begin{quote}
+  |\begin{litetable}|
+    \oarg{keys} \marg{title} \oarg{keys}| ... |%
+  |\end{litetable}|
+\end{quote}
+强制参数用于设定课程表标题，
+可选参数接受以下键
+\begin{itemize}[leftmargin = 0pt]
+  \item [\key{color}] \val{color} 可设置课程表框架的背景色
+  （默认值：\cmd[no-index]{gray}），键名可省略.
+  \item [\key{sem}] \val{string}
+  可设置页面右上角的学期信息.
+\end{itemize}
+
+\begin{function}{\weeklist}
+  \begin{syntax}
+    \cs{weeklist} \oarg{keys} \marg{list} \oarg{keys}
+  \end{syntax}
+  强制参数接收数组，
+  用于设置课程表顶部的工作日列表和列宽.
+  可选参数接受以下键
+  \begin{itemize}[leftmargin = 0pt]
+    \item [\key{format}] \val{format commands}
+    可设置工作日列表格式 （默认值：\cmd[no-index]{\bfseries}）.
+    \item [\key{sep}] \val{string} 可设置工作日列表的分隔符
+    （默认为空）.
+  \end{itemize}
+  \begin{verbatim}
+    \weeklist [ format = \bfseries \scshape, sep = \textbar ]
+      { Mon -> 1, Tue -> 1, Wed -> 1, Thu -> 1, Fri -> 1 }
+  \end{verbatim}
+\end{function}
+
+\begin{function}{\timelist}
+  \begin{syntax}
+    \cs{timelist} \oarg{keys} \marg{list} \oarg{keys}
+  \end{syntax}
+  强制参数均接收数组，用于设置课程表的左侧的时间列表.
+  可选参数接受以下键
+  \begin{itemize}[leftmargin = 0pt]
+    \item [\key{numformat}] \val{format}
+    可设置时间列表的序号字体，
+    （默认值：\cmd[no-index]{\ttfamily} \cmd[no-index]{\bfseries}）.
+    \item [\key{timefont}] \val{format} 可设置时间列表的时间字体，
+    （默认值：\cmd[no-index]{\ttfamily}）.
+    \item [\key{hidetime}] \val\TFF 用于隐藏时间列表中的时间，只保留序号.
+    （初始值：\cmd[no-index]{false}）.
+  \end{itemize}
+  \begin{verbatim}
+    \timelist [ numformat = \bfseries, timeformat = \ttfamily ]
+      { 08:30 -> 10:00, 10:30 -> 12:00, 13:00 -> 14:30, 15:00 -> 16:30 }
+  \end{verbatim}
+\end{function}
+
+\begin{function}{\course}
+  \begin{syntax}
+    \cs{course} \oarg{keys} \marg{start} \oarg{keys} \marg{end} \oarg{keys}
+  \end{syntax}
+  用于在当前工作日添加课程盒子，
+  需在 \env{litetable} 环境中执行.
+  两个强制参数分别用于设置课程的开始和结束序号.
+  可选参数接收下列键
+  \begin{itemize}[leftmargin = 0pt]
+    \item [\key{color}] \val{color} 用于设置课程盒子的颜色，
+    （默认值：\cmd[no-index]{teal}）. 键名可省略.
+    \item [\key{subject}] \val{string} 用于设置课程名称.
+    \item [\key{location}] \val{string} 用于设置课程地点.
+    \item [\key{lecture}] \val{string} 用于设置授课教师.
+    \item [\key{comment}] \val{string} 用于给课程添加脚注.
+  \end{itemize}
+  \begin{texnote}
+    \begin{itemize}[leftmargin = 0pt]
+      \item 若 \meta{start} \cmd[no-index]{=} \meta{end}（课程盒子高度为 $1$），
+      则 \key*{location} \key*{lecture} 将输出在同一行，
+      \key*{comment} 将隐藏.
+      \item 即使误将 \meta{start} 与 \meta{end} 写反，
+      模板也会自动纠正.
+      \item 若 \key*{location} 和 \key*{lecture} 均未使用，
+      则 \key*{subject} 将输出在课程盒子的
+      竖直方向中心.
+      \item 超出课程表范围的课程盒子将不显示，
+      并会返回警告.
+      输入用例见 Appendix \ref{mwe}.
+    \end{itemize}
+  \end{texnote}
+\end{function}
+
+\begin{function}{\newday}
+  \begin{syntax}
+    \cs{newday} \oarg{integral value}
+  \end{syntax}
+  使其后面添加的课程盒子后移 \meta{intergal value} 个工作日.
+  可选参数的默认值为 \cmd[no-index]{1}.
+\end{function}
+
+\begin{function}{\more}
+  \begin{syntax}
+    \cs{more} \marg{comment}
+  \end{syntax}
+  在课程表的右下角添加备注.
+\end{function}
+
+\appendix \linespread{1.05}
+
+\section{工作示例} \label{mwe}
+
+\begin{verbatim}
+  \weeklist [ format = \bfseries \scshape, sep = \textbar ]
+    {
+      \texttwemoji{1f312} Mon -> 1, \texttwemoji{1f525} Tue -> 1,
+      \texttwemoji{1f30a} Wed -> 1, \texttwemoji{1f332} Thu -> 1,
+      \texttwemoji{1fa99} Fri -> 1
+    }
+  \timelist [ numformat = \ttfamily \bfseries, timeformat = \ttfamily ]
+    {
+      08:05 -> 08:50, 08:55 -> 09:40, 10:00 -> 10:45, 10:50 -> 11:35,
+      11:40 -> 12:25, 13:30 -> 14:15, 14:20 -> 15:05, 15:15 -> 16:00,
+      16:05 -> 16:50, 18:30 -> 19:15, 19:20 -> 20:05, 20:10 -> 20:55
+    }
+  \begin{litetable} [ MidnightBlue, sem = SEM 7 ] { Course Schedule }
+    \course [ subject = interface3, comment = \TeX{} Live 2025,
+              lecture = The \LaTeX{} Project, DarkBlue ] {4} {5}
+    \newday
+    \course [ subject = expl3, lecture = The \LaTeX{} Project ] {8} {8}
+    \newday
+    \course [ subject = Keep on \TeX ing, lecture = Donald E. Knuth,
+              location = Stanford University, Purple ] {10} {11}
+    \newday
+    \course [ subject = Ti\textit k\/Z, lecture = \textsc{pgf},
+              Crimson, comment = Version 3.1.10 ] {3} {5}
+    \more { Programme Duration: 09 / 2021 -- 07 / 2025 }
+  \end{litetable}  
+\end{verbatim}
+
+\PrintIndex
+
+\weeklist [ format = \bfseries \scshape, sep = \textbar ]
+  {
+    \texttwemoji{1f312} Mon -> 1, \texttwemoji{1f525} Tue -> 1,
+    \texttwemoji{1f30a} Wed -> 1, \texttwemoji{1f332} Thu -> 1,
+    \texttwemoji{1fa99} Fri -> 1
+  }
+\timelist [ numformat = \ttfamily \bfseries, timeformat = \ttfamily ]
+  {
+    08:05 -> 08:50, 08:55 -> 09:40, 10:00 -> 10:45, 10:50 -> 11:35,
+    11:40 -> 12:25, 13:30 -> 14:15, 14:20 -> 15:05, 15:15 -> 16:00,
+    16:05 -> 16:50, 18:30 -> 19:15, 19:20 -> 20:05, 20:10 -> 20:55
+  }
+\begin{litetable} [ MidnightBlue, sem = SEM 7 ] { Course Schedule }
+  \course [ subject = interface3, comment = \TeX{} Live 2025,
+            lecture = The \LaTeX{} Project, DarkBlue ] {4} {5}
+  \newday
+  \course [ subject = expl3, lecture = The \LaTeX{} Project ] {8} {8}
+  \newday
+  \course [ subject = Keep on \TeX ing, lecture = Donald E. Knuth,
+            location = Stanford University, Purple ] {10} {11}
+  \newday
+  \course [ subject = Ti\textit k\/Z, lecture = \textsc{pgf},
+            Crimson, comment = Version 3.1.10 ] {3} {5}
+  \more { Programme Duration: 09 / 2021 -- 07 / 2025 }
+\end{litetable}
+
+\end{document}
