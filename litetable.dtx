@@ -74,13 +74,15 @@ Copyright and License
 \AddToHook{env/function/before}{\vspace*{-.65\baselineskip}}
 \AddToHook{env/syntax/after}{\par\vspace*{.15\baselineskip}}
 \makeatletter
-\def \@key #1{\textcolor{red}{\textbf{\texttt{#1}}} \normalfont \texttt{=}}
+\def \@key #1{\textcolor{red}{\textbf{\texttt{#1}}}~\normalfont \texttt{=}~}
 \def \s@key #1{\textcolor{red}{\textbf{\texttt{#1}}}}
 \DeclareRobustCommand \key {\@ifstar\s@key\@key}
 \def \val #1{\meta{\textup{#1}}}
 \def \TFF {true\textbar \textbf{false}}
 \def \TTF {\textbf{true}\textbar false}
 \def \HoLogo@ApTeX #1{\HOLOGO@mbox {Ap\kern -.1667em\TeX}}
+\newlist{keyval}{itemize}{10}
+\setlist[keyval]{leftmargin = 0pt, labelsep = 0pt}
 \makeatother
 \makeindex
 \begin{document}
@@ -105,7 +107,7 @@ Copyright and License
 %   }
 % }
 %
-% \date{Released 2025-03-01\quad \texttt{v3.3A}}
+% \date{Released 2025-03-02\quad \texttt{v3.3B}}
 %
 % \maketitle
 %
@@ -138,12 +140,12 @@ Copyright and License
 % \end{quote}
 % The mandatory argument can set the title of the timetable, and the
 % optional argument accepts the following keys
-% \begin{itemize}[leftmargin = 0pt]
+% \begin{keyval}
 %   \item [\key{color}] \val{string} can set the background color
 %   (Default: \cmd[no-index]{gray}), this key's name could be omitted.
 %   \item [\key{sem}] \val{string} can set the semester information at the
 %   northeast corner of the page.
-% \end{itemize}
+% \end{keyval}
 %
 % \begin{function}{\weeklist}
 %   \begin{syntax}
@@ -152,12 +154,12 @@ Copyright and License
 %   The mandatory argument accepts an array to set a list of working days and
 %   the width of each column at the top of the timetable.
 %   The optional argument accepts the following keys
-%   \begin{itemize}[leftmargin = 0pt]
+%   \begin{keyval}
 %     \item [\key{format}] \val{format commands} can set the font for the list
 %     of working days (Default: \cmd[no-index]{\bfseries}).
 %     \item [\key{sep}] \val{dim} can set the separator of the list of working
 %     days (Default is empty).
-%   \end{itemize}
+%   \end{keyval}
 %   \begin{verbatim}
 %     \weeklist [ format = \bfseries \scshape, sep = \textbar ]
 %       { Mon -> 1, Tue -> 1, Wed -> 1, Thu -> 1, Fri -> 1 }
@@ -170,7 +172,7 @@ Copyright and License
 %   \end{syntax}
 %   The mandatory argument accepts an array to set the time list on the left
 %   side of the timetable. The optional argument accepts the following keys
-%   \begin{itemize}[leftmargin = 0pt]
+%   \begin{keyval}
 %     \item [\key{numformat}] \val{format commands} can set the font for the
 %     sequence number of the time list
 %     (Default: \cmd[no-index]{\ttfamily} \cmd[no-index]{\bfseries}).
@@ -178,7 +180,7 @@ Copyright and License
 %     of the time list. (Default: \cmd[no-index]{\ttfamily}).
 %     \item [\key{hidetime}] \val{\TFF} hide the time in the time list and only
 %     retain the sequence number. The initial value is \cmd[no-index]{false}.
-%   \end{itemize}
+%   \end{keyval}
 %   \begin{verbatim}
 %     \timelist [ numformat = \bfseries, timeformat = \ttfamily ]
 %       { 08:30 -> 10:00, 10:30 -> 12:00, 13:00 -> 14:30, 15:00 -> 16:30 }
@@ -193,16 +195,16 @@ Copyright and License
 %   executed within the \env{litetable} environment.
 %   The two mandatory arguments can set the start and ends of the course
 %   respectively, the optional argument accepts the following keys
-%   \begin{itemize}[leftmargin = 0pt]
+%   \begin{keyval}
 %     \item [\key{color}] \val{string} can set the color of the course box
 %     (Default: \cmd[no-index]{teal}), this key's name could be omitted.
 %     \item [\key{subject}] \val{string} can set the name of the course.
 %     \item [\key{location}] \val{string} can set the location of the course.
 %     \item [\key{lecture}] \val{string} can set the lecture of the course.
 %     \item [\key{comment}] \val{string} can add footnote to the course.
-%   \end{itemize}
+%   \end{keyval}
 %   \begin{texnote}
-%     \begin{itemize}[leftmargin = 0pt]
+%     \begin{itemize}[leftmargin = 2em]
 %       \item If \meta{start} \cmd[no-index]{=} \meta{end} (the height of the
 %       course box is $1$ unit), then \key*{location} and \key*{lecture} will be
 %       outputted in the same line and \key*{comment} will be hidden.
@@ -308,7 +310,7 @@ Copyright and License
 %    \end{macrocode}
 %
 %    \begin{macrocode}
-\ProvidesExplPackage {litetable} {2025-03-01} {3.3A} {Colorful Timetable}
+\ProvidesExplPackage {litetable} {2025-03-02} {3.3B} {Colorful Timetable}
 %    \end{macrocode}
 %
 %    \begin{macrocode}

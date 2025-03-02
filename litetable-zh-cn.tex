@@ -9,13 +9,15 @@
 \AddToHook{env/function/before}{\vspace*{-.65\baselineskip}}
 \AddToHook{env/syntax/after}{\par\vspace*{.15\baselineskip}}
 \makeatletter
-\def \@key #1{\textcolor{red}{\textbf{\texttt{#1}}} \normalfont \texttt{=}}
+\def \@key #1{\textcolor{red}{\textbf{\texttt{#1}}}~\normalfont \texttt{=}~}
 \def \s@key #1{\textcolor{red}{\textbf{\texttt{#1}}}}
 \DeclareRobustCommand \key {\@ifstar\s@key\@key}
 \def \val #1{\meta{\textup{#1}}}
 \def \TFF {true\textbar \textbf{false}}
 \def \TTF {\textbf{true}\textbar false}
 \def \HoLogo@ApTeX #1{\HOLOGO@mbox {Ap\kern -.1667em\TeX}}
+\newlist{keyval}{itemize}{10}
+\setlist[keyval]{leftmargin = 0pt, labelsep = 0pt}
 \makeatother
 \makeindex
 
@@ -35,7 +37,7 @@
   }
 }
 
-\date{Released 2025-03-01\quad \texttt{v3.3A}}
+\date{Released 2025-03-02\quad \texttt{v3.3B}}
 
 \begin{document}
 
@@ -68,12 +70,12 @@
 \end{quote}
 强制参数用于设定课程表标题，
 可选参数接受以下键
-\begin{itemize}[leftmargin = 0pt]
+\begin{keyval}
   \item [\key{color}] \val{color} 可设置课程表框架的背景色
   （默认值：\cmd[no-index]{gray}），键名可省略.
   \item [\key{sem}] \val{string}
   可设置页面右上角的学期信息.
-\end{itemize}
+\end{keyval}
 
 \begin{function}{\weeklist}
   \begin{syntax}
@@ -82,12 +84,12 @@
   强制参数接收数组，
   用于设置课程表顶部的工作日列表和列宽.
   可选参数接受以下键
-  \begin{itemize}[leftmargin = 0pt]
+  \begin{keyval}
     \item [\key{format}] \val{format commands}
     可设置工作日列表格式 （默认值：\cmd[no-index]{\bfseries}）.
     \item [\key{sep}] \val{string} 可设置工作日列表的分隔符
     （默认为空）.
-  \end{itemize}
+  \end{keyval}
   \begin{verbatim}
     \weeklist [ format = \bfseries \scshape, sep = \textbar ]
       { Mon -> 1, Tue -> 1, Wed -> 1, Thu -> 1, Fri -> 1 }
@@ -100,7 +102,7 @@
   \end{syntax}
   强制参数均接收数组，用于设置课程表的左侧的时间列表.
   可选参数接受以下键
-  \begin{itemize}[leftmargin = 0pt]
+  \begin{keyval}
     \item [\key{numformat}] \val{format}
     可设置时间列表的序号字体，
     （默认值：\cmd[no-index]{\ttfamily} \cmd[no-index]{\bfseries}）.
@@ -108,7 +110,7 @@
     （默认值：\cmd[no-index]{\ttfamily}）.
     \item [\key{hidetime}] \val\TFF 用于隐藏时间列表中的时间，只保留序号.
     （初始值：\cmd[no-index]{false}）.
-  \end{itemize}
+  \end{keyval}
   \begin{verbatim}
     \timelist [ numformat = \bfseries, timeformat = \ttfamily ]
       { 08:30 -> 10:00, 10:30 -> 12:00, 13:00 -> 14:30, 15:00 -> 16:30 }
@@ -123,19 +125,19 @@
   需在 \env{litetable} 环境中执行.
   两个强制参数分别用于设置课程的开始和结束序号.
   可选参数接收下列键
-  \begin{itemize}[leftmargin = 0pt]
+  \begin{keyval}
     \item [\key{color}] \val{color} 用于设置课程盒子的颜色，
     （默认值：\cmd[no-index]{teal}）. 键名可省略.
     \item [\key{subject}] \val{string} 用于设置课程名称.
     \item [\key{location}] \val{string} 用于设置课程地点.
     \item [\key{lecture}] \val{string} 用于设置授课教师.
     \item [\key{comment}] \val{string} 用于给课程添加脚注.
-  \end{itemize}
+  \end{keyval}
   \begin{texnote}
-    \begin{itemize}[leftmargin = 0pt]
-      \item 若 \meta{start} \cmd[no-index]{=} \meta{end}（课程盒子高度为 $1$），
-      则 \key*{location} \key*{lecture} 将输出在同一行，
-      \key*{comment} 将隐藏.
+    \begin{itemize}[leftmargin = 2em]
+      \item 若 \meta{start} \cmd[no-index]{=} \meta{end}（课程盒子的高度为 $1$），
+      则 \key*{location} 和 \key*{lecture} 将输出在同一行，
+      并且 \key*{comment} 将隐藏.
       \item 即使误将 \meta{start} 与 \meta{end} 写反，
       模板也会自动纠正.
       \item 若 \key*{location} 和 \key*{lecture} 均未使用，
