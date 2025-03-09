@@ -102,12 +102,12 @@ Copyright and License
 %   Mingyu Xia
 %   \texttt{<\href{mailto:myhsia@outlook.com}{myhsia@outlook.com}>}\thanks{^^A
 %     \href{https://github.com/ljguo1020}{Lijun Guo} developed an interface to
-%     read \meta{left} \cmd[no-index]{->} \meta{right} data structures, and make
+%     read \meta{left} \texttt{->} \meta{right} data structures, and make
 %     compatibility for lower versions of \hologo{TeX} Live.
 %   }
 % }
 %
-% \date{Released 2025-03-02\quad \texttt{v3.3B}}
+% \date{Released 2025-03-09\quad \texttt{v3.3C}}
 %
 % \maketitle
 %
@@ -142,7 +142,7 @@ Copyright and License
 % optional argument accepts the following keys
 % \begin{keyval}
 %   \item [\key{color}] \val{string} can set the background color
-%   (Default: \cmd[no-index]{gray}), this key's name could be omitted.
+%   (Default: |gray|), this key's name could be omitted.
 %   \item [\key{sem}] \val{string} can set the semester information at the
 %   northeast corner of the page.
 % \end{keyval}
@@ -156,7 +156,7 @@ Copyright and License
 %   The optional argument accepts the following keys
 %   \begin{keyval}
 %     \item [\key{format}] \val{format commands} can set the font for the list
-%     of working days (Default: \cmd[no-index]{\bfseries}).
+%     of working days (Default: |\bfseries|).
 %     \item [\key{sep}] \val{dim} can set the separator of the list of working
 %     days (Default is empty).
 %   \end{keyval}
@@ -175,11 +175,11 @@ Copyright and License
 %   \begin{keyval}
 %     \item [\key{numformat}] \val{format commands} can set the font for the
 %     sequence number of the time list
-%     (Default: \cmd[no-index]{\ttfamily} \cmd[no-index]{\bfseries}).
+%     (Default: |\ttfamily \bfseries|).
 %     \item [\key{timefont}] \val{format commands} can set the font for the time
-%     of the time list. (Default: \cmd[no-index]{\ttfamily}).
+%     of the time list. (Default: |\ttfamily|).
 %     \item [\key{hidetime}] \val{\TFF} hide the time in the time list and only
-%     retain the sequence number. The initial value is \cmd[no-index]{false}.
+%     retain the sequence number. The initial value is |false|.
 %   \end{keyval}
 %   \begin{verbatim}
 %     \timelist [ numformat = \bfseries, timeformat = \ttfamily ]
@@ -197,7 +197,7 @@ Copyright and License
 %   respectively, the optional argument accepts the following keys
 %   \begin{keyval}
 %     \item [\key{color}] \val{string} can set the color of the course box
-%     (Default: \cmd[no-index]{teal}), this key's name could be omitted.
+%     (Default: |teal|), this key's name could be omitted.
 %     \item [\key{subject}] \val{string} can set the name of the course.
 %     \item [\key{location}] \val{string} can set the location of the course.
 %     \item [\key{lecture}] \val{string} can set the lecture of the course.
@@ -205,7 +205,7 @@ Copyright and License
 %   \end{keyval}
 %   \begin{texnote}
 %     \begin{itemize}[leftmargin = 2em]
-%       \item If \meta{start} \cmd[no-index]{=} \meta{end} (the height of the
+%       \item If \meta{start} |=| \meta{end} (the height of the
 %       course box is $1$ unit), then \key*{location} and \key*{lecture} will be
 %       outputted in the same line and \key*{comment} will be hidden.
 %       \item The template will correct automatically if \meta{start} and
@@ -225,7 +225,7 @@ Copyright and License
 %     \cs{newday} \oarg{integral value}
 %   \end{syntax}
 %   It can move the next course boxes right \meta{integral value} working days.
-%   The default value of the optional argument is \cmd[no-index]{1}.
+%   The default value of the optional argument is |1|.
 % \end{function}
 %
 % \begin{function}{\more}
@@ -310,7 +310,7 @@ Copyright and License
 %    \end{macrocode}
 %
 %    \begin{macrocode}
-\ProvidesExplPackage {litetable} {2025-03-02} {3.3B} {Colorful Timetable}
+\ProvidesExplPackage {litetable} {2025-03-09} {3.3C} {Colorful Timetable}
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -340,7 +340,7 @@ Copyright and License
   }
 %    \end{macrocode}
 % \begin{macro}{\@@_get_left:nN, \@@_get_right:nN}
-%   Handle \meta{left} \cmd[no-index]{->} \meta{right} data structures
+%   Handle \meta{left} |->| \meta{right} data structures
 %   (by \href{https://github.com/ljguo1020}{Lijun Guo})
 %    \begin{macrocode}
 \cs_new_protected_nopar:Npn \@@_get_left:nN #1#2

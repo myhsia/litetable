@@ -1,13 +1,9 @@
 \documentclass[svgnames, onlydoc]{l3doc}
 \usepackage{litetable, twemojis, titlesec}
 \usepackage[mono = false]{libertine}
-\usepackage[fontset = none]{ctex} \setlength \parindent {0pt}
-\setCJKmainfont{LXGW WenKai}
-\setCJKsansfont[AutoFakeBold]{LXGW Marker Gothic}
-\setCJKmonofont{LXGW WenKai Mono}
-\titleformat*{\section}{\sffamily\Large\bfseries}
-\AddToHook{env/function/before}{\vspace*{-.65\baselineskip}}
-\AddToHook{env/syntax/after}{\par\vspace*{.15\baselineskip}}
+\usepackage[fontset = fandol]{ctex} \setlength \parindent {0pt}
+\AddToHook{env/function/before}{\vspace*{-.7\baselineskip}}
+\AddToHook{env/syntax/after}{\par\vspace*{.2\baselineskip}}
 \makeatletter
 \def \@key #1{\textcolor{red}{\textbf{\texttt{#1}}}~\normalfont \texttt{=}~}
 \def \s@key #1{\textcolor{red}{\textbf{\texttt{#1}}}}
@@ -22,7 +18,7 @@
 \makeindex
 
 \title{%
-  \sffamily \cls{litetable} 文档类 --- 多彩的课程表\thanks{%
+  \bfseries \cls{litetable} 宏包 --- 多彩的课程表\thanks{%
     \url{https://github.com/myhsia/litetable},
     \url{https://ctan.org/pkg/litetable}
   }
@@ -32,12 +28,12 @@
   夏明宇
   \texttt{<\href{mailto:myhsia@outlook.com}{myhsia@outlook.com}>}\thanks{
     \href{https://github.com/ljguo1020}{郭李军}
-    开发了读取 \meta{left} \cmd[no-index]{->} \meta{right} 型数据结构的接口，
+    开发了读取 \meta{left} \texttt{->} \meta{right} 型数据结构的接口，
     并为低版本 \hologo{TeX} Live 做兼容.
   }
 }
 
-\date{Released 2025-03-02\quad \texttt{v3.3B}}
+\date{Released 2025-03-09\quad \texttt{v3.3C}}
 
 \begin{document}
 
@@ -45,7 +41,7 @@
 
 \section{介绍}
 
-\cls{litetable} 文档类提供了一个多彩的课程表设计，
+\cls{litetable} 宏包提供了一个多彩的课程表设计，
 基于 \pkg{tikz} 由 \pkg{expl3} 开发.
 其兼容发行版 \hologo{TeX} Live 2019 及更高版本，
 支持 \hologo{pdfLaTeX}，\hologo{XeLaTeX}，\hologo{ApTeX} 和 \hologo{LuaLaTeX}
@@ -72,7 +68,7 @@
 可选参数接受以下键
 \begin{keyval}
   \item [\key{color}] \val{color} 可设置课程表框架的背景色
-  （默认值：\cmd[no-index]{gray}），键名可省略.
+  （默认值：|gray|），键名可省略.
   \item [\key{sem}] \val{string}
   可设置页面右上角的学期信息.
 \end{keyval}
@@ -86,7 +82,7 @@
   可选参数接受以下键
   \begin{keyval}
     \item [\key{format}] \val{format commands}
-    可设置工作日列表格式 （默认值：\cmd[no-index]{\bfseries}）.
+    可设置工作日列表格式 （默认值：|\bfseries|）.
     \item [\key{sep}] \val{string} 可设置工作日列表的分隔符
     （默认为空）.
   \end{keyval}
@@ -105,11 +101,11 @@
   \begin{keyval}
     \item [\key{numformat}] \val{format}
     可设置时间列表的序号字体，
-    （默认值：\cmd[no-index]{\ttfamily} \cmd[no-index]{\bfseries}）.
+    （默认值：|\ttfamily \bfseries|）.
     \item [\key{timefont}] \val{format} 可设置时间列表的时间字体，
-    （默认值：\cmd[no-index]{\ttfamily}）.
+    （默认值：|\ttfamily|）.
     \item [\key{hidetime}] \val\TFF 用于隐藏时间列表中的时间，只保留序号.
-    （初始值：\cmd[no-index]{false}）.
+    （初始值：|false|）.
   \end{keyval}
   \begin{verbatim}
     \timelist [ numformat = \bfseries, timeformat = \ttfamily ]
@@ -127,7 +123,7 @@
   可选参数接收下列键
   \begin{keyval}
     \item [\key{color}] \val{color} 用于设置课程盒子的颜色，
-    （默认值：\cmd[no-index]{teal}）. 键名可省略.
+    （默认值：|teal|）. 键名可省略.
     \item [\key{subject}] \val{string} 用于设置课程名称.
     \item [\key{location}] \val{string} 用于设置课程地点.
     \item [\key{lecture}] \val{string} 用于设置授课教师.
@@ -135,7 +131,7 @@
   \end{keyval}
   \begin{texnote}
     \begin{itemize}[leftmargin = 2em]
-      \item 若 \meta{start} \cmd[no-index]{=} \meta{end}（课程盒子的高度为 $1$），
+      \item 若 \meta{start} |=| \meta{end}（课程盒子的高度为 $1$），
       则 \key*{location} 和 \key*{lecture} 将输出在同一行，
       并且 \key*{comment} 将隐藏.
       \item 即使误将 \meta{start} 与 \meta{end} 写反，
@@ -155,7 +151,7 @@
     \cs{newday} \oarg{integral value}
   \end{syntax}
   使其后面添加的课程盒子后移 \meta{intergal value} 个工作日.
-  可选参数的默认值为 \cmd[no-index]{1}.
+  可选参数的默认值为 |1|.
 \end{function}
 
 \begin{function}{\more}

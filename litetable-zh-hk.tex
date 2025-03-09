@@ -1,13 +1,14 @@
 \documentclass[svgnames, onlydoc]{l3doc}
 \usepackage{litetable, twemojis, titlesec}
 \usepackage[mono = false]{libertine}
-\usepackage[fontset = none]{ctex} \setlength \parindent {0pt}
+\usepackage[fontset = none]{ctex}
+\setlength \parindent {0pt}
+\titleformat*{\section}{\Large\bfseries\sffamily}
 \setCJKmainfont{LXGW WenKai}
 \setCJKsansfont[AutoFakeBold]{LXGW Marker Gothic}
 \setCJKmonofont{LXGW WenKai Mono}
-\titleformat*{\section}{\sffamily\Large\bfseries}
-\AddToHook{env/function/before}{\vspace*{-.65\baselineskip}}
-\AddToHook{env/syntax/after}{\par\vspace*{.15\baselineskip}}
+\AddToHook{env/function/before}{\vspace*{-.7\baselineskip}}
+\AddToHook{env/syntax/after}{\par\vspace*{.2\baselineskip}}
 \makeatletter
 \def \@key #1{\textcolor{red}{\textbf{\texttt{#1}}}~\normalfont \texttt{=}~}
 \def \s@key #1{\textcolor{red}{\textbf{\texttt{#1}}}}
@@ -22,7 +23,7 @@
 \makeindex
 
 \title{%
-  \sffamily \cls{litetable} 文檔類 --- 多彩嘅課程表\thanks{%
+  \sffamily \cls{litetable} 宏包 --- 多彩嘅課程表\thanks{%
     \url{https://github.com/myhsia/litetable},
     \url{https://ctan.org/pkg/litetable}
   }
@@ -32,12 +33,12 @@
   夏明宇
   \texttt{<\href{mailto:myhsia@outlook.com}{myhsia@outlook.com}>}\thanks{
     \href{https://github.com/ljguo1020}{郭李軍}
-    開發咗讀取 \meta{left} \cmd[no-index]{->} \meta{right} 型數據結構嘅接口，
+    開發咗讀取 \meta{left} \texttt{->} \meta{right} 型數據結構嘅接口，
     並為低版本 \hologo{TeX} Live 做兼容.
   }
 }
 
-\date{Released 2025-03-02\quad \texttt{v3.3B}}
+\date{Released 2025-03-09\quad \texttt{v3.3C}}
 
 \begin{document}
 
@@ -45,7 +46,7 @@
 
 \section{介紹}
 
-\cls{litetable} 文檔類提供咗一個多彩嘅課程表設計，
+\cls{litetable} 宏包提供咗一個多彩嘅課程表設計，
 基於 \pkg{tikz} 由 \pkg{expl3} 開發.
 其兼容發行版 \hologo{TeX} Live 2019 及更高版本，
 支持 \hologo{pdfLaTeX}，\hologo{XeLaTeX}，\hologo{ApTeX} 和 \hologo{LuaLaTeX}
@@ -72,7 +73,7 @@
 可選參數接受以下鍵
 \begin{keyval}
   \item [\key{color}] \val{color} 可設置課程表框架嘅背景色
-  （默認值：\cmd[no-index]{gray}），鍵名可省略.
+  （默認值：|gray|），鍵名可省略.
   \item [\key{sem}] \val{string}
   可設置頁面右上角嘅學期信息.
 \end{keyval}
@@ -86,7 +87,7 @@
   可選參數接受以下鍵
   \begin{keyval}
     \item [\key{format}] \val{format commands}
-    可設置工作日列表格式 （默認值：\cmd[no-index]{\bfseries}）.
+    可設置工作日列表格式 （默認值：|\bfseries|）.
     \item [\key{sep}] \val{string} 可設置工作日列表嘅分隔符
     （默認為空）.
   \end{keyval}
@@ -105,11 +106,11 @@
   \begin{keyval}
     \item [\key{numformat}] \val{format}
     可設置時間列表嘅序號字體，
-    （默認值：\cmd[no-index]{\ttfamily} \cmd[no-index]{\bfseries}）.
+    （默認值：|\ttfamily \bfseries|）.
     \item [\key{timefont}] \val{format} 可設置時間列表嘅時間字體，
-    （默認值：\cmd[no-index]{\ttfamily}）.
+    （默認值：|\ttfamily|）.
     \item [\key{hidetime}] \val\TFF 用於隱藏時間列表中嘅時間，只保留序號.
-    （初始值：\cmd[no-index]{false}）.
+    （初始值：|false|）.
   \end{keyval}
   \begin{verbatim}
     \timelist [ numformat = \bfseries, timeformat = \ttfamily ]
@@ -127,7 +128,7 @@
   可選參數接收下列鍵
   \begin{keyval}
     \item [\key{color}] \val{color} 用於設置課程盒子嘅顏色，
-    （默認值：\cmd[no-index]{teal}）. 鍵名可省略.
+    （默認值：|teal|）. 鍵名可省略.
     \item [\key{subject}] \val{string} 用於設置課程名稱.
     \item [\key{location}] \val{string} 用於設置課程地點.
     \item [\key{lecture}] \val{string} 用於設置授課教師.
@@ -135,7 +136,7 @@
   \end{keyval}
   \begin{texnote}
     \begin{itemize}[leftmargin = 2em]
-      \item 若 \meta{start} \cmd[no-index]{=} \meta{end}（課程盒子嘅高度為 $1$），
+      \item 若 \meta{start} |=| \meta{end}（課程盒子嘅高度為 $1$），
       則 \key*{location} 和 \key*{lecture} 將輸出在同一行，
       並且 \key*{comment} 將隱藏.
       \item 即使誤將 \meta{start} 與 \meta{end} 寫反，
@@ -155,7 +156,7 @@
     \cs{newday} \oarg{integral value}
   \end{syntax}
   使其後面添加嘅課程盒子後移 \meta{intergal value} 個工作日.
-  可選參數嘅默認值為 \cmd[no-index]{1}.
+  可選參數嘅默認值為 |1|.
 \end{function}
 
 \begin{function}{\more}
