@@ -2,3 +2,4 @@
 ./minted/
 latexmkrc
 litetable.tar.gz
+build.lua
