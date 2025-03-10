@@ -33,7 +33,7 @@
   }
 }
 
-\date{Released 2025-03-09\quad \texttt{v3.3C}}
+\date{Released 2025-03-10\quad \texttt{v3.3D}}
 
 \begin{document}
 
@@ -43,10 +43,10 @@
 
 \cls{litetable} 宏包提供了一个多彩的课程表设计，
 基于 \pkg{tikz} 由 \pkg{expl3} 开发.
-其兼容发行版 \hologo{TeX} Live 2019 及更高版本，
-支持 \hologo{pdfLaTeX}，\hologo{XeLaTeX}，\hologo{ApTeX} 和 \hologo{LuaLaTeX}
-等多种编译方式. 点击跳转至手册的
-\href{litetable-en-us.pdf}{[\textsf{English Version}]}
+其支持 \hologo{pdfLaTeX}，\hologo{XeLaTeX}，\hologo{ApTeX} 和
+\hologo{LuaLaTeX} 等多种编译方式.
+点击跳转至手册的
+\href{litetable.pdf}{[\textsf{English Version}]}
 \href{litetable-zh-hk.pdf}{[\textsf{粤語版本}]}.
 
 \section{用户接口}
@@ -134,7 +134,7 @@
       \item 若 \meta{start} |=| \meta{end}（课程盒子的高度为 $1$），
       则 \key*{location} 和 \key*{lecture} 将输出在同一行，
       并且 \key*{comment} 将隐藏.
-      \item 即使误将 \meta{start} 与 \meta{end} 写反，
+      \item 即使误将 \meta{start} 和 \meta{end} 写反，
       模板也会自动纠正.
       \item 若 \key*{location} 和 \key*{lecture} 均未使用，
       则 \key*{subject} 将输出在课程盒子的
@@ -161,11 +161,19 @@
   在课程表的右下角添加备注.
 \end{function}
 
-\appendix \linespread{1.05}
+\appendix \linespread{1.25}
 
 \section{工作示例} \label{mwe}
 
 \begin{verbatim}
+  \documentclass[svgnames]{article}
+
+  \usepackage{litetable, twemojis}
+  \usepackage[mono = false]{libertine}
+  \usepackage[T1]{fontenc}
+
+  \begin{document}
+
   \weeklist [ format = \bfseries \scshape, sep = \textbar ]
     {
       \texttwemoji{1f312} Mon -> 1, \texttwemoji{1f525} Tue -> 1,
@@ -190,10 +198,10 @@
     \course [ subject = Ti\textit k\/Z, lecture = \textsc{pgf},
               Crimson, comment = Version 3.1.10 ] {3} {5}
     \more { Programme Duration: 09 / 2021 -- 07 / 2025 }
-  \end{litetable}  
-\end{verbatim}
+  \end{litetable}
 
-\PrintIndex
+  \end{document}
+\end{verbatim}
 
 \weeklist [ format = \bfseries \scshape, sep = \textbar ]
   {
@@ -220,5 +228,7 @@
             Crimson, comment = Version 3.1.10 ] {3} {5}
   \more { Programme Duration: 09 / 2021 -- 07 / 2025 }
 \end{litetable}
+
+\PrintIndex
 
 \end{document}
