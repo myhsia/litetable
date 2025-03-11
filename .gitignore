@@ -1,5 +1,4 @@
 .DS_Store
-./minted/
-latexmkrc
-litetable.tar.gz
+/build/
 build.lua
+*.tar.gz
