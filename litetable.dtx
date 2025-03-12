@@ -71,8 +71,8 @@ Copyright and License
 \documentclass[svgnames, onlydoc]{l3doc}
 \usepackage{litetable, twemojis}
 \usepackage[mono = false]{libertine}
-\AddToHook{env/function/before}{\vspace*{-.65\baselineskip}}
-\AddToHook{env/syntax/after}{\par\vspace*{.15\baselineskip}}
+\AddToHook{env/function/before}{\vspace*{-.7\baselineskip}}
+\AddToHook{env/syntax/after}{\par\vspace*{.2\baselineskip}}
 \makeatletter
 \def \@key #1{\textcolor{red}{\textbf{\texttt{#1}}}~\normalfont \texttt{=}~}
 \def \s@key #1{\textcolor{red}{\textbf{\texttt{#1}}}}
@@ -80,7 +80,8 @@ Copyright and License
 \def \val #1{\meta{\textup{#1}}}
 \def \TFF {true\textbar \textbf{false}}
 \def \TTF {\textbf{true}\textbar false}
-\def \HoLogo@ApTeX #1{\HOLOGO@mbox {Ap\kern -.1667em\TeX}}
+\def \HoLogo@ApLaTeX #1^^A
+  {\HOLOGO@mbox {A\kern -.05em p\kern -.05em \hologo{LaTeX}}}
 \newlist{keyval}{itemize}{10}
 \setlist[keyval]{leftmargin = 0pt, labelsep = 0pt}
 \makeatother
@@ -107,7 +108,7 @@ Copyright and License
 %   }
 % }
 %
-% \date{Released 2025-03-10\quad \texttt{v3.3D}}
+% \date{Released 2025-03-12\quad \texttt{v3.3E}}
 %
 % \maketitle
 %
@@ -117,7 +118,7 @@ Copyright and License
 %
 % The \cls{litetable} package provides a colorful design of timetable, developed
 % by \pkg{expl3} based on \pkg{tikz}. It supports various compilation methods,
-% such as \hologo{pdfLaTeX}, \hologo{XeLaTeX}, \hologo{ApTeX},
+% such as \hologo{pdfLaTeX}, \hologo{XeLaTeX}, \hologo{ApLaTeX},
 % \hologo{LuaLaTeX}, etc.
 % Click to jump to the manual's
 % \href{litetable-zh-cn.pdf}{[\textsf{Chinese Version}]}
@@ -318,7 +319,7 @@ Copyright and License
 %    \end{macrocode}
 %
 %    \begin{macrocode}
-\ProvidesExplPackage {litetable} {2025-03-10} {3.3D} {Colorful Timetable}
+\ProvidesExplPackage {litetable} {2025-03-12} {3.3E} {Colorful Timetable}
 %    \end{macrocode}
 %
 %    \begin{macrocode}
