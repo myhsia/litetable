@@ -19,7 +19,7 @@ uploadconfig = {
   email        = "myhsia@outlook.com",
   summary      = "Class schedules with colorful course blocks",
   description  = [[
-    The litetable class provides a colorful timetable design,
+    The litetable package provides a colorful timetable design,
     developed by expl3 based on article and TikZ
   ]],
   license      = "lppl1.3c",  
