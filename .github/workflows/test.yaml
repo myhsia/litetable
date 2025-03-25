@@ -22,7 +22,7 @@ jobs:
       run: |
           wget -O ChironSungHK-R.otf https://github.com/chiron-fonts/chiron-sung-hk/blob/release/OTF/ChironSungHK-R.otf
           mv ChironSungHK-R.otf /usr/share/fonts/
-          wget -O ChironSungHK-R.otf https://github.com/chiron-fonts/chiron-sung-hk/blob/release/OTF/ChironSungHK-B.otf
+          wget -O ChironSungHK-B.otf https://github.com/chiron-fonts/chiron-sung-hk/blob/release/OTF/ChironSungHK-B.otf
           mv ChironSungHK-B.otf /usr/share/fonts/
           fc-cache -fv
     - name: Build CTAN release zip with l3build
