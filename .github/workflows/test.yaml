@@ -14,7 +14,7 @@ jobs:
     - name: Install TeX Live
       uses: zauguin/install-texlive@v4
       with:
-        package_file: latexmk l3build ctex hologo tikz twemojis titlesec libertine
+        package_file: ./github/tl_packages
       # update-all-packages: true
     - name: Install Google Fonts
       run: |
