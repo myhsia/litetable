@@ -14,7 +14,7 @@ jobs:
     - name: Install TeX Live
       uses: zauguin/install-texlive@v4
       with:
-        package_file: ./github/tl_packages
+        package_file: .github/tl_packages
       # update-all-packages: true
     - name: Install Google Fonts
       run: |
