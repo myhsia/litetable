@@ -2,27 +2,19 @@ name: Test
 
 on: [push, pull_request, workflow_dispatch]
 
-env:
-  KERNEL_PKGS: tikz
-  DOC_PKGS: twemojis titlesec libertine
-  ZH_PKGS: ctex hologo
-  BIN_PKGS: latexmk l3build
-
 jobs:
 
-  build:
+  l3build:
     runs-on: ubuntu-latest
     if: ${{ !contains(github.event.head_commit.message, 'ci skip') }}
     steps:
-    - uses: actions/checkout@v4
-      with:
-        fetch-depth: 0
+    - name: Checkout repository
+      uses: actions/checkout@v4
+    - run: sudo apt-get update && sudo apt-get install ghostscript
     - name: Install TeX Live
       uses: zauguin/install-texlive@v4
       with:
-        packages: >-
-          ${{ env.KERNEL_PKGS }} ${{ env.DOC_PKGS }}
-          ${{ env.ZH_PKGS }}     ${{ env.BIN_PKGS }}
+        package_file: latexmk l3build ctex hologo tikz twemojis titlesec libertine
       # update-all-packages: true
     - name: Install Google Fonts
       run: |
