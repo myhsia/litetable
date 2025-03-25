@@ -18,11 +18,12 @@ jobs:
       with:
         package_file: .github/tl_packages
       # update-all-packages: true
-    - name: Install Google Fonts
+    - name: Install HK Fonts
       run: |
-          wget -O chiron-sung-hk-1.017.zip https://github.com/chiron-fonts/chiron-sung-hk/archive/refs/tags/v1.017.zip
-          unzip -d chiron-sung-hk-1.017/ chiron-sung-hk-1.017.zip
-          mv chiron-sung-hk-1.017/otf/ /usr/share/fonts/
+          wget -O chiron-sung-hk-1.017.zip https://github.com/chiron-fonts/chiron-sung-hk/blob/release/OTF/ChironSungHK-R.otf
+          mv ChironSungHK-R.otf /usr/share/fonts/
+          wget -O chiron-sung-hk-1.017.zip https://github.com/chiron-fonts/chiron-sung-hk/blob/release/OTF/ChironSungHK-B.otf
+          mv ChironSungHK-B.otf /usr/share/fonts/
           fc-cache -fv
     - name: Build CTAN release zip with l3build
       run: l3build ctan
