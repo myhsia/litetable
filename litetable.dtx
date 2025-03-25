@@ -32,6 +32,16 @@
 %</internal>
 %
 %<*readme>
+<p align = "left">
+
+<img alt = "CTAN Version"       src = "https://img.shields.io/ctan/v/litetable"                     >
+<img alt = "Actions Status"     src = "https://github.com/myhsia/litetable/workflows/Test/badge.svg">
+<img alt = "GitHub Repo stars"  src = "https://img.shields.io/github/stars/myhsia/litetable"        >
+<img alt = "GitHub Release"     src = "https://img.shields.io/github/v/release/myhsia/litetable"    >
+<img alt = "GitHub Last Commit" src = "https://img.shields.io/github/last-commit/myhsia/litetable"  >
+
+</p>
+
 The `litetable` Package
 =======================
 
@@ -58,6 +68,21 @@ Copyright and License
   This work has the LPPL maintenance status `maintained`.
 
   The Current Maintainer of this work is Mingyu Xia.
+
+<picture>
+  <source
+    media  = "(prefers-color-scheme: dark)"
+    srcset = "https://api.star-history.com/svg?repos=myhsia/litetable&type=Date&theme=dark"
+  />
+  <source
+    media  = "(prefers-color-scheme: light)"
+    srcset = "https://api.star-history.com/svg?repos=myhsia/litetable&type=Date"
+  />
+  <img
+    alt = "Star History Chart"
+    src = "https://api.star-history.com/svg?repos=myhsia/litetable&type=Date"
+  />
+</picture>
 %</readme>
 %
 %<*internal>
@@ -72,9 +97,9 @@ Copyright and License
 \usepackage{litetable, twemojis}
 \usepackage[mono = false]{libertine}
 \AddToHook{env/function/before}{\vspace*{-.7\baselineskip}}
-\AddToHook{env/syntax/after}{\par\vspace*{.2\baselineskip}}
+\AddToHook{env/syntax/after}   {\par\vspace*{.2\baselineskip}}
 \makeatletter
-\def \@key #1{\textcolor{red}{\textbf{\texttt{#1}}}~\normalfont \texttt{=}~}
+\def \@key  #1{\textcolor{red}{\textbf{\texttt{#1}}}~\normalfont \texttt{=}~}
 \def \s@key #1{\textcolor{red}{\textbf{\texttt{#1}}}}
 \DeclareRobustCommand \key {\@ifstar\s@key\@key}
 \def \val #1{\meta{\textup{#1}}}
@@ -84,8 +109,7 @@ Copyright and License
   {\HOLOGO@mbox {A\kern -.05em p\kern -.05em \hologo{LaTeX}}}
 \newlist{keyval}{itemize}{10}
 \setlist[keyval]{leftmargin = 0pt, labelsep = 0pt}
-\makeatother
-\makeindex
+\makeatother \makeindex
 \begin{document}
   \DocInput{\jobname.dtx}
 \end{document}
@@ -108,7 +132,7 @@ Copyright and License
 %   }
 % }
 %
-% \date{Released 2025-03-12\quad \texttt{v3.3E}}
+% \date{Released 2025-03-26\quad \texttt{v3.3F}}
 %
 % \maketitle
 %
@@ -319,7 +343,7 @@ Copyright and License
 %    \end{macrocode}
 %
 %    \begin{macrocode}
-\ProvidesExplPackage {litetable} {2025-03-12} {3.3E} {Colorful Timetable}
+\ProvidesExplPackage {litetable} {2025-03-26} {3.3E} {Colorful Timetable}
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -364,7 +388,7 @@ Copyright and License
     \exp_args:NNNe \group_end:
     \tl_set:Nn #2 { \seq_item:Nn \l_@@_tmpa_seq { 2 } }
   }
-\cs_generate_variant:Nn \@@_get_left:nN { e }
+\cs_generate_variant:Nn \@@_get_left:nN  { e }
 \cs_generate_variant:Nn \@@_get_right:nN { e }
 %    \end{macrocode}
 % \end{macro}
@@ -468,8 +492,8 @@ Copyright and License
 %    \end{macrocode}
 % \begin{variable}
 %   {
-%     \l_@@_course_color_tl,    \l_@@_course_subject_tl,
-%     \l_@@_course_lecture_tl,  \l_@@_course_lecture_tl,
+%     \l_@@_course_color_tl   , \l_@@_course_subject_tl,
+%     \l_@@_course_lecture_tl , \l_@@_course_lecture_tl,
 %     \l_@@_course_location_tl, \l_@@_course_comment_tl
 %   }
 %   Key--value definitions for the \cs{course} command.
@@ -512,7 +536,7 @@ Copyright and License
 % \begin{variable}
 %   {
 %     \l_@@_week_ratio_clist, \l_@@_week_accum_clist,
-%     \l_@@_week_num_int,     \l_@@_week_hunit_dim
+%     \l_@@_week_num_int    , \l_@@_week_hunit_dim
 %   }
 %   The ratios of every working days, the accumulation of the ratios of every
 %   working days, the sequence number of every working days, the horizontal
@@ -725,9 +749,9 @@ Copyright and License
     \int_compare:nNnTF {#1} = {#2}
       {
         \bool_lazy_and:nnTF
-          { \tl_if_empty_p:N \l_@@_course_location_tl }
-          { \tl_if_empty_p:N \l_@@_course_lecture_tl }
-          { \tl_set:Nn \l_@@_course_anchor_tl { } }
+          { \tl_if_empty_p:N \l_@@_course_location_tl   }
+          { \tl_if_empty_p:N \l_@@_course_lecture_tl    }
+          { \tl_set:Nn \l_@@_course_anchor_tl { }       }
           { \tl_set:Nn \l_@@_course_anchor_tl { above } }
         \node
           [ \l_@@_course_anchor_tl, \l_@@_course_color_tl!60, shift =
@@ -744,9 +768,9 @@ Copyright and License
           ] at (current~page.north~west) { \l_@@_course_subject_tl };
         \bool_lazy_or:nnTF
           { \tl_if_empty_p:N \l_@@_course_location_tl }
-          { \tl_if_empty_p:N \l_@@_course_lecture_tl }
-          { \tl_set:Nn \l_@@_s@course_sep_tl { } }
-          { \tl_set:Nn \l_@@_s@course_sep_tl { ,~ } }
+          { \tl_if_empty_p:N \l_@@_course_lecture_tl  }
+          { \tl_set:Nn \l_@@_s@course_sep_tl { }      }
+          { \tl_set:Nn \l_@@_s@course_sep_tl { ,~ }   }
         \node
           [ shift =
             {(
@@ -795,9 +819,9 @@ Copyright and License
           ] at (current~page.north~west) { \l_@@_course_subject_tl };
         \bool_lazy_or:nnTF
           { \tl_if_empty_p:N \l_@@_course_location_tl }
-          { \tl_if_empty_p:N \l_@@_course_lecture_tl }
-          { \tl_set:Nn \l_@@_course_sep_tl { } }
-          { \tl_set:Nn \l_@@_course_sep_tl { \\ } }
+          { \tl_if_empty_p:N \l_@@_course_lecture_tl  }
+          { \tl_set:Nn \l_@@_course_sep_tl { }        }
+          { \tl_set:Nn \l_@@_course_sep_tl { \\ }     }
         \node
           [ shift =
             {(

@@ -4,9 +4,9 @@
 \usepackage[fontset = none]{ctex} \setlength \parindent {0pt}
 \setCJKmainfont[Scale = .93]{Chiron Sung HK}
 \AddToHook{env/function/before}{\vspace*{-.65\baselineskip}}
-\AddToHook{env/syntax/after}{\par\vspace*{.15\baselineskip}}
+\AddToHook{env/syntax/after}   {\par\vspace*{.15\baselineskip}}
 \makeatletter
-\def \@key #1{\textcolor{red}{\textbf{\texttt{#1}}}~\normalfont \texttt{=}~}
+\def \@key  #1{\textcolor{red}{\textbf{\texttt{#1}}}~\normalfont \texttt{=}~}
 \def \s@key #1{\textcolor{red}{\textbf{\texttt{#1}}}}
 \DeclareRobustCommand \key {\@ifstar\s@key\@key}
 \def \val #1{\meta{\textup{#1}}}
@@ -16,7 +16,8 @@
   {\HOLOGO@mbox {A\kern -.05em p\kern -.05em \hologo{LaTeX}}}
 \newlist{keyval}{itemize}{10}
 \setlist[keyval]{leftmargin = 0pt, labelsep = 0pt}
-\makeatother \makeindex
+\makeatother
+\makeindex
 
 \title{%
   \bfseries \cls{litetable} 宏包 --- 多彩嘅課程表\thanks{%
@@ -27,14 +28,14 @@
 
 \author{%
   夏明宇
-  \texttt{<\href{mailto:myhsia@outlook.com}{myhsia@outlook.com}>}\thanks{
+  \texttt{<\href{mailto:myhsia@outlook.com}{myhsia@outlook.com}>}\thanks{%
     \href{https://github.com/ljguo1020}{郭李軍}
     開發咗讀取 \meta{left} \texttt{->} \meta{right} 型數據結構嘅接口，
     並為低版本 \hologo{TeX} Live 做兼容.
   }
 }
 
-\date{Released 2025-03-12\quad \texttt{v3.3E}}
+\date{Released 2025-03-26\quad \texttt{v3.3F}}
 
 \begin{document}
 
