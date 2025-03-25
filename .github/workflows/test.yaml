@@ -18,12 +18,12 @@ jobs:
       with:
         fetch-depth: 0
     - name: Install TeX Live
-      uses: teatimeguest/setup-texlive-action@v3
+      uses: zauguin/install-texlive@v4
       with:
         packages: >-
           ${{ env.KERNEL_PKGS }} ${{ env.DOC_PKGS }}
           ${{ env.ZH_PKGS }}     ${{ env.BIN_PKGS }}
-      update-all-packages: true
+      # update-all-packages: true
     - name: Install Google Fonts
       run: |
           wget -O chiron-sung-hk-1.017.zip https://github.com/chiron-fonts/chiron-sung-hk/archive/refs/tags/v1.017.zip
