@@ -1,0 +1,34 @@
+name: Test
+
+on: [push, pull_request, workflow_dispatch]
+
+env:
+  KERNEL_PKGS: tikz
+  DOC_PKGS: twemojis titlesec libertine
+  ZH_PKGS: ctex hologo
+  BIN_PKGS: latexmk l3build
+
+jobs:
+
+  build:
+    runs-on: ubuntu-latest
+    if: ${{ !contains(github.event.head_commit.message, 'ci skip') }}
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+    - name: Install TeX Live
+      uses: teatimeguest/setup-texlive-action@v3
+      with:
+        packages: >-
+          ${{ env.KERNEL_PKGS }} ${{ env.DOC_PKGS }}
+          ${{ env.ZH_PKGS }}     ${{ env.BIN_PKGS }}
+      update-all-packages: true
+    - name: Install Google Fonts
+      run: |
+          wget -O chiron-sung-hk-1.017.zip https://github.com/chiron-fonts/chiron-sung-hk/archive/refs/tags/v1.017.zip
+          unzip -d chiron-sung-hk-1.017/ chiron-sung-hk-1.017.zip
+          mv chiron-sung-hk-1.017/otf/ /usr/share/fonts/
+          fc-cache -fv
+    - name: Build CTAN release zip with l3build
+      run: l3build ctan
