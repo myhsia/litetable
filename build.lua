@@ -13,7 +13,7 @@ specialtypesetting["litetable-zh-hk.tex"] =
 
 uploadconfig = {
   pkg          = "litetable",
-  version      = "v3.3E 2025-03-12",
+  version      = "v3.3F 2025-03-26",
   author       = "Mingyu Xia; Lijun Guo",
   uploader     = "Mingyu Xia",
   email        = "myhsia@outlook.com",
