@@ -7,18 +7,39 @@ latex-bin
 luatex
 latex-bin-dev
 #
-# The kernel of the implementation
-# tikz
-# For the manual
+# For the doc target and testing l3doc
 alphalph
+amsfonts
+bookmark
 booktabs
+catchfile
+cm-super
 colortbl
 csquotes
-enumitem
-hologo
-psnfss
-#
-libertine
-twemojis
-# For Chinese Supports
 ctex
+dvips
+ec
+enumitem
+epstopdf
+epstopdf-pkg
+everysel
+fancyvrb
+framed
+hologo
+hypdoc
+hyperref
+libertine
+lipsum
+listings
+makeindex
+mathpazo
+metalogo
+oberdiek
+pgf
+psnfss
+ragged2e
+siunitx
+times
+twemojis
+underscore
+units
