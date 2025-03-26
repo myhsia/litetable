@@ -1,8 +1,8 @@
 \documentclass[svgnames, onlydoc, quiet]{l3doc}
-\usepackage{litetable, twemojis, titlesec}
+\usepackage{litetable, twemojis}
 \usepackage[mono = false]{libertine}
-\usepackage[fontset = none]{ctex} \setlength \parindent {0pt}
-\setCJKmainfont[Scale = .93]{Chiron Sung HK}
+\usepackage[fontset = macnew]{ctex}
+\setlength \parindent {0pt}
 \AddToHook{env/function/before}{\vspace*{-.65\baselineskip}}
 \AddToHook{env/syntax/after}   {\par\vspace*{.15\baselineskip}}
 \makeatletter
@@ -45,13 +45,12 @@
 
 \section{介紹}
 
-\cls{litetable} 宏包提供咗一個多彩嘅課程表設計，
+\pkg{litetable} 宏包提供咗一個多彩嘅課程表設計，
 基於 \pkg{tikz} 由 \pkg{expl3} 開發.
-其支援 \hologo{pdfLaTeX}，\hologo{XeLaTeX}，\hologo{ApLaTeX} 同
-\hologo{LuaLaTeX} 等多種編譯方式.
-點擊跳轉到手冊嘅
-\href{litetable.pdf}{[\textsf{English Version}]}
-\href{litetable-zh-cn.pdf}{[\textsf{中文版本}]}.
+支援 \hologo{pdfLaTeX}，\hologo{XeLaTeX}，\hologo{ApLaTeX} 同
+\hologo{LuaLaTeX} 等多種編譯方式. 點擊跳轉到
+\href{litetable.pdf}{[\textsf{English}]}
+\href{litetable-zh-cn.pdf}{[\textsf{简体中文}]} 手冊.
 
 \section{用戶接口}
 

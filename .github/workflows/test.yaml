@@ -8,58 +8,18 @@ on:
 
 jobs:
   l3build:
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     steps:
+
     - name: Checkout repository
       uses: actions/checkout@v4
 
-    - run: sudo apt-get update && sudo apt-get install ghostscript
-    
-    # - name: Install TeX Live
-    #   uses: zauguin/install-texlive@v4
-    #   with:
-    #     package_file: .github/tl_packages
-    #   # update-all-packages: true
-    #   env:
-    #     TL_INSTALL_VERBOSE: 1  # Add verbose logging
+    - name: Install Homebrew
+      run: |
+        /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
-    # - name: Update TeX Live repository
-    #   run: |
-    #     sudo /home/ runner/texlive/bin/x86_64-linux/tlmgr update --self
-    #     sudo /home/ runner/texlive/bin/x86_64-linux/tlmgr update --all
     - name: Install TeX Live
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y texlive-full
-
-    # - name: Update TeX Live Package Database
-    #   run: |
-    #     sudo tlmgr update --self
-    #     sudo tlmgr update --all
-
-    - name: Install HK Fonts
-      run: |
-        wget -O ChironSungHK-R.otf https://github.com/chiron-fonts/chiron-sung-hk/blob/release/OTF/ChironSungHK-R.otf
-        mv ChironSungHK-R.otf /usr/share/fonts/
-        wget -O ChironSungHK-B.otf https://github.com/chiron-fonts/chiron-sung-hk/blob/release/OTF/ChironSungHK-B.otf
-        mv ChironSungHK-B.otf /usr/share/fonts/
-        fc-cache -fv
-
-    # - name: Retry tlmgr command on failure
-    #   run: |
-    #     retries=3
-    #     count=0
-    #     until [ $count -ge $retries ]
-    #     do
-    #       /home/runner/texlive/bin/x86_64-linux/tlmgr update --self --all && break
-    #       count=$((count+1))
-    #       echo "Retry $count/$retries"
-    #       sleep 10
-    #     done
-    #     if [ $count -ge $retries ]; then
-    #       echo "tlmgr failed after $retries attempts."
-    #       exit 1
-    #     fi
+      run: brew install mactex-no-gui
 
     - name: Build CTAN release zip with l3build
       run: l3build ctan
