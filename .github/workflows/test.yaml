@@ -23,29 +23,34 @@ jobs:
       env:
         TL_INSTALL_VERBOSE: 1  # Add verbose logging
 
+    - name: Update TeX Live repository
+      run: |
+        sudo /home/ runner/texlive/bin/x86_64-linux/tlmgr update --self
+        sudo /home/ runner/texlive/bin/x86_64-linux/tlmgr update --all
+
     - name: Install HK Fonts
       run: |
-          wget -O ChironSungHK-R.otf https://github.com/chiron-fonts/chiron-sung-hk/blob/release/OTF/ChironSungHK-R.otf
-          mv ChironSungHK-R.otf /usr/share/fonts/
-          wget -O ChironSungHK-B.otf https://github.com/chiron-fonts/chiron-sung-hk/blob/release/OTF/ChironSungHK-B.otf
-          mv ChironSungHK-B.otf /usr/share/fonts/
-          fc-cache -fv
+        wget -O ChironSungHK-R.otf https://github.com/chiron-fonts/chiron-sung-hk/blob/release/OTF/ChironSungHK-R.otf
+        mv ChironSungHK-R.otf /usr/share/fonts/
+        wget -O ChironSungHK-B.otf https://github.com/chiron-fonts/chiron-sung-hk/blob/release/OTF/ChironSungHK-B.otf
+        mv ChironSungHK-B.otf /usr/share/fonts/
+        fc-cache -fv
 
-    - name: Retry tlmgr command on failure
-      run: |
-        retries=3
-        count=0
-        until [ $count -ge $retries ]
-        do
-          /home/runner/texlive/bin/x86_64-linux/tlmgr update --self --all && break
-          count=$((count+1))
-          echo "Retry $count/$retries"
-          sleep 10
-        done
-        if [ $count -ge $retries ]; then
-          echo "tlmgr failed after $retries attempts."
-          exit 1
-        fi
+    # - name: Retry tlmgr command on failure
+    #   run: |
+    #     retries=3
+    #     count=0
+    #     until [ $count -ge $retries ]
+    #     do
+    #       /home/runner/texlive/bin/x86_64-linux/tlmgr update --self --all && break
+    #       count=$((count+1))
+    #       echo "Retry $count/$retries"
+    #       sleep 10
+    #     done
+    #     if [ $count -ge $retries ]; then
+    #       echo "tlmgr failed after $retries attempts."
+    #       exit 1
+    #     fi
 
     - name: Build CTAN release zip with l3build
       run: l3build ctan
