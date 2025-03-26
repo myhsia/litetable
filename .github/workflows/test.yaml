@@ -8,24 +8,17 @@ on:
 
 jobs:
   l3build:
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
     steps:
 
     - name: Checkout repository
       uses: actions/checkout@v4
 
-    - name: Install Homebrew
-      run: |
-        /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-
+    - run: sudo apt-get update && sudo apt-get install ghostscript
     - name: Install TeX Live
-      run: |
-        brew install mactex-no-gui
-        sudo ln -s /usr/local/texlive/2025/bin/universal-darwin/tlmgr /usr/local/bin/tlmgr
-        sudo tlmgr path add
+      uses: zauguin/install-texlive@v4
+      with:
+        package_file: .github/tl_packages
 
-    - name: Install l3build
-      run: sudo tlmgr install l3build
-
-    - name: Build CTAN release zip with l3build
+    - name: Run l3build
       run: l3build ctan
