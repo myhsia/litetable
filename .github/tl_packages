@@ -10,6 +10,7 @@ latex-bin-dev
 # The kernel of the implementation
 # tikz
 # For the manual
+alphalph
 libertine
 twemojis
 # For Chinese Supports
