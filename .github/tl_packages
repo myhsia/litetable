@@ -11,6 +11,8 @@ latex-bin-dev
 # tikz
 # For the manual
 alphalph
+booktabs
+#
 libertine
 twemojis
 # For Chinese Supports
