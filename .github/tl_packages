@@ -1,9 +1,16 @@
 # The test framework itself
 l3build
+#
+# Required to build LaTeX formats
+latex
+latex-bin
+luatex
+latex-bin-dev
+#
 # The kernel of the implementation
-tikz
+# tikz
 # For the manual
-libertine
-twemojis
+# libertine
+# twemojis
 # For Chinese Supports
-ctex
+# ctex

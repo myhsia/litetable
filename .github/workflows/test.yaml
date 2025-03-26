@@ -15,8 +15,8 @@ jobs:
       - name: Install TeX Live
         uses: zauguin/install-texlive@v4
         with:
-          packages: >
-            l3build latex latex-bin luatex latex-bin-dev luahbtex platex uplatex tex xetex ctex libertine tikz twemojis context 
+          package_file: .github/tl_packages
+# luahbtex platex uplatex tex xetex ctex libertine tikz twemojis context 
 # jobs:
 #   l3build:
 #     runs-on: ubuntu-latest
