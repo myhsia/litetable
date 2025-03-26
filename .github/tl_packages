@@ -8,6 +8,7 @@ luatex
 latex-bin-dev
 #
 # The kernel of the implementation
+pgf
 # tikz
 # For the manual
 libertine
