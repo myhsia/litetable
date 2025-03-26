@@ -15,18 +15,27 @@ jobs:
 
     - run: sudo apt-get update && sudo apt-get install ghostscript
     
-    - name: Install TeX Live
-      uses: zauguin/install-texlive@v4
-      with:
-        package_file: .github/tl_packages
-      # update-all-packages: true
-      env:
-        TL_INSTALL_VERBOSE: 1  # Add verbose logging
+    # - name: Install TeX Live
+    #   uses: zauguin/install-texlive@v4
+    #   with:
+    #     package_file: .github/tl_packages
+    #   # update-all-packages: true
+    #   env:
+    #     TL_INSTALL_VERBOSE: 1  # Add verbose logging
 
-    - name: Update TeX Live repository
+    # - name: Update TeX Live repository
+    #   run: |
+    #     sudo /home/ runner/texlive/bin/x86_64-linux/tlmgr update --self
+    #     sudo /home/ runner/texlive/bin/x86_64-linux/tlmgr update --all
+    - name: Install TeX Live
       run: |
-        sudo /home/ runner/texlive/bin/x86_64-linux/tlmgr update --self
-        sudo /home/ runner/texlive/bin/x86_64-linux/tlmgr update --all
+        sudo apt-get update
+        sudo apt-get install -y texlive-full
+
+    - name: Update TeX Live Package Database
+      run: |
+        sudo tlmgr update --self
+        sudo tlmgr update --all
 
     - name: Install HK Fonts
       run: |
