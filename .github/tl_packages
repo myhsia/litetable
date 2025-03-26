@@ -8,7 +8,7 @@ luatex
 latex-bin-dev
 #
 # The kernel of the implementation
-# tikz
+tikz
 # For the manual
 # libertine
 # twemojis
