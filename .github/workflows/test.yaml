@@ -32,10 +32,10 @@ jobs:
         sudo apt-get update
         sudo apt-get install -y texlive-full
 
-    - name: Update TeX Live Package Database
-      run: |
-        sudo tlmgr update --self
-        sudo tlmgr update --all
+    # - name: Update TeX Live Package Database
+    #   run: |
+    #     sudo tlmgr update --self
+    #     sudo tlmgr update --all
 
     - name: Install HK Fonts
       run: |
