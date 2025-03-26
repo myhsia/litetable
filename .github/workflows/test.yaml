@@ -1,4 +1,4 @@
-name: Test
+name: Automated testing
 
 on:
   push:
@@ -20,6 +20,9 @@ jobs:
 
     - name: Install TeX Live
       run: brew install mactex-no-gui
+
+    - name: Install l3build
+      run: sudo tlmgr install l3build
 
     - name: Build CTAN release zip with l3build
       run: l3build ctan
