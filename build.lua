@@ -25,7 +25,7 @@ uploadconfig = {
   license      = "lppl1.3c",  
   ctanPath     = "/macros/latex/contrib/litetable",
   announcement = [[
-    Version 3.3E released.
+    Version 3.3F released.
     - Updated the manual and l3build workflow.
   ]],
   home         = "https://github.com/myhsia/litetable",
