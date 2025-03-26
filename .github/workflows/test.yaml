@@ -19,7 +19,10 @@ jobs:
         /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
     - name: Install TeX Live
-      run: brew install mactex-no-gui
+      run: |
+        brew install mactex-no-gui
+        sudo ln -s /usr/local/texlive/2025/bin/universal-darwin/tlmgr /usr/local/bin/tlmgr
+        sudo tlmgr path add
 
     - name: Install l3build
       run: sudo tlmgr install l3build
