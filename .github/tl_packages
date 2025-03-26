@@ -12,6 +12,7 @@ latex-bin-dev
 # For the manual
 alphalph
 booktabs
+colortbl
 #
 libertine
 twemojis
