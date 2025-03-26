@@ -10,15 +10,25 @@ jobs:
   l3build:
     runs-on: ubuntu-latest
     steps:
-
-    - name: Checkout repository
-      uses: actions/checkout@v4
-
-    - run: sudo apt-get update && sudo apt-get install ghostscript
-    - name: Install TeX Live
-      uses: zauguin/install-texlive@v4
-      with:
-        package_file: .github/tl_packages
-
-    - name: Run l3build
-      run: l3build ctan
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Install TeX Live
+        uses: zauguin/install-texlive@v4
+        with:
+          packages: >
+            l3build latex latex-bin luatex latex-bin-dev 
+      # - name: Use TeX Live
+      #   run: ... whatever you want to install TeX Live for
+# jobs:
+#   l3build:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Checkout repository
+#         uses: actions/checkout@v4
+#       - run: sudo apt-get update && sudo apt-get install ghostscript
+#       - name: Install TeX Live
+#         uses: zauguin/install-texlive@v4
+#         with:
+#           package_file: .github/tl_packages
+#       - name: Run l3build
+#         run: l3build ctan
