@@ -13,6 +13,7 @@ latex-bin-dev
 alphalph
 booktabs
 colortbl
+csquotes
 enumitem
 hologo
 psnfss
