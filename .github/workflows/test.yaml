@@ -16,8 +16,6 @@ jobs:
         uses: zauguin/install-texlive@v4
         with:
           package_file: .github/tl_packages
-      # - name: Use TeX Live
-      #   run: ... whatever you want to install TeX Live for
 # jobs:
 #   l3build:
 #     runs-on: ubuntu-latest
