@@ -11,6 +11,6 @@ latex-bin-dev
 # tikz
 # For the manual
 libertine
-# twemojis
+twemojis
 # For Chinese Supports
 ctex
