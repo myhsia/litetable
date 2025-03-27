@@ -13,7 +13,7 @@ specialtypesetting["litetable-zh-hk.tex"] =
 
 uploadconfig = {
   pkg          = "litetable",
-  version      = "v3.3F 2025-03-26",
+  version      = "v3.3G 2025-03-28",
   author       = "Mingyu Xia; Lijun Guo",
   uploader     = "Mingyu Xia",
   email        = "myhsia@outlook.com",
@@ -25,8 +25,8 @@ uploadconfig = {
   license      = "lppl1.3c",  
   ctanPath     = "/macros/latex/contrib/litetable",
   announcement = [[
-    Version 3.3F released.
-    - Updated the manual and l3build workflow.
+    Version 3.3G released.
+    - Updated README.md.
   ]],
   home         = "https://github.com/myhsia/litetable",
   bugtracker   = "https://github.com/myhsia/litetable/issues",
