@@ -1,6 +1,10 @@
 # The test framework itself
 l3build
 #
+# Base
+latex
+latex-bin
+#
 # For the doc target and testing l3doc
 alphalph
 amsfonts
