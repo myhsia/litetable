@@ -23,7 +23,7 @@ jobs:
         run: l3build ctan
 
   create-release:
-    if: github.event.commits[0].modified contains 'build.lua'
+    if: github.event.head_commit.modified contains 'build.lua'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
