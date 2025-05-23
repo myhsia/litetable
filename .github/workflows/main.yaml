@@ -8,11 +8,6 @@ on:
 
 jobs:
   l3build:
-  on:
-  push:
-    branches:
-      - "**"
-    pull_request:
     strategy:
       matrix:
         os: [ubuntu-latest, macos-latest, windows-latest]
@@ -28,11 +23,7 @@ jobs:
         run: l3build ctan
 
   create-release:
-  on:
-  push:
-    branches: [main]
-    paths:
-      - "build.lua" # Trigger release on changes in build.lua
+    if: github.event.commits[0].modified contains 'build.lua'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
