@@ -18,7 +18,3 @@ jobs:
           echo "DIR_NAMEA=$DIR_NAMEA" >> $GITHUB_ENV
           DIR_NAMEB="${{ env.DIR_NAMEA }}"
           echo $DIR_NAMEB
-          REPO_NAMEA=${{ github.repository == '' && 'unknown' || split(github.repository, '/')[1] }}
-          echo "REPO_NAMEA=$REPO_NAMEA" >> $GITHUB_ENV
-          REPO_NAMEB="${{ env.REPO_NAMEA }}"
-          echo $REPO_NAMEB
