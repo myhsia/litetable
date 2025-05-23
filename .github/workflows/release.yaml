@@ -1,10 +1,10 @@
-name: Automated testing
+name: Publish New Release
 
 on:
   push:
     branches: [main]
     paths:
-      - "package.json"
+      - "build.lua"
   pull_request:
 
 jobs:
