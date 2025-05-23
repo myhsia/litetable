@@ -1,4 +1,4 @@
-name: Automated testing and Publish New Release
+name: Automated testing
 
 on:
   push:
@@ -21,43 +21,3 @@ jobs:
           package_file: .github/tl_packages
       - name: Run l3build
         run: l3build ctan
-
-  create-release:
-    if: contains(github.event.head_commit.modified, 'build.lua')
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-      - name: Install TeX Live
-        uses: zauguin/install-texlive@v4
-        with:
-          package_file: .github/tl_packages
-      - name: Run l3build and Upload to CTAN
-        run: l3build ctan && l3build upload
-      - name: Read version from build.lua
-        run: |
-          VERSION=$(grep 'version' build.lua | grep -o '"[^"]*"' | tr -d '"')
-          MODULE=$(grep 'module' build.lua | grep -o '"[^"]*"' | tr -d '"')
-          echo "VERSION=$VERSION" >> $GITHUB_ENV
-          echo "MODULE=$MODULE" >> $GITHUB_ENV
-      - name: Create version tag
-        run: |
-          TAG_NAME="${{ env.VERSION }}"
-          ZIP_NAME="${{ env.MODULE }}.zip"
-          echo "TAG_NAME=$TAG_NAME" >> $GITHUB_ENV
-          echo "ZIP_NAME=$ZIP_NAME" >> $GITHUB_ENV
-          git fetch --tags
-          if git rev-parse "$TAG_NAME" >/dev/null 2>&1; then
-            echo "Tag $TAG_NAME already exists. Skipping tag creation."
-          else
-            git tag $TAG_NAME
-            git push origin $TAG_NAME
-          fi
-      - name: Create and Publish Release
-        uses: softprops/action-gh-release@v2
-        with:
-          tag_name: ${{ env.TAG_NAME }}
-          name: ${{ env.TAG_NAME }}
-          files: ${{ env.ZIP_NAME }}
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
