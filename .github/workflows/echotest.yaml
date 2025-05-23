@@ -14,7 +14,7 @@ jobs:
     steps:
       - name: read-repo-name
         run: |
-          DIR_NAMEA=${{ github.repository }}
+          DIR_NAMEA=${GITHUB_REPOSITORY##*/}
           echo "DIR_NAMEA=$DIR_NAMEA" >> $GITHUB_ENV
           DIR_NAMEB="${{ env.DIR_NAMEA }}"
           echo $DIR_NAMEB
