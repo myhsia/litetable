@@ -2,10 +2,8 @@ name: Publish New Release
 
 on:
   push:
-    branches: [main]
     paths:
       - "build.lua"
-  pull_request:
 
 jobs:
   create-release:
