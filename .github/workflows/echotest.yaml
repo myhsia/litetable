@@ -1,0 +1,24 @@
+name: echo test
+
+on:
+  push:
+    branches:
+      - "**"
+  pull_request:
+
+jobs:
+  create-release:
+    permissions:
+      contents: write
+    runs-on: ubuntu-latest
+    steps:
+      - name: read-repo-name
+        run: |
+          DIR_NAMEA=${{ github.repository }}
+          echo "DIR_NAMEA=$DIR_NAMEA" >> $GITHUB_ENV
+          DIR_NAMEB="${{ env.DIR_NAMEA }}"
+          echo $DIR_NAMEB
+          REPO_NAMEA=${{ github.repository == '' && 'unknown' || split(github.repository, '/')[1] }}
+          echo "REPO_NAMEA=$REPO_NAMEA" >> $GITHUB_ENV
+          REPO_NAMEB="${{ env.REPO_NAMEA }}"
+          echo $REPO_NAMEB
