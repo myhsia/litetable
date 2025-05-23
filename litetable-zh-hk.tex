@@ -1,10 +1,10 @@
 \documentclass[svgnames, onlydoc]{l3doc}
 \usepackage{litetable, twemojis}
 \usepackage[mono = false]{libertine}
-\usepackage{ctex}
+\usepackage[linespread = 1.3]{ctex}
 \setlength \parindent {0pt}
-\AddToHook{env/function/before}{\vspace*{-.65\baselineskip}}
-\AddToHook{env/syntax/after}   {\par\vspace*{.15\baselineskip}}
+\AddToHook{`env/function/before}{\vspace*{-.7\baselineskip}}
+\AddToHook{env/syntax/after}   {\par\vspace*{.2\baselineskip}}
 \makeatletter
 \def \@key  #1{\textcolor{red}{\textbf{\texttt{#1}}}~\normalfont \texttt{=}~}
 \def \s@key #1{\textcolor{red}{\textbf{\texttt{#1}}}}
@@ -12,11 +12,11 @@
 \def \val #1{\meta{\textup{#1}}}
 \def \TFF {true\textbar \textbf{false}}
 \def \TTF {\textbf{true}\textbar false}
-\def \HoLogo@ApLaTeX #1%
-  {\HOLOGO@mbox {A\kern -.05em p\kern -.05em \hologo{LaTeX}}}
+\def \HoLogo@ApLaTeX #1{%
+  \HOLOGO@mbox {A\kern -.05em p\kern -.05em \hologo{LaTeX}}}
+\makeatother
 \newlist{keyval}{itemize}{10}
 \setlist[keyval]{leftmargin = 0pt, labelsep = 0pt}
-\makeatother
 \makeindex
 
 \title{%
@@ -35,7 +35,7 @@
   }
 }
 
-\date{Released 2025-03-26\quad \texttt{v3.3G}}
+\date{Released 2025-05-23\quad \texttt{v3.3H}}
 
 \begin{document}
 
@@ -48,9 +48,9 @@
 \pkg{litetable} 宏包提供咗一個多彩嘅課程表設計，
 基於 \pkg{tikz} 由 \pkg{expl3} 開發.
 支援 \hologo{pdfLaTeX}，\hologo{XeLaTeX}，\hologo{ApLaTeX} 同
-\hologo{LuaLaTeX} 等多種編譯方式. 點擊跳轉到
-\href{litetable.pdf}{[\textsf{English}]}
-\href{litetable-zh-cn.pdf}{[\textsf{简体中文}]} 手冊.
+\hologo{LuaLaTeX} 等多種編譯方式. 點擊跳轉
+\href{http://mirrors.ctan.org/macros/latex/contrib/litetable/litetable.pdf}{[\textsf{English}]}
+\href{http://mirrors.ctan.org/macros/latex/contrib/litetable/litetable-zh-cn.pdf}{[\textsf{简体中文}]} 手冊.
 
 \section{用戶接口}
 
@@ -60,7 +60,7 @@
 \end{quote}
 
 \DescribeEnv{litetable}
-環境 \env{litetable} 可生成空白課程表框架，
+環境 \env{litetable} 可生成空白課程表，
 需在命令 \cs{timelist} 同 \cs{weeklist} 後執行
 \begin{quote}
   |\begin{litetable}|
@@ -190,10 +190,10 @@
       16:05 -> 16:50, 18:30 -> 19:15, 19:20 -> 20:05, 20:10 -> 20:55
     }
   \begin{litetable} [ MidnightBlue, sem = SEM 7 ] { Course Schedule }
-    \course [ subject = interface3, comment = \TeX{} Live 2025,
-              lecture = The \LaTeX{} Project, DarkBlue ] {4} {5}
+    \course [ subject = interface3, comment = \TeX\ Live 2025,
+              lecture = The \LaTeX\ Project, DarkBlue ] {4} {5}
     \newday
-    \course [ subject = expl3, lecture = The \LaTeX{} Project ] {8} {8}
+    \course [ subject = expl3, lecture = The \LaTeX\ Project ] {8} {8}
     \newday
     \course [ subject = Keep on \TeX ing, lecture = Donald E. Knuth,
               location = Stanford University, Purple ] {10} {11}
@@ -219,10 +219,10 @@
     16:05 -> 16:50, 18:30 -> 19:15, 19:20 -> 20:05, 20:10 -> 20:55
   }
 \begin{litetable} [ MidnightBlue, sem = SEM 7 ] { Course Schedule }
-  \course [ subject = interface3, comment = \TeX{} Live 2025,
-            lecture = The \LaTeX{} Project, DarkBlue ] {4} {5}
+  \course [ subject = interface3, comment = \TeX\ Live 2025,
+            lecture = The \LaTeX\ Project, DarkBlue ] {4} {5}
   \newday
-  \course [ subject = expl3, lecture = The \LaTeX{} Project ] {8} {8}
+  \course [ subject = expl3, lecture = The \LaTeX\ Project ] {8} {8}
   \newday
   \course [ subject = Keep on \TeX ing, lecture = Donald E. Knuth,
             location = Stanford University, Purple ] {10} {11}
