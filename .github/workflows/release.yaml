@@ -21,8 +21,7 @@ jobs:
       - name: Run l3build and Upload to CTAN
         run: |
           l3build ctan
-          l3build upload
-          y
+          l3build upload y
       - name: Read version from build.lua
         run: |
           VERSION=$(grep 'version' build.lua | grep -o '"[^"]*"' | tr -d '"')
