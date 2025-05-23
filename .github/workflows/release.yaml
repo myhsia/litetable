@@ -24,16 +24,20 @@ jobs:
       #     yes y | l3build upload y
       - name: Read version from build.lua
         run: |
-          VERSION=$(grep 'version' build.lua | grep -o '"[^"]*"' | tr -d '"')
           MODULE=${GITHUB_REPOSITORY##*/}
-          echo "VERSION=$VERSION" >> $GITHUB_ENV
+          VERSION=$(grep 'version' build.lua | grep -o '"[^"]*"' | tr -d '"' | cut -d' ' -f1)
+          DATE=$(grep 'version' build.lua | grep -o '"[^"]*"' | tr -d '"' | cut -d' ' -f2)
           echo "MODULE=$MODULE" >> $GITHUB_ENV
-      - name: Create version tag
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
+          echo "DATE=$DATE" >> $GITHUB_ENV
+      - name: Create date tag
         run: |
-          TAG_NAME="${{ env.VERSION }}"
+          TAG_NAME="${{ env.DATE }}"
           ZIP_NAME="${{ env.MODULE }}.zip"
+          RLS_NAME="${{ env.MODULE }} ${{ env.VERSION }}"
           echo "TAG_NAME=$TAG_NAME" >> $GITHUB_ENV
           echo "ZIP_NAME=$ZIP_NAME" >> $GITHUB_ENV
+          echo "RLS_NAME=$RLS_NAME" >> $GITHUB_ENV
           git fetch --tags
           if git rev-parse "$TAG_NAME" >/dev/null 2>&1; then
             echo "Tag $TAG_NAME already exists. Skipping tag creation."
@@ -45,7 +49,7 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ env.TAG_NAME }}
-          name: ${{ env.TAG_NAME }}
+          name: ${{ env.RLS_NAME }}
           files: ${{ env.ZIP_NAME }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
