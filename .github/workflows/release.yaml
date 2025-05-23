@@ -25,7 +25,7 @@ jobs:
       - name: Read version from build.lua
         run: |
           VERSION=$(grep 'version' build.lua | grep -o '"[^"]*"' | tr -d '"')
-          MODULE=$(grep 'module' build.lua | grep -o '"[^"]*"' | tr -d '"')
+          MODULE=${GITHUB_REPOSITORY##*/}
           echo "VERSION=$VERSION" >> $GITHUB_ENV
           echo "MODULE=$MODULE" >> $GITHUB_ENV
       - name: Create version tag
