@@ -17,7 +17,7 @@ email        = "myhsia@outlook.com"
 repository   = "https://github.com/" .. maintainid .. "/" .. module
 announcement = [[
   Version 3.3H released.
-  - Optimized the implementation, and updated build.lua
+  - Optimized the implementation
 ]]
 summary      = "Class schedules with colorful course blocks"
 description  = [[
