@@ -2,8 +2,8 @@ name: Publish New Release
 
 on:
   push:
-    # paths:
-    #   - "build.lua"
+    paths:
+      - "build.lua"
   workflow_dispatch:
 
 jobs:
