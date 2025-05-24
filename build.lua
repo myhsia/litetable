@@ -18,7 +18,7 @@ email        = "myhsia@outlook.com"
 repository   = "https://github.com/" .. maintainid .. "/" .. module
 announcement = [[
 Version 3.3I released.
-* `build.lua` is included in the package.
+- `build.lua` is included in the package.
 ]]
 summary      = "Class schedules with colorful course blocks"
 description  = [[
