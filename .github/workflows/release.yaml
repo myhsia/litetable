@@ -61,7 +61,6 @@ jobs:
           tag_name: ${{ env.TAG_NAME }}
           name: ${{ env.RLS_NAME }}
           files: ${{ env.ZIP_NAME }}
-          body: |
-            ${{ env.NOTE_MSG }}
+          body: ${{ env.NOTE_MSG }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
