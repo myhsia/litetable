@@ -1,7 +1,7 @@
 \documentclass[svgnames, onlydoc]{l3doc}
 \usepackage{litetable, twemojis}
 \usepackage[mono = false]{libertine}
-\usepackage[fontset = fandol, linespread = 1.3]{ctex}
+\usepackage[fontset = fandol, linespread = 1.2]{ctex}
 \setlength \parindent {0pt}
 \AddToHook{env/function/before}{\vspace*{-.7\baselineskip}}
 \AddToHook{env/syntax/after}   {\par\vspace*{.2\baselineskip}}
@@ -35,7 +35,7 @@
   }
 }
 
-\date{Released 2025-05-23\quad \texttt{v3.3H}}
+\date{Released 2025-05-24\quad \texttt{v3.3I}}
 
 \begin{document}
 
@@ -74,6 +74,8 @@
   （默认值：|gray|），键名可省略.
   \item [\key{sem}] \val{string}
   可设置页面右上角的学期信息.
+  \item [\key{hline}] \val{string} 可设置水平线的样式
+  （默认值：|solid|）.
 \end{keyval}
 
 \begin{function}{\weeklist}
@@ -85,9 +87,9 @@
   可选参数接受以下键
   \begin{keyval}
     \item [\key{format}] \val{format commands}
-    可设置工作日列表格式 （默认值：|\bfseries|）.
-    \item [\key{sep}] \val{string} 可设置工作日列表的分隔符
-    （默认为空）.
+    可设置工作日列表格式（默认值：|\bfseries|）.
+    \item [\key{sep}] \val{string}
+    可设置工作日列表的分隔符.
   \end{keyval}
   \begin{verbatim}
     \weeklist [ format = \bfseries \scshape, sep = \textbar ]
@@ -103,9 +105,9 @@
   可选参数接受以下键
   \begin{keyval}
     \item [\key{numformat}] \val{format}
-    可设置时间列表的序号字体，
+    可设置时间列表的序号字体
     （默认值：|\ttfamily \bfseries|）.
-    \item [\key{timefont}] \val{format} 可设置时间列表的时间字体，
+    \item [\key{timefont}] \val{format} 可设置时间列表的时间字体
     （默认值：|\ttfamily|）.
     \item [\key{hidetime}] \val\TFF 用于隐藏时间列表中的时间，只保留序号.
     （初始值：|false|）.
@@ -125,7 +127,7 @@
   两个强制参数分别用于设置课程的开始和结束序号.
   可选参数接收下列键
   \begin{keyval}
-    \item [\key{color}] \val{color} 用于设置课程盒子的颜色，
+    \item [\key{color}] \val{color} 用于设置课程盒子的颜色
     （默认值：|teal|）. 键名可省略.
     \item [\key{subject}] \val{string} 用于设置课程名称.
     \item [\key{location}] \val{string} 用于设置课程地点.
@@ -189,7 +191,8 @@
       11:40 -> 12:25, 13:30 -> 14:15, 14:20 -> 15:05, 15:15 -> 16:00,
       16:05 -> 16:50, 18:30 -> 19:15, 19:20 -> 20:05, 20:10 -> 20:55
     }
-  \begin{litetable} [ MidnightBlue, sem = SEM 7 ] { Course Schedule }
+  \begin{litetable} [ DarkBlue, sem = SEM 7, hline = dashed ]
+    { Course Schedule }
     \course [ subject = interface3, comment = \TeX\ Live 2025,
               lecture = The \LaTeX\ Project, DarkBlue ] {4} {5}
     \newday
@@ -218,7 +221,8 @@
     11:40 -> 12:25, 13:30 -> 14:15, 14:20 -> 15:05, 15:15 -> 16:00,
     16:05 -> 16:50, 18:30 -> 19:15, 19:20 -> 20:05, 20:10 -> 20:55
   }
-\begin{litetable} [ MidnightBlue, sem = SEM 7 ] { Course Schedule }
+\begin{litetable} [ DarkBlue, sem = SEM 7, hline = dashed ]
+  {Course Schedule}
   \course [ subject = interface3, comment = \TeX\ Live 2025,
             lecture = The \LaTeX\ Project, DarkBlue ] {4} {5}
   \newday

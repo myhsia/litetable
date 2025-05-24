@@ -27,17 +27,21 @@ jobs:
           MODULE=${GITHUB_REPOSITORY##*/}
           VERSION=$(grep 'version' build.lua | grep -o '"[^"]*"' | tr -d '"' | cut -d' ' -f1)
           DATE=$(grep 'version' build.lua | grep -o '"[^"]*"' | tr -d '"' | cut -d' ' -f2)
+          ANNOUNCEMENT=$(awk '/announcement = \[\[/{flag=1; next} flag; /\]\]/{flag=0}' build.lua)
           echo "MODULE=$MODULE" >> $GITHUB_ENV
           echo "VERSION=$VERSION" >> $GITHUB_ENV
           echo "DATE=$DATE" >> $GITHUB_ENV
+          echo "ANNOUNCEMENT=$ANNOUNCEMENT" >> $GITHUB_ENV
       - name: Create date tag
         run: |
           TAG_NAME="${{ env.DATE }}"
           ZIP_NAME="${{ env.MODULE }}.zip"
           RLS_NAME="${{ env.MODULE }} ${{ env.VERSION }}"
+          NOTE_MSG="${{ env.ANNOUNCEMENT }}"
           echo "TAG_NAME=$TAG_NAME" >> $GITHUB_ENV
           echo "ZIP_NAME=$ZIP_NAME" >> $GITHUB_ENV
           echo "RLS_NAME=$RLS_NAME" >> $GITHUB_ENV
+          echo "NOTE_MSG=$NOTE_MSG" >> $GITHUB_ENV
           git fetch --tags
           if git rev-parse "$TAG_NAME" >/dev/null 2>&1; then
             echo "Tag $TAG_NAME already exists. Skipping tag creation."
@@ -51,5 +55,6 @@ jobs:
           tag_name: ${{ env.TAG_NAME }}
           name: ${{ env.RLS_NAME }}
           files: ${{ env.ZIP_NAME }}
+          body: ${{ env.NOTE_MSG }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
