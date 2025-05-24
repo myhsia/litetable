@@ -29,9 +29,11 @@ jobs:
           DATE=$(grep 'version' build.lua | grep -o '"[^"]*"' | tr -d '"' | cut -d' ' -f2)
           {
             echo "ANNOUNCEMENT<<EOF"
-            awk '/announcement = \[\[/{flag=1; next} flag; /\]\]/{flag=0; next} flag' build.lua
+            awk '/announcement = \[\[/{flag=1; next} flag; /\]\]/{flag=0; next}' build.lua
             echo "EOF"
-          } >> "$GITHUB_ENV"
+          } >> $GITHUB_ENV
+          echo $ANNOUNCEMENT
+          echo ${{ env.ANNOUNCEMENT }}
           echo "MODULE=$MODULE" >> $GITHUB_ENV
           echo "VERSION=$VERSION" >> $GITHUB_ENV
           echo "DATE=$DATE" >> $GITHUB_ENV
