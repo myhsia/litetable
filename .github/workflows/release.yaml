@@ -31,7 +31,7 @@ jobs:
           echo "MODULE=$MODULE" >> $GITHUB_ENV
           echo "VERSION=$VERSION" >> $GITHUB_ENV
           echo "DATE=$DATE" >> $GITHUB_ENV
-          {echo "ANNOUNCEMENT=$ANNOUNCEMENT"} >> $GITHUB_ENV
+          echo "{ANNOUNCEMENT=$ANNOUNCEMENT}" >> $GITHUB_ENV
       - name: Create date tag
         run: |
           TAG_NAME="${{ env.DATE }}"
