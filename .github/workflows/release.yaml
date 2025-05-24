@@ -27,11 +27,15 @@ jobs:
           MODULE=${GITHUB_REPOSITORY##*/}
           VERSION=$(grep 'version' build.lua | grep -o '"[^"]*"' | tr -d '"' | cut -d' ' -f1)
           DATE=$(grep 'version' build.lua | grep -o '"[^"]*"' | tr -d '"' | cut -d' ' -f2)
-          ANNOUNCEMENT=$(awk '/announcement = \[\[/{flag=1; next} flag; /\]\]/{flag=0}' build.lua)
+          {
+            echo "ANNOUNCEMENT<<EOF"
+            awk '/announcement = \[\[/{flag=1; next} flag; /\]\]/{flag=0; next} flag' build.lua
+            echo "EOF"
+          } >> "$GITHUB_ENV"
           echo "MODULE=$MODULE" >> $GITHUB_ENV
           echo "VERSION=$VERSION" >> $GITHUB_ENV
           echo "DATE=$DATE" >> $GITHUB_ENV
-          echo "{ANNOUNCEMENT={$ANNOUNCEMENT}}" >> $GITHUB_ENV
+          echo "ANNOUNCEMENT=$ANNOUNCEMENT" >> $GITHUB_ENV
       - name: Create date tag
         run: |
           TAG_NAME="${{ env.DATE }}"
