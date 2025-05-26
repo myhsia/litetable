@@ -1,6 +1,6 @@
 --[==========================================[--
            L3BUILD FILE FOR LITETABLE
-      Once Pushed After This File Modified
+      Once Pushed With This File Modified
         A New Release Will Be Published
 --]==========================================]--
 
@@ -10,15 +10,17 @@
 --]==========================================]--
 
 module       = "litetable"
-version      = "v3.3I 2025-05-24"
+version      = "v3.3J 2025-05-27"
 maintainer   = "Mingyu Xia; Lijun Guo"
 uploader     = "Mingyu Xia"
 maintainid   = "myhsia"
 email        = "myhsia@outlook.com"
 repository   = "https://github.com/" .. maintainid .. "/" .. module
 announcement = [[
-Version 3.3I released.
-- `build.lua` is included in the package.
+Version 3.3J released.
+- Updated `build.lua`
+- Updated `README.md`
+- Added LICENSE
 ]]
 summary      = "Class schedules with colorful course blocks"
 description  = [[
@@ -29,16 +31,17 @@ The litetable package provides a colorful timetable design, developed by expl3 b
             Pack and Upload To CTAN
          Don't Modify Unless Necessary
 --]==========================================]--
+ctanzip      = module
+excludefiles = {"*~"}
+exhibitfiles = {"*.md"}
+textfiles    = {"*.md", "LICENSE", "*.lua"}
+typesetcmds  = "\\AtBeginDocument{\\csname DisableImplementation\\endcsname}"
 typesetfiles = {"*.dtx", "*-zh-cn.tex", "*-zh-hk.tex"}
 specialtypesetting = specialtypesetting or {}
 specialtypesetting["litetable-zh-cn.tex"] =
   {cmd = "xelatex --shell-escape -interaction=nonstopmode"}
 specialtypesetting["litetable-zh-hk.tex"] =
   {cmd = "xelatex --shell-escape -interaction=nonstopmode"}
-textfiles    = {"*.md", "LICENSE", "*.lua"}
-excludefiles = {"*~"}
-cleanfiles   = {"*.log", "*.pdf", "*.zip", "*.curlopt"}
-ctanzip      = module
 
 uploadconfig = {
   pkg          = module,
