@@ -9,21 +9,20 @@
              Do Check Before Push
 --]==========================================]--
 
-module       = "litetable"
-version      = "v3.3J 2025-05-27"
-maintainer   = "Mingyu Xia; Lijun Guo"
-uploader     = "Mingyu Xia"
-maintainid   = "myhsia"
-email        = "myhsia@outlook.com"
-repository   = "https://github.com/" .. maintainid .. "/" .. module
-announcement = [[
-Version 3.3J released.
-- Updated `build.lua`
-- Updated `README.md`
-- Added LICENSE
+module        = "litetable"
+version       = "v3.3J 2025-05-27"
+maintainer    = "Mingyu Xia; Lijun Guo"
+uploader      = "Mingyu Xia"
+maintainid    = "myhsia"
+email         = "myhsia@outlook.com"
+repository    = "https://github.com/" .. maintainid .. "/" .. module
+announcement  = [[
+Version 3.4A released.
+- Enhanced: The ratio of the workdays' widths supports f.p. numbers
+- Update the `build.lua` script to support building the project via `latexmk`
 ]]
-summary      = "Class schedules with colorful course blocks"
-description  = [[
+summary       = "Class schedules with colorful course blocks"
+description   = [[
 The litetable package provides a colorful timetable design, developed by expl3 based on TikZ
 ]]
 
@@ -31,17 +30,17 @@ The litetable package provides a colorful timetable design, developed by expl3 b
             Pack and Upload To CTAN
          Don't Modify Unless Necessary
 --]==========================================]--
-ctanzip      = module
-excludefiles = {"*~"}
-exhibitfiles = {"*.md"}
-textfiles    = {"*.md", "LICENSE", "*.lua"}
-typesetcmds  = "\\AtBeginDocument{\\csname DisableImplementation\\endcsname}"
-typesetfiles = {"*.dtx", "*-zh-cn.tex", "*-zh-hk.tex"}
+ctanzip       = module
+excludefiles  = {"*~"}
+textfiles     = {"*.md", "LICENSE", "*.lua"}
+typesetcmds   = [[\\AtBeginDocument\\DisableImplementation]]
+typesetexe    = "latexmk -pdf"
+typesetfiles  = {module .. ".dtx", "*.tex"}
+typesetruns   = 1
+
 specialtypesetting = specialtypesetting or {}
-specialtypesetting["litetable-zh-cn.tex"] =
-  {cmd = "xelatex --shell-escape -interaction=nonstopmode"}
-specialtypesetting["litetable-zh-hk.tex"] =
-  {cmd = "xelatex --shell-escape -interaction=nonstopmode"}
+specialtypesetting["litetable-zh-cn.tex"] = {cmd = "latexmk -xelatex"}
+specialtypesetting["litetable-zh-hk.tex"] = {cmd = "latexmk -xelatex"}
 
 uploadconfig = {
   pkg          = module,
@@ -62,6 +61,18 @@ uploadconfig = {
   update       = true
 }
 
+function docinit_hook()
+  run (typesetdir, [[echo '$makeindex = "makeindex -s gind.ist";' > latexmkrc]])
+  for _,i in ipairs(installfiles) do
+    errorlevel = cp(i, unpackdir, typesetdir)
+  end
+  return 0
+end
+function tex(file,dir,cmd)
+  dir = dir or "."
+  cmd = cmd or typesetexe
+  return run(dir, cmd .. " " .. typesetopts .. " -usepretex='" .. typesetcmds .. "' " .. file)
+end
 function unpack(sources, sourcedirs)
   local errorlevel = dep_install(unpackdeps)
   if errorlevel ~= 0 then

@@ -52,7 +52,7 @@ Overview
 
 The package provides the `\cource` macro
 
-    \course [<keys>] {<start num>} [<keys>] {end-num} [<>]
+    \course [<keys>] {<start num>} [<keys>] {<end-num>} [<keys>]
 
 to add colorful custom course block.
 
@@ -104,12 +104,12 @@ The Current Maintainer of this work is **Mingyu Xia**.
 \AddToHook{env/function/before}{\vspace*{-.7\baselineskip}}
 \AddToHook{env/syntax/after}   {\par\vspace*{.2\baselineskip}}
 \makeatletter
-\def \@key  #1{\textcolor{red}{\texttt{\textbf{#1~=~}}}}
+\def \@key  #1{\textcolor{red}{\textbf{\texttt{#1}}}\:\texttt{=}\:}
 \def \s@key #1{\textcolor{red}{\texttt{\textup{\textbf{#1}}}}}
 \DeclareDocumentCommand \key {} {\@ifstar\s@key\@key}
 \DeclareCommandCopy \val \meta
-\def \TFF {true\textbar \textup{\textbf{false}}}
-\def \TTF {\textup{\textbf{true}}\textbar false}
+\def \TFF {true\textup{\textbar \textbf{false}}}
+\def \TTF {\textup{\textbf{true}\textbar} false}
 \def \HoLogo@ApLaTeX #1{^^A
   \HOLOGO@mbox {A\kern -.05em p\kern -.05em \hologo{LaTeX}}}
 \makeatother
@@ -130,15 +130,17 @@ The Current Maintainer of this work is **Mingyu Xia**.
 % }
 %
 % \author{^^A
-%   Mingyu Xia
-%   \texttt{<\href{mailto:myhsia@outlook.com}{myhsia@outlook.com}>}\thanks{^^A
+%   Mingyu Xia\texttt{<^^A
+%     \href{mailto:myhsia@outlook.com}{myhsia@outlook.com} \textbar\
+%     \href{mailto:xiamingyu@westlake.edu.cn}{xiamingyu@westlake.edu.cn}>^^A
+%   }\thanks{^^A
 %     \href{https://github.com/ljguo1020}{Lijun Guo} developed an interface
-%     to read \meta{left} \texttt{->} \meta{right} data structures,
+%     to parse \meta{left} \texttt{->} \meta{right} data structures,
 %     and make compatibility for lower versions of \hologo{TeX} Live.
 %   }^^A
 % }
 %
-% \date{Released 2025-05-27\quad \texttt{v3.3J}}
+% \date{Released 2025-07-14\quad \texttt{v3.4A}}
 %
 % \maketitle
 %
@@ -273,18 +275,18 @@ The Current Maintainer of this work is **Mingyu Xia**.
 %
 % \begin{verbatim}
 %   \documentclass[svgnames]{article}
-%
+% 
 %   \usepackage{litetable, twemojis}
 %   \usepackage[mono = false]{libertine}
 %   \usepackage[T1]{fontenc}
-%
+% 
 %   \begin{document}
-%
+% 
 %   \weeklist [ format = \bfseries \scshape, sep = \textbar ]
 %     {
-%       \texttwemoji{1f312} Mon -> 1, \texttwemoji{1f525} Tue -> 1,
-%       \texttwemoji{1f30a} Wed -> 1, \texttwemoji{1f332} Thu -> 1,
-%       \texttwemoji{1fa99} Fri -> 1
+%       \texttwemoji{1f312} Mon -> 1.05, \texttwemoji{1f525} Tue -> 1.05,
+%       \texttwemoji{1f30a} Wed -> 1.1,  \texttwemoji{1f332} Thu -> .9,
+%       \texttwemoji{1fa99} Fri -> .9
 %     }
 %   \timelist [ numformat = \ttfamily \bfseries, timeformat = \ttfamily ]
 %     {
@@ -306,15 +308,15 @@ The Current Maintainer of this work is **Mingyu Xia**.
 %               Crimson, comment = Version 3.1.10 ] {3} {5}
 %     \more { Programme Duration: 09 / 2021 -- 07 / 2025 }
 %   \end{litetable}
-%
+% 
 %   \end{document}
 % \end{verbatim}
 %
 % \weeklist [ format = \bfseries \scshape, sep = \textbar ]
 %   {
-%     \texttwemoji{1f312} Mon -> 1, \texttwemoji{1f525} Tue -> 1,
-%     \texttwemoji{1f30a} Wed -> 1, \texttwemoji{1f332} Thu -> 1,
-%     \texttwemoji{1fa99} Fri -> 1
+%     \texttwemoji{1f312} Mon -> 1.05, \texttwemoji{1f525} Tue -> 1.05,
+%     \texttwemoji{1f30a} Wed -> 1.1,  \texttwemoji{1f332} Thu -> .9,
+%     \texttwemoji{1fa99} Fri -> .9
 %   }
 % \timelist [ numformat = \ttfamily \bfseries, timeformat = \ttfamily ]
 %   {
@@ -352,7 +354,7 @@ The Current Maintainer of this work is **Mingyu Xia**.
 %    \end{macrocode}
 %
 %    \begin{macrocode}
-\ProvidesExplPackage {litetable} {2025-05-27} {3.3J} {Colorful Timetable}
+\ProvidesExplPackage {litetable} {2025-07-14} {3.4A} {Colorful Timetable}
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -558,7 +560,7 @@ The Current Maintainer of this work is **Mingyu Xia**.
 % \begin{variable}
 %   {
 %     \l_@@_week_ratio_clist, \l_@@_week_accum_clist,
-%     \l_@@_week_num_int    , \l_@@_week_hunit_dim
+%     \l_@@_week_num_fp     , \l_@@_week_hunit_dim
 %   }
 %   The ratios of every working days, the accumulation of the ratios of every
 %   working days, the sequence number of every working days, the horizontal
@@ -566,7 +568,7 @@ The Current Maintainer of this work is **Mingyu Xia**.
 %    \begin{macrocode}
 \clist_new:N \l_@@_week_ratio_clist
 \clist_new:N \l_@@_week_accum_clist
-\int_new:N \l_@@_week_num_int
+\fp_new:N \l_@@_week_num_fp
 \dim_new:N \l_@@_week_hunit_dim
 %    \end{macrocode}
 % \end{variable}
@@ -590,15 +592,15 @@ The Current Maintainer of this work is **Mingyu Xia**.
               { \clist_item:Nn \l_@@_week_ratio_clist {####1} }
           }
         \clist_put_right:Ne \l_@@_week_accum_clist
-          { \int_eval:n { \clist_use:Nn \l_@@_week_accumtmp_clist { + } } }
+          { \fp_eval:n { \clist_use:Nn \l_@@_week_accumtmp_clist { + } } }
       }
-    \int_set:Nn \l_@@_week_num_int
+    \fp_set:Nn \l_@@_week_num_fp
       {
         \clist_item:Nn \l_@@_week_accum_clist
           { \clist_count:N \l_@@_week_clist }
       }
     \dim_set:Nn \l_@@_week_hunit_dim
-      { \dim_eval:n { 14\paperwidth/\l_@@_week_num_int/15 } }
+      { \fp_eval:n { 14/\l_@@_week_num_fp/15 } \paperwidth }
   }
 %    \end{macrocode}
 % \end{macro}
@@ -697,7 +699,7 @@ The Current Maintainer of this work is **Mingyu Xia**.
                     {(\fp_eval:n
                         {
                           14 * \clist_item:Nn \l_@@_week_accum_clist {##1}/
-                          \l_@@_week_num_int/15 + 1/15
+                          \l_@@_week_num_fp/15 + 1/15
                         } \paperwidth, -2\l_@@_time_vunit_dim
                     )}, darkgray, font = \ttfamily
                   ] at (current~page.north~west) { \l_@@_weeklist_sep_tl };
@@ -710,7 +712,7 @@ The Current Maintainer of this work is **Mingyu Xia**.
                       14(
                         \clist_item:Nn \l_@@_week_accum_clist {##1} -
                         \clist_item:Nn \l_@@_week_ratio_clist {##1}/2
-                        )/\l_@@_week_num_int/15 + 1/15
+                        )/\l_@@_week_num_fp/15 + 1/15
                     } \paperwidth, -2\l_@@_time_vunit_dim
                 )}, font = \large \l_@@_weeklist_format_tl
               ] at (current~page.north~west) { \l_@@_tmpa_tl };

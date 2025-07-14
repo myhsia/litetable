@@ -15,7 +15,7 @@ Overview
 
 The package provides the `\cource` macro
 
-    \course [<keys>] {<start num>} [<keys>] {end-num} [<>]
+    \course [<keys>] {<start num>} [<keys>] {<end-num>} [<keys>]
 
 to add colorful custom course block.
 

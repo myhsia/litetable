@@ -5,12 +5,12 @@
 \AddToHook{env/function/before}{\vspace*{-.7\baselineskip}}
 \AddToHook{env/syntax/after}   {\par\vspace*{.2\baselineskip}}
 \makeatletter
-\def \@key  #1{\textcolor{red}{\textbf{\texttt{#1}}}~\texttt{=}~}
+\def \@key  #1{\textcolor{red}{\textbf{\texttt{#1}}}\:\texttt{=}\:}
 \def \s@key #1{\textcolor{red}{\textbf{\texttt{#1}}}}
 \DeclareRobustCommand \key {\@ifstar\s@key\@key}
 \def \val #1{\meta{\textup{#1}}}
-\def \TFF {true\textbar \textbf{false}}
-\def \TTF {\textbf{true}\textbar false}
+\def \TFF {true\textup{\textbar \textbf{false}}}
+\def \TTF {\textup{\textbf{true}\textbar} false}
 \def \HoLogo@ApLaTeX #1{%
   \HOLOGO@mbox {A\kern -.05em p\kern -.05em \hologo{LaTeX}}}
 \makeatother
@@ -24,14 +24,16 @@
   }
 }
 \author{%
-  夏明宇
-  \texttt{<\href{mailto:myhsia@outlook.com}{myhsia@outlook.com}>}\thanks{%
+  夏明宇\texttt{<%
+    \href{mailto:myhsia@outlook.com}{myhsia@outlook.com} \textbar\
+    \href{mailto:xiamingyu@westlake.edu.cn}{xiamingyu@westlake.edu.cn}>%
+  }\thanks{%
     \href{https://github.com/ljguo1020}{郭李軍}%
-    開發了讀取 \meta{left} \texttt{->} \meta{right} 型數據結構的接口，
+    開發了解析 \meta{left} \texttt{->} \meta{right} 型數據結構的接口，
     并为低版本 \hologo{TeX} Live 做兼容.
-  }
+  }%
 }
-\date{Released 2025-05-24\quad \texttt{v3.3J}}
+\date{Released 2025-07-14\quad \texttt{v3.4A}}
 
 \begin{document}
 
@@ -177,9 +179,9 @@
 
   \weeklist [ format = \bfseries \scshape, sep = \textbar ]
     {
-      \texttwemoji{1f312} Mon -> 1, \texttwemoji{1f525} Tue -> 1,
-      \texttwemoji{1f30a} Wed -> 1, \texttwemoji{1f332} Thu -> 1,
-      \texttwemoji{1fa99} Fri -> 1
+      \texttwemoji{1f312} Mon -> 1.05, \texttwemoji{1f525} Tue -> 1.05,
+      \texttwemoji{1f30a} Wed -> 1.1,  \texttwemoji{1f332} Thu -> .9,
+      \texttwemoji{1fa99} Fri -> .9
     }
   \timelist [ numformat = \ttfamily \bfseries, timeformat = \ttfamily ]
     {
@@ -207,9 +209,9 @@
 
 \weeklist [ format = \bfseries \scshape, sep = \textbar ]
   {
-    \texttwemoji{1f312} Mon -> 1, \texttwemoji{1f525} Tue -> 1,
-    \texttwemoji{1f30a} Wed -> 1, \texttwemoji{1f332} Thu -> 1,
-    \texttwemoji{1fa99} Fri -> 1
+    \texttwemoji{1f312} Mon -> 1.05, \texttwemoji{1f525} Tue -> 1.05,
+    \texttwemoji{1f30a} Wed -> 1.1,  \texttwemoji{1f332} Thu -> .9,
+    \texttwemoji{1fa99} Fri -> .9
   }
 \timelist [ numformat = \ttfamily \bfseries, timeformat = \ttfamily ]
   {
