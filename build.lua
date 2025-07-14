@@ -10,7 +10,7 @@
 --]==========================================]--
 
 module        = "litetable"
-version       = "v3.3J 2025-05-27"
+version       = "v3.4A 2025-07-14"
 maintainer    = "Mingyu Xia; Lijun Guo"
 uploader      = "Mingyu Xia"
 maintainid    = "myhsia"
