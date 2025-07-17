@@ -18,9 +18,9 @@ jobs:
         uses: zauguin/install-texlive@v4
         with:
           package_file: .github/tl_packages
-      # - name: Run l3build and Upload to CTAN
-      #   run: |
-      #     l3build ctan
+      - name: Run l3build and Upload to CTAN
+        run: |
+          l3build ctan
       #     yes y | l3build upload
       - name: Read version from build.lua
         run: |
