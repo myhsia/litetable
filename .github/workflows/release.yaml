@@ -18,10 +18,10 @@ jobs:
         uses: zauguin/install-texlive@v4
         with:
           package_file: .github/tl_packages
-      - name: Run l3build and Upload to CTAN
-        run: |
-          l3build ctan
-          yes y | l3build upload
+      # - name: Run l3build and Upload to CTAN
+      #   run: |
+      #     l3build ctan
+      #     yes y | l3build upload
       - name: Read version from build.lua
         run: |
           MODULE=${GITHUB_REPOSITORY##*/}
@@ -30,7 +30,7 @@ jobs:
           echo "MODULE=$MODULE" >> $GITHUB_ENV
           echo "VERSION=$VERSION" >> $GITHUB_ENV
           echo "DATE=$DATE" >> $GITHUB_ENV
-          perl -0777 -ne 'print $1 if /announcement\s*=\s*\[\[([\s\S]*?)\]\]/' build.lua > ANNOUNCEMENT
+          perl -0777 -ne 'print $1 if /announcement\s*=\s*\[\[(.*?)]]/s' build.lua > ANNOUNCEMENT
       - name: Create date tag
         run: |
           TAG_NAME="${{ env.DATE }}"
