@@ -30,7 +30,7 @@ jobs:
           echo "MODULE=$MODULE" >> $GITHUB_ENV
           echo "VERSION=$VERSION" >> $GITHUB_ENV
           echo "DATE=$DATE" >> $GITHUB_ENV
-          perl -0777 -ne 'print $1 if /announcement\s*=\s*\[\[(.*?)]]/s' build.lua > ANNOUNCEMENT
+          perl -0777 -ne 'print $1 if /announcement\s*=\s*\[\[(.*?)\]\]/s' build.lua > ANNOUNCEMENT
       - name: Create date tag
         run: |
           TAG_NAME="${{ env.DATE }}"
