@@ -1,8 +1,8 @@
 [![CTAN Version](https://img.shields.io/ctan/v/litetable)](https://ctan.org/pkg/litetable)
 [![GitHub Release](https://img.shields.io/github/v/release/myhsia/litetable)](https://github.com/myhsia/litetable/releases/latest)
+[![GitHub Last Commit](https://img.shields.io/github/last-commit/myhsia/litetable)](https://github.com/myhsia/litetable/commits)
 [![Actions Status](https://github.com/myhsia/litetable/actions/workflows/main.yaml/badge.svg?branch=main)](https://github.com/myhsia/litetable/actions)
 [![GitHub Repo stars](https://img.shields.io/github/stars/myhsia/litetable)](https://github.com/myhsia/litetable)
-[![GitHub Last Commit](https://img.shields.io/github/last-commit/myhsia/litetable)](https://github.com/myhsia/litetable/commits)
 
 The `litetable` Package
 =======================

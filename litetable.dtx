@@ -37,9 +37,9 @@
 %<*readme>
 [![CTAN Version](https://img.shields.io/ctan/v/litetable)](https://ctan.org/pkg/litetable)
 [![GitHub Release](https://img.shields.io/github/v/release/myhsia/litetable)](https://github.com/myhsia/litetable/releases/latest)
+[![GitHub Last Commit](https://img.shields.io/github/last-commit/myhsia/litetable)](https://github.com/myhsia/litetable/commits)
 [![Actions Status](https://github.com/myhsia/litetable/actions/workflows/main.yaml/badge.svg?branch=main)](https://github.com/myhsia/litetable/actions)
 [![GitHub Repo stars](https://img.shields.io/github/stars/myhsia/litetable)](https://github.com/myhsia/litetable)
-[![GitHub Last Commit](https://img.shields.io/github/last-commit/myhsia/litetable)](https://github.com/myhsia/litetable/commits)
 
 The `litetable` Package
 =======================
@@ -106,7 +106,7 @@ The Current Maintainer of this work is **Mingyu Xia**.
 \makeatletter
 \def \@key  #1{\textcolor{red}{\textbf{\texttt{#1}}}\:\texttt{=}\:}
 \def \s@key #1{\textcolor{red}{\texttt{\textup{\textbf{#1}}}}}
-\DeclareDocumentCommand \key {} {\@ifstar\s@key\@key}
+\DeclareDocumentCommand \key s {\IfBooleanTF{#1}\s@key\@key}
 \DeclareCommandCopy \val \meta
 \def \TFF {true\textup{\textbar \textbf{false}}}
 \def \TTF {\textup{\textbf{true}\textbar} false}
@@ -137,11 +137,11 @@ The Current Maintainer of this work is **Mingyu Xia**.
 %   }\thanks{^^A
 %     \href{https://github.com/ljguo1020}{Lijun Guo} developed an interface
 %     to parse \meta{left} \texttt{->} \meta{right} data structures,
-%     and make compatibility for lower versions of \hologo{TeX} Live.
+%     and make compatibility for lower versions of \hologo{TeX} Live.^^A
 %   }^^A
 % }
 %
-% \date{Released 2025-07-17\quad \texttt{v3.4C}}
+% \date{Released 2025-07-19\quad \texttt{v3.4D}}
 %
 % \maketitle
 %
@@ -355,7 +355,8 @@ The Current Maintainer of this work is **Mingyu Xia**.
 %    \end{macrocode}
 %
 %    \begin{macrocode}
-\ProvidesExplPackage {litetable} {2025-07-17} {v3.4C} {A Colorful Timetable Design}
+\ProvidesExplPackage {litetable} {2025-07-19} {v3.4D}
+  {A Colorful Timetable Design}
 %    \end{macrocode}
 %
 %    \begin{macrocode}

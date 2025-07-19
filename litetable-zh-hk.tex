@@ -7,8 +7,8 @@
 \makeatletter
 \def \@key  #1{\textcolor{red}{\textbf{\texttt{#1}}}\:\texttt{=}\:}
 \def \s@key #1{\textcolor{red}{\textbf{\texttt{#1}}}}
-\DeclareRobustCommand \key {\@ifstar\s@key\@key}
-\def \val #1{\meta{\textup{#1}}}
+\DeclareDocumentCommand \key s {\IfBooleanTF{#1}\s@key\@key}
+\DeclareCommandCopy \val \meta
 \def \TFF {true\textup{\textbar \textbf{false}}}
 \def \TTF {\textup{\textbf{true}\textbar} false}
 \def \HoLogo@ApLaTeX #1{%
@@ -31,10 +31,10 @@
   }\thanks{%
     \href{https://github.com/ljguo1020}{郭李軍}%
     開發了解析 \meta{left} \texttt{->} \meta{right} 型數據結構的接口，
-    并为低版本 \hologo{TeX} Live 做兼容.
+    并为低版本 \hologo{TeX} Live 做兼容.%
   }%
 }
-\date{Released 2025-07-17\quad \texttt{v3.4C}}
+\date{Released 2025-07-19\quad \texttt{v3.4D}}
 
 \begin{document}
 

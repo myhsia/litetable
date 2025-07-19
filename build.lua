@@ -10,15 +10,17 @@
 --]==========================================]--
 
 module        = "litetable"
-version       = "v3.4C"
-date          = "2025-07-17"
+version       = "v3.4D"
+date          = "2025-07-19"
 maintainer    = "Mingyu Xia; Lijun Guo"
 uploader      = "Mingyu Xia"
 maintainid    = "myhsia"
 email         = "myhsia@outlook.com"
 repository    = "https://github.com/" .. maintainid .. "/" .. module
-announcement  = [[Version 3.4C released.
-- Enhanced the performance of `build.lua`.]]
+announcement  = [[Version 3.4D released.
+- Optimized `build.lua` script
+- Updated the manual
+- Updated `README.md`]]
 summary       = "A Colorful Timetable Design"
 description   = "The litetable package provides a colorful timetable design, developed by expl3 based on TikZ"
 
@@ -35,6 +37,7 @@ textfiles     = {"*.md", "LICENSE", "*.lua"}
 typesetcmds   = "\\AtBeginDocument\\DisableImplementation"
 typesetexe    = "latexmk -pdf"
 typesetfiles  = {"*.dtx", "*.tex"}
+typesetruns   = 1
 specialtypesetting = specialtypesetting or {}
 specialtypesetting["litetable-zh-cn.tex"] = {cmd = "latexmk -xelatex"}
 specialtypesetting["litetable-zh-hk.tex"] = {cmd = "latexmk -xelatex"}
@@ -61,8 +64,8 @@ function update_tag(file, content, tagname, tagdate)
   tagdate = date
   if string.match(file, "%.dtx$") or string.match(file, "%.tex$") then
     content = string.gsub(content,
-      "\\ProvidesExplPackage {" .. module .. "} %{[^}]+%} %{[^}]+%} %{[^}]+%}",
-      "\\ProvidesExplPackage {" .. module .. "} {" .. tagdate .. "} {" .. tagname .. "} {" .. summary .. "}")
+      "\\ProvidesExplPackage {" .. module .. "} %{[^}]+%} %{[^}]+%}[\r\n%s]*%{[^}]+%}",
+      "\\ProvidesExplPackage {" .. module .. "} {" .. tagdate .. "} {" .. tagname .. "}\n  {" .. summary .. "}")
     content = string.gsub(content,
       "\\date{Released %d+%-%d+%-%d+\\quad \\texttt{v([%d%.A-Z]+)}}",
       "\\date{Released " .. tagdate .. "\\quad \\texttt{" .. tagname .. "}}")
@@ -74,17 +77,20 @@ end
 
 function docinit_hook()
   cp("*.md", unpackdir, currentdir)
-  for _,i in ipairs(installfiles) do
-    errorlevel = cp(i, unpackdir, typesetdir)
-  end
   return 0
 end
 function tex(file,dir,cmd)
   dir = dir or "."
   cmd = cmd or typesetexe
-  if os_type == "windows" then
-    return run(dir, cmd .. " -usepretex=\"" .. typesetcmds .. "' -e '$makeindex = q/makeindex -s " .. indexstyle .. " %O %S/\" " .. file)
+  if os.getenv("WINDIR") ~= nil or os.getenv("COMSPEC") ~= nil then
+    upretex_aux = "-usepretex=\"" .. typesetcmds .. "\""
+    makeidx_aux = "-e \"$makeindex=q/makeindex -s " .. indexstyle .. " %O %S/\""
+    sandbox_aux = "set \"TEXINPUTS=../unpacked;%TEXINPUTS%;\" &&"
   else
-    return run(dir, cmd .. " -usepretex='" .. typesetcmds .. "' -e '$makeindex = q/makeindex -s " .. indexstyle .. " %O %S/' " .. file)
+    upretex_aux = "-usepretex=\'" .. typesetcmds .. "\'"
+    makeidx_aux = "-e \'$makeindex=q/makeindex -s " .. indexstyle .. " %O %S/\'"
+    sandbox_aux = "TEXINPUTS=\"../unpacked:$(kpsewhich -var-value=TEXINPUTS):\""
   end
+  return run(dir, sandbox_aux .. " " .. cmd         .. " " ..
+                  upretex_aux .. " " .. makeidx_aux .. " " .. file)
 end
