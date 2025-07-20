@@ -1,7 +1,7 @@
 \documentclass[svgnames]{l3doc}
-\usepackage{litetable, twemojis}
+\usepackage{pdfpages, twemojis}
 \usepackage[mono = false]{libertine}
-\usepackage[fontset = fandol, linespread = 1.2, autoindent = 0pt]{ctex}
+\usepackage[fontset = fandol, linespread = 1.25, autoindent = 0pt]{ctex}
 \AddToHook{env/function/before}{\vspace*{-.7\baselineskip}}
 \AddToHook{env/syntax/after}   {\par\vspace*{.2\baselineskip}}
 \makeatletter
@@ -20,8 +20,8 @@
 \title{%
   \bfseries \cls{litetable} 宏包 --- 多彩的課程表\thanks{%
     \url{https://github.com/myhsia/litetable},
-    \url{https://ctan.org/pkg/litetable}
-  }
+    \url{https://ctan.org/pkg/litetable}%
+  }%
 }
 \author{%
   夏明宇 \texttt{<%
@@ -30,11 +30,10 @@
     {xiamingyu@westlake.edu.cn}>%
   }\thanks{%
     \href{https://github.com/ljguo1020}{郭李軍}%
-    開發了解析 \meta{left} \texttt{->} \meta{right} 型數據結構的接口，
-    并为低版本 \hologo{TeX} Live 做兼容.%
+    開發了解析 \meta{left} \texttt{->} \meta{right} 型數據結構的接口.%
   }%
 }
-\date{Released 2025-07-19\quad \texttt{v3.4D}}
+\date{Released 2025-07-20\quad \texttt{v3.5A}}
 
 \begin{document}
 
@@ -169,73 +168,20 @@
 
 \section{工作範例} \label{mwe}
 
-\begin{verbatim}
-  \documentclass[svgnames]{article}
+\verbatiminput{litetable-demo.tex}
 
-  \usepackage{litetable, twemojis}
-  \usepackage[mono = false]{libertine}
-  \usepackage[T1]{fontenc}
-
-  \begin{document}
-
-  \weeklist [ format = \bfseries \scshape, sep = \textbar ]
-    {
-      \texttwemoji{1f312} Mon -> 1.05, \texttwemoji{1f525} Tue -> 1.05,
-      \texttwemoji{1f30a} Wed -> 1.1,  \texttwemoji{1f332} Thu -> .9,
-      \texttwemoji{1fa99} Fri -> .9
-    }
-  \timelist [ numformat = \ttfamily \bfseries, timeformat = \ttfamily ]
-    {
-      08:05 -> 08:50, 08:55 -> 09:40, 10:00 -> 10:45, 10:50 -> 11:35,
-      11:40 -> 12:25, 13:30 -> 14:15, 14:20 -> 15:05, 15:15 -> 16:00,
-      16:05 -> 16:50, 18:30 -> 19:15, 19:20 -> 20:05, 20:10 -> 20:55
-    }
-  \begin{litetable} [ DarkBlue, sem = SEM 7, hline = dashed ]
-    { Course Schedule }
-    \course [ subject = interface3, comment = \TeX\ Live 2025,
-              lecture = The \LaTeX\ Project, DarkBlue ] {4} {5}
-    \newday
-    \course [ subject = expl3, lecture = The \LaTeX\ Project ] {8} {8}
-    \newday
-    \course [ subject = Keep on \TeX ing, lecture = Donald E. Knuth,
-              location = Stanford University, Purple ] {10} {11}
-    \newday
-    \course [ subject = Ti\textit k\/Z, lecture = \textsc{pgf},
-              Crimson, comment = Version 3.1.10 ] {3} {5}
-    \more { Programme Duration: 09 / 2021 -- 07 / 2025 }
-  \end{litetable}
-
-  \end{document}
-\end{verbatim}
-
-\weeklist [ format = \bfseries \scshape, sep = \textbar ]
-  {
-    \texttwemoji{1f312} Mon -> 1.05, \texttwemoji{1f525} Tue -> 1.05,
-    \texttwemoji{1f30a} Wed -> 1.1,  \texttwemoji{1f332} Thu -> .9,
-    \texttwemoji{1fa99} Fri -> .9
-  }
-\timelist [ numformat = \ttfamily \bfseries, timeformat = \ttfamily ]
-  {
-    08:05 -> 08:50, 08:55 -> 09:40, 10:00 -> 10:45, 10:50 -> 11:35,
-    11:40 -> 12:25, 13:30 -> 14:15, 14:20 -> 15:05, 15:15 -> 16:00,
-    16:05 -> 16:50, 18:30 -> 19:15, 19:20 -> 20:05, 20:10 -> 20:55
-  }
-\begin{litetable} [ DarkBlue, sem = SEM 7, hline = dashed ]
-  {Course Schedule}
-  \course [ subject = interface3, comment = \TeX\ Live 2025,
-            lecture = The \LaTeX\ Project, DarkBlue ] {4} {5}
-  \newday
-  \course [ subject = expl3, lecture = The \LaTeX\ Project ] {8} {8}
-  \newday
-  \course [ subject = Keep on \TeX ing, lecture = Donald E. Knuth,
-            location = Stanford University, Purple ] {10} {11}
-  \newday
-  \course [ subject = Ti\textit k\/Z, lecture = \textsc{pgf},
-            Crimson, comment = Version 3.1.10 ] {3} {5}
-  \more { Programme Duration: 09 / 2021 -- 07 / 2025 }
-\end{litetable}
+\includepdf{litetable-demo.pdf}
 
 \end{documentation}
+
+\IndexPrologue{%
+  \part*{索引}
+  \markboth{索引}{索引}
+  \addcontentsline{toc}{part}{索引}
+  意大利體的數字表示描述對應索引項的頁碼；
+  帶下劃綫的數字表示定義對應索引項的代碼行號；
+  羅馬字體的數字表示使用對應索引項的代碼行號.
+}
 
 \PrintIndex
 

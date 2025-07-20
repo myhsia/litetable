@@ -9,36 +9,40 @@
              Do Check Before Push
 --]==========================================]--
 
-module        = "litetable"
-version       = "v3.4D"
-date          = "2025-07-19"
-maintainer    = "Mingyu Xia; Lijun Guo"
-uploader      = "Mingyu Xia"
-maintainid    = "myhsia"
-email         = "myhsia@outlook.com"
-repository    = "https://github.com/" .. maintainid .. "/" .. module
-announcement  = [[Version 3.4D released.
+module              = "litetable"
+version             = "v3.5A"
+date                = "2025-07-20"
+maintainer          = "Mingyu Xia; Lijun Guo"
+uploader            = "Mingyu Xia"
+maintainid          = "myhsia"
+email               = "myhsia@outlook.com"
+repository          = "https://github.com/" .. maintainid .. "/" .. module
+announcement        = [[Version 3.5A released.
 - Optimized `build.lua` script
 - Updated the manual
-- Updated `README.md`]]
-summary       = "A Colorful Timetable Design"
-description   = "The litetable package provides a colorful timetable design, developed by expl3 based on TikZ"
+- Fixed typo in `README.md`
+- Restored the demo file
+- Removed support for low-version LaTeX distributions]]
+summary             = "A Colorful Timetable Design"
+description         = "The litetable package provides a colorful timetable design, developed by expl3 based on TikZ"
 
 --[==========================================[--
           Build, Pack, Tag, and Upload
          Do not Modify Unless Necessary
 --]==========================================]--
 
-ctanzip       = module
-cleanfiles    = {"*log", "*.pdf", "*.zip", "*.curlopt"}
-excludefiles  = {"*~"}
-tagfiles      = {"*.dtx", "*.tex"}
-textfiles     = {"*.md", "LICENSE", "*.lua"}
-typesetcmds   = "\\AtBeginDocument\\DisableImplementation"
-typesetexe    = "latexmk -pdf"
-typesetfiles  = {"*.dtx", "*.tex"}
-typesetruns   = 1
-specialtypesetting = specialtypesetting or {}
+ctanzip             = module
+cleanfiles          = {"*log", "*.pdf", "*.zip", "*.curlopt"}
+excludefiles        = {"*~"}
+tagfiles            = {"*.dtx", "*.tex"}
+textfiles           = {"*.md", "LICENSE", "*.lua"}
+typesetcmds         = "\\AtBeginDocument{\\ifdefined\\DisableImplementation" ..
+                      "\\DisableImplementation\\fi}"
+typesetdemofiles    = {module .. "-demo.tex"}
+typesetexe          = "latexmk -pdf"
+typesetfiles        = {"*.dtx", module .. "-zh-cn.tex", module .. "-zh-hk.tex"}
+typesetruns         = 1
+specialtypesetting  = specialtypesetting or {}
 specialtypesetting["litetable-zh-cn.tex"] = {cmd = "latexmk -xelatex"}
 specialtypesetting["litetable-zh-hk.tex"] = {cmd = "latexmk -xelatex"}
 uploadconfig  = {
@@ -76,7 +80,7 @@ end
 --[== "Hacks" to `l3build` | Do not Modify ==]--
 
 function docinit_hook()
-  cp("*.md", unpackdir, currentdir)
+  cp(ctanreadme, unpackdir, currentdir)
   return 0
 end
 function tex(file,dir,cmd)

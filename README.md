@@ -13,7 +13,7 @@ of timetable.
 Overview
 --------
 
-The package provides the `\cource` macro
+The package provides the `\course` macro
 
     \course [<keys>] {<start num>} [<keys>] {<end-num>} [<keys>]
 

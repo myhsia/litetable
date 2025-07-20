@@ -50,7 +50,7 @@ of timetable.
 Overview
 --------
 
-The package provides the `\cource` macro
+The package provides the `\course` macro
 
     \course [<keys>] {<start num>} [<keys>] {<end-num>} [<keys>]
 
@@ -99,7 +99,7 @@ The Current Maintainer of this work is **Mingyu Xia**.
 %
 %<*driver>
 \documentclass[svgnames]{l3doc}
-\usepackage{litetable, twemojis}
+\usepackage{pdfpages, twemojis}
 \usepackage[mono = false]{libertine}
 \AddToHook{env/function/before}{\vspace*{-.7\baselineskip}}
 \AddToHook{env/syntax/after}   {\par\vspace*{.2\baselineskip}}
@@ -136,12 +136,11 @@ The Current Maintainer of this work is **Mingyu Xia**.
 %     {xiamingyu@westlake.edu.cn}>^^A
 %   }\thanks{^^A
 %     \href{https://github.com/ljguo1020}{Lijun Guo} developed an interface
-%     to parse \meta{left} \texttt{->} \meta{right} data structures,
-%     and make compatibility for lower versions of \hologo{TeX} Live.^^A
+%     to parse \meta{left} \texttt{->} \meta{right} data structures.^^A
 %   }^^A
 % }
 %
-% \date{Released 2025-07-19\quad \texttt{v3.4D}}
+% \date{Released 2025-07-20\quad \texttt{v3.5A}}
 %
 % \maketitle
 %
@@ -274,71 +273,9 @@ The Current Maintainer of this work is **Mingyu Xia**.
 %
 % \section{Working Example} \label{mwe}
 %
-% \begin{verbatim}
-%   \documentclass[svgnames]{article}
-% 
-%   \usepackage{litetable, twemojis}
-%   \usepackage[mono = false]{libertine}
-%   \usepackage[T1]{fontenc}
-% 
-%   \begin{document}
-% 
-%   \weeklist [ format = \bfseries \scshape, sep = \textbar ]
-%     {
-%       \texttwemoji{1f312} Mon -> 1.05, \texttwemoji{1f525} Tue -> 1.05,
-%       \texttwemoji{1f30a} Wed -> 1.1,  \texttwemoji{1f332} Thu -> .9,
-%       \texttwemoji{1fa99} Fri -> .9
-%     }
-%   \timelist [ numformat = \ttfamily \bfseries, timeformat = \ttfamily ]
-%     {
-%       08:05 -> 08:50, 08:55 -> 09:40, 10:00 -> 10:45, 10:50 -> 11:35,
-%       11:40 -> 12:25, 13:30 -> 14:15, 14:20 -> 15:05, 15:15 -> 16:00,
-%       16:05 -> 16:50, 18:30 -> 19:15, 19:20 -> 20:05, 20:10 -> 20:55
-%     }
-%   \begin{litetable} [ DarkBlue, sem = SEM 7, hline = dashed ]
-%     { Course Schedule }
-%     \course [ subject = interface3, comment = \TeX\ Live 2025,
-%               lecture = The \LaTeX\ Project, DarkBlue ] {4} {5}
-%     \newday
-%     \course [ subject = expl3, lecture = The \LaTeX\ Project ] {8} {8}
-%     \newday
-%     \course [ subject = Keep on \TeX ing, lecture = Donald E. Knuth,
-%               location = Stanford University, Purple ] {10} {11}
-%     \newday
-%     \course [ subject = Ti\textit k\/Z, lecture = \textsc{pgf},
-%               Crimson, comment = Version 3.1.10 ] {3} {5}
-%     \more { Programme Duration: 09 / 2021 -- 07 / 2025 }
-%   \end{litetable}
-% 
-%   \end{document}
-% \end{verbatim}
+% \verbatiminput{litetable-demo.tex}
 %
-% \weeklist [ format = \bfseries \scshape, sep = \textbar ]
-%   {
-%     \texttwemoji{1f312} Mon -> 1.05, \texttwemoji{1f525} Tue -> 1.05,
-%     \texttwemoji{1f30a} Wed -> 1.1,  \texttwemoji{1f332} Thu -> .9,
-%     \texttwemoji{1fa99} Fri -> .9
-%   }
-% \timelist [ numformat = \ttfamily \bfseries, timeformat = \ttfamily ]
-%   {
-%     08:05 -> 08:50, 08:55 -> 09:40, 10:00 -> 10:45, 10:50 -> 11:35,
-%     11:40 -> 12:25, 13:30 -> 14:15, 14:20 -> 15:05, 15:15 -> 16:00,
-%     16:05 -> 16:50, 18:30 -> 19:15, 19:20 -> 20:05, 20:10 -> 20:55
-%   }
-% \begin{litetable} [ DarkBlue, sem = SEM 7, hline = dashed ]
-%   {Course Schedule}
-%   \course [ subject = interface3, comment = \TeX\ Live 2025,
-%             lecture = The \LaTeX\ Project, DarkBlue ] {4} {5}
-%   \newday
-%   \course [ subject = expl3, lecture = The \LaTeX\ Project ] {8} {8}
-%   \newday
-%   \course [ subject = Keep on \TeX ing, lecture = Donald E. Knuth,
-%             location = Stanford University, Purple ] {10} {11}
-%   \newday
-%   \course [ subject = Ti\textit k\/Z, lecture = \textsc{pgf},
-%             Crimson, comment = Version 3.1.10 ] {3} {5}
-%   \more { Programme Duration: 09 / 2021 -- 07 / 2025 }
-% \end{litetable}
+% \includepdf{litetable-demo.pdf}
 %
 % \end{documentation}
 %
@@ -355,7 +292,7 @@ The Current Maintainer of this work is **Mingyu Xia**.
 %    \end{macrocode}
 %
 %    \begin{macrocode}
-\ProvidesExplPackage {litetable} {2025-07-19} {v3.4D}
+\ProvidesExplPackage {litetable} {2025-07-20} {v3.5A}
   {A Colorful Timetable Design}
 %    \end{macrocode}
 %
@@ -370,20 +307,6 @@ The Current Maintainer of this work is **Mingyu Xia**.
   { \msg_warning:nn { litetable } {#1} }
 \@@_msg_new:nn { course }
   { \exp_not:N \course ~ box(s) ~ exceed ~ workdays ~ were ~ ignored }
-%    \end{macrocode}
-%   Compatibility for \hologo{TeX} Live 2019 and later
-%   (by \href{https://github.com/ljguo1020}{Lijun Guo})
-%    \begin{macrocode}
-\cs_if_exist:NF \clist_put_right:Ne
-  { \cs_generate_variant:Nn \clist_put_right:Nn { Ne } }
-\cs_if_exist:NF \exp_args:NNNe
-  {
-    \cs_new:Npn \exp_args:NNNe #1#2#3#4
-      {
-        \exp_after:wN #1 \exp_after:wN #2 \exp_after:wN #3
-        \tex_expanded:D { {#4} }
-      }
-  }
 %    \end{macrocode}
 % \begin{macro}
 %   {
