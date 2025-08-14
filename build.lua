@@ -10,14 +10,14 @@
 --]==========================================]--
 
 module              = "litetable"
-version             = "v3.5A"
+version             = "v3.6A"
 date                = "2025-08-14"
 maintainer          = "Mingyu Xia; Lijun Guo"
 uploader            = "Mingyu Xia"
 maintainid          = "myhsia"
 email               = "myhsia@outlook.com"
 repository          = "https://github.com/" .. maintainid .. "/" .. module
-announcement        = [[Version 3.5A released.
+announcement        = [[Version 3.6A released.
 - Optimized the `litetable` environment.
 - Updated the preamble of the docs.]]
 summary             = "A Colorful Timetable Design"
