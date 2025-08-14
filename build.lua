@@ -11,18 +11,15 @@
 
 module              = "litetable"
 version             = "v3.5A"
-date                = "2025-07-20"
+date                = "2025-08-14"
 maintainer          = "Mingyu Xia; Lijun Guo"
 uploader            = "Mingyu Xia"
 maintainid          = "myhsia"
 email               = "myhsia@outlook.com"
 repository          = "https://github.com/" .. maintainid .. "/" .. module
 announcement        = [[Version 3.5A released.
-- Optimized `build.lua` script
-- Updated the manual
-- Fixed typo in `README.md`
-- Restored the demo file
-- Removed support for low-version LaTeX distributions]]
+- Optimized the `litetable` environment.
+- Updated the preamble of the docs.]]
 summary             = "A Colorful Timetable Design"
 description         = "The litetable package provides a colorful timetable design, developed by expl3 based on TikZ"
 

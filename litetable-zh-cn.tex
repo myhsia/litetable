@@ -2,38 +2,45 @@
 \usepackage{pdfpages, twemojis}
 \usepackage[mono = false]{libertine}
 \usepackage[fontset = fandol, linespread = 1.25, autoindent = 0pt]{ctex}
-\AddToHook{env/function/before}{\vspace*{-.7\baselineskip}}
-\AddToHook{env/syntax/after}   {\par\vspace*{.2\baselineskip}}
-\makeatletter
-\def \@key  #1{\textcolor{red}{\textbf{\texttt{#1}}}\:\texttt{=}\:}
-\def \s@key #1{\textcolor{red}{\textbf{\texttt{#1}}}}
-\DeclareDocumentCommand \key s {\IfBooleanTF{#1}\s@key\@key}
+\AddToHook{env/function/before}{\vspace*{-.5\baselineskip}}
+\ExplSyntaxOn \makeatletter
+\DeclareDocumentCommand \key { s m }
+  {
+    \IfBooleanTF {#1} { \textcolor{red}{\bfseries #2} }
+      {
+        \ttfamily
+        \seq_set_from_clist:Nn \l_tmpa_seq {#2}
+        \seq_set_map:NNn \l_tmpb_seq \l_tmpa_seq
+          { \exp_not:n { \textcolor{red}{\bfseries ##1} } }
+        \seq_use:Nn \l_tmpb_seq { ,~ } \:=\:
+      }
+  }
 \DeclareCommandCopy \val \meta
-\def \TFF {true\textup{\textbar \textbf{false}}}
-\def \TTF {\textup{\textbf{true}\textbar} false}
-\def \HoLogo@ApLaTeX #1{%
+\def \TFF {true\textup{\textbar\underline{\textbf{false}}}}
+\def \TTF {\textup{\underline{\textbf{true}}\textbar}false}
+\def \HoLogo@ApLaTeX #1{
   \HOLOGO@mbox {A\kern -.05em p\kern -.05em \hologo{LaTeX}}}
-\makeatother
+\makeatother \ExplSyntaxOff
 \newlist{keyval}{itemize}{10}
 \setlist[keyval]{leftmargin = 0pt, labelsep = 0pt}
 \makeindex
-\title{%
-  \bfseries \cls{litetable} 宏包 --- 多彩的课程表\thanks{%
+\title{^^A
+  \bfseries \cls{litetable} 宏包 --- 多彩的课程表\thanks{^^A
     \url{https://github.com/myhsia/litetable},
-    \url{https://ctan.org/pkg/litetable}%
-  }%
+    \url{https://ctan.org/pkg/litetable}^^A
+  }^^A
 }
-\author{%
-  夏明宇 \texttt{<%
-    \href{mailto:myhsia@outlook.com}{myhsia@outlook.com}%
-    \texorpdfstring{\:\textbar\:}{, }%\href{mailto:xiamingyu@westlake.edu.cn}
-    {xiamingyu@westlake.edu.cn}>%
-  }\thanks{%
-    \href{https://github.com/ljguo1020}{郭李军}%
-    开发了解析 \meta{left} \texttt{->} \meta{right} 型数据结构的接口.%
-  }%
+\author{^^A
+  夏明宇 \texttt{<^^A
+    \href{mailto:myhsia@outlook.com}{myhsia@outlook.com}^^A
+    \texorpdfstring{\:\textbar\:}{, }
+    \href{mailto:xiamingyu@westlake.edu.cn}{xiamingyu@westlake.edu.cn}>^^A
+  }\thanks{^^A
+    \href{https://github.com/ljguo1020}{郭李军}^^A
+    开发了解析 \meta{left} \texttt{->} \meta{right} 型数据结构的接口.^^A
+  }^^A
 }
-\date{Released 2025-07-20\quad \texttt{v3.5A}}
+\date{Released 2025-08-14\quad \texttt{v3.5A}}
 
 \begin{document}
 
@@ -44,7 +51,8 @@
 \section{介绍}
 
 \pkg{litetable} 宏包提供了一个多彩的课程表设计，
-基于 \pkg{tikz} 由 \pkg{expl3} 开发.
+基于 Ti\textit k\/Z
+由 \pkg{expl3} 开发.
 支持 \hologo{pdfLaTeX}，\hologo{XeLaTeX}，\hologo{ApLaTeX} 和
 \hologo{LuaLaTeX} 等多种编译方式. 点击跳转
 \href{http://mirrors.ctan.org/macros/latex/contrib/litetable/litetable.pdf}{[\textsf{English}]}
