@@ -21,7 +21,7 @@ jobs:
       - name: tag
         run: |
           l3build tag
-          git remote set-url origin ${{ secrets.ssh }}
+          git remote set-url origin https://<token>@github.com/myhsia/litetable.git
           git status
           git add .
           git commit -m "Automatic tagging by l3build"
