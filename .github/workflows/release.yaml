@@ -25,8 +25,8 @@ jobs:
           git status
           git add .
           git commit -m "Automatic tagging by l3build"
-          git fetch origin master
-          git push origin HEAD:master
+          git fetch origin main
+          git push origin HEAD:main
       - name: Run l3build and Upload to CTAN
         run: |
           l3build ctan
