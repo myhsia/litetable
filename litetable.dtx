@@ -100,12 +100,12 @@ The Current Maintainer of this work is **Mingyu Xia**.
 %<*driver>
 \documentclass[svgnames]{l3doc}
 \usepackage{pdfpages, twemojis}
-\usepackage[mono = false]{libertine}
+\usepackage[osf, mono = false]{libertine}
 \AddToHook{env/function/before}{\vspace*{-.5\baselineskip}}
 \ExplSyntaxOn \makeatletter
 \DeclareDocumentCommand \key { s m }
   {
-    \IfBooleanTF {#1} { \textcolor{red}{\bfseries #2} }
+    \IfBooleanTF {#1} { \textcolor{red}{\ttfamily \bfseries #2} }
       {
         \ttfamily
         \seq_set_from_clist:Nn \l_tmpa_seq {#2}
@@ -147,7 +147,7 @@ The Current Maintainer of this work is **Mingyu Xia**.
 %   }^^A
 % }
 %
-% \date{Released 2025-08-14\quad \texttt{v3.5A}}
+% \date{Released 2025-08-15\quad \texttt{v3.5A}}
 %
 % \maketitle
 %
@@ -300,7 +300,7 @@ The Current Maintainer of this work is **Mingyu Xia**.
 %    \end{macrocode}
 %
 %    \begin{macrocode}
-\ProvidesExplPackage {litetable} {2025-08-14} {v3.5A}
+\ProvidesExplPackage {litetable} {2025-08-16} {v3.6B}
   {A Colorful Timetable Design}
 %    \end{macrocode}
 %

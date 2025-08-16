@@ -1,12 +1,12 @@
 \documentclass[svgnames]{l3doc}
 \usepackage{pdfpages, twemojis}
-\usepackage[mono = false]{libertine}
+\usepackage[osf, mono = false]{libertine}
 \usepackage[fontset = fandol, linespread = 1.25, autoindent = 0pt]{ctex}
 \AddToHook{env/function/before}{\vspace*{-.5\baselineskip}}
 \ExplSyntaxOn \makeatletter
 \DeclareDocumentCommand \key { s m }
   {
-    \IfBooleanTF {#1} { \textcolor{red}{\bfseries #2} }
+    \IfBooleanTF {#1} { \textcolor{red}{\ttfamily \bfseries #2} }
       {
         \ttfamily
         \seq_set_from_clist:Nn \l_tmpa_seq {#2}
@@ -40,7 +40,7 @@
     開發了解析 \meta{left} \texttt{->} \meta{right} 型數據結構的接口.^^A
   }^^A
 }
-\date{Released 2025-08-14\quad \texttt{v3.5A}}
+\date{Released 2025-08-15\quad \texttt{v3.5A}}
 
 \begin{document}
 

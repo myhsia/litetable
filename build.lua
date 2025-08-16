@@ -10,16 +10,17 @@
 --]==========================================]--
 
 module              = "litetable"
-version             = "v3.6A"
-date                = "2025-08-14"
+version             = "v3.6B"
+date                = "2025-08-16"
 maintainer          = "Mingyu Xia; Lijun Guo"
 uploader            = "Mingyu Xia"
 maintainid          = "myhsia"
 email               = "myhsia@outlook.com"
 repository          = "https://github.com/" .. maintainid .. "/" .. module
-announcement        = [[Version 3.6A released.
+announcement        = [[Version 3.6B released.
 - Optimized the `litetable` environment.
-- Updated the preamble of the docs.]]
+- Updated the preamble of the docs.
+- Fixed incorrect appearances of the docs.]]
 summary             = "A Colorful Timetable Design"
 description         = "The litetable package provides a colorful timetable design, developed by expl3 based on TikZ"
 
@@ -53,7 +54,7 @@ uploadconfig  = {
   license      = "lppl1.3c",  
   ctanPath     = "/macros/latex/contrib/" .. module,
   announcement = announcement,
-  home         = repository,
+  home         = "https://github.com/" .. maintainid,
   bugtracker   = repository .. "/issues",
   support      = repository .. "/issues",
   repository   = repository,

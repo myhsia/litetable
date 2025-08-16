@@ -21,12 +21,15 @@ jobs:
       - name: tag
         run: |
           l3build tag
-          git remote set-url origin https://<token>@github.com/myhsia/litetable.git
-          git status
-          git add .
-          git commit -m "Automatic tagging by l3build"
-          git fetch origin main
-          git push origin HEAD:main
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+          if [[ -n $(git status --porcelain) ]]; then
+            git add .
+            git commit -m "Automatic tagging by l3build"
+            git push origin main
+          else
+            echo "No changes to commit."
+          fi
       - name: Run l3build and Upload to CTAN
         run: |
           l3build ctan
