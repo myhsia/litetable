@@ -147,7 +147,7 @@ The Current Maintainer of this work is **Mingyu Xia**.
 %   }^^A
 % }
 %
-% \date{Released 2025-08-16\quad \texttt{v3.6B}}
+% \date{Released 2025-08-18\quad \texttt{v3.7A}}
 %
 % \maketitle
 %
@@ -181,6 +181,7 @@ The Current Maintainer of this work is **Mingyu Xia**.
 % The mandatory argument can set the title of the timetable, and the
 % optional argument accepts the following keys
 % \begin{keyval}
+%   \item [\key{scale}] \textcolor{gray}{\val{float} can set the scale of the timetable (Default: |1.0|).}
 %   \item [\key{color}] \val{string} can set the background color
 %   (Default: |gray|), this key's name could be omitted.
 %   \item [\key{sem}] \val{string} can set the semester information at the
@@ -277,7 +278,7 @@ The Current Maintainer of this work is **Mingyu Xia**.
 %   It can add a comment at the southwest corner of the timetable.
 % \end{function}
 %
-% \appendix \linespread{1.3}
+% \clearpage \appendix \linespread{1.3}
 %
 % \section{Working Example} \label{mwe}
 %
@@ -300,7 +301,7 @@ The Current Maintainer of this work is **Mingyu Xia**.
 %    \end{macrocode}
 %
 %    \begin{macrocode}
-\ProvidesExplPackage {litetable} {2025-08-16} {v3.6B}
+\ProvidesExplPackage {litetable} {2025-08-18} {v3.7A}
   {A Colorful Timetable Design}
 %    \end{macrocode}
 %
@@ -394,22 +395,41 @@ The Current Maintainer of this work is **Mingyu Xia**.
 %    \end{macrocode}
 % \end{variable}
 % \end{macro}
+% \begin{variable}{\l_@@_textwidth_dim, \l_@@_textheight_dim}
+%   Dimensions for the physical width and height of the timetable,
+%   controlled by |\l_@@_scale_fp|.
+%    \begin{macrocode}
+\dim_new:N \l_@@_textwidth_dim
+\dim_new:N \l_@@_textheight_dim
+%    \end{macrocode}
+% \end{variable}
 % \begin{environment}{litetable}
 %   Create a blank timetable frame.
 %    \begin{macrocode}
 \NewDocumentEnvironment { litetable } { O{} m O{} }
   {
     \clearpage \thispagestyle{empty}
-    \begin{tikzpicture} [ remember~picture, overlay ]
+    \group_begin:
+    \dim_gset:Nn \l_@@_textwidth_dim
+      { \fp_eval:n { \l_@@_scale_fp } \paperwidth }
+    \dim_gset:Nn \l_@@_textheight_dim
+      { \fp_eval:n { \l_@@_scale_fp } \paperheight }
     \keys_set:nn { litetable / frame } { #1, #3 }
-    \@@_maketable:n {#2}
-  } { \end{tikzpicture} \clearpage }
+    \tikzpicture [ remember~picture, overlay ]
+      \@@_maketable:n {#2}
+  } { \endtikzpicture \group_end: \clearpage }
 %    \end{macrocode}
-% \begin{variable}{\l_@@_bg_color_tl, \l_@@_bg_sem_tl}
+% \begin{variable}
+%   {
+%     \l_@@_scale_fp,       \l_@@_bg_color_tl,
+%     \l_@@_hline_type_tl,  \l_@@_bg_sem_tl
+%   }
 %   Key--value definitions for the \env{litetable} command.
 %    \begin{macrocode}
 \keys_define:nn { litetable / frame }
   {
+    scale   .fp_set:N  = \l_@@_scale_fp,
+      scale .initial:n = 1.0,
     color   .tl_set:N  = \l_@@_bg_color_tl,
       color .initial:n = gray,
     hline   .tl_set:N  = \l_@@_hline_type_tl,

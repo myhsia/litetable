@@ -1,7 +1,7 @@
 \documentclass[svgnames]{l3doc}
 \usepackage{pdfpages, twemojis}
 \usepackage[osf, mono = false]{libertine}
-\usepackage[fontset = fandol, linespread = 1.25, autoindent = 0pt]{ctex}
+\usepackage[fontset = fandol, linespread = 1.2, autoindent = 0pt]{ctex}
 \AddToHook{env/function/before}{\vspace*{-.5\baselineskip}}
 \ExplSyntaxOn \makeatletter
 \DeclareDocumentCommand \key { s m }
@@ -33,14 +33,14 @@
 \author{^^A
   夏明宇 \texttt{<^^A
     \href{mailto:myhsia@outlook.com}{myhsia@outlook.com}^^A
-    \texorpdfstring{\:\textbar\:}{, }
+    \texorpdfstring{\:\textbar\:}{, }^^A
     \href{mailto:xiamingyu@westlake.edu.cn}{xiamingyu@westlake.edu.cn}>^^A
   }\thanks{^^A
     \href{https://github.com/ljguo1020}{郭李軍}^^A
     開發了解析 \meta{left} \texttt{->} \meta{right} 型數據結構的接口.^^A
   }^^A
 }
-\date{Released 2025-08-16\quad \texttt{v3.6B}}
+\date{Released 2025-08-18\quad \texttt{v3.7A}}
 
 \begin{document}
 
@@ -76,6 +76,7 @@
 强制參數用於設定課程表標題，
 可選參數接受以下鍵
 \begin{keyval}
+  \item [\key{scale}] \textcolor{gray}{\val{float} 可設定課程表的縮放比例（默認值: |1.0|）.}
   \item [\key{color}] \val{color} 可設定課程表框架的背景色
   （默認值：|gray|），鍵名可省略.
   \item [\key{sem}] \val{string}
@@ -172,7 +173,7 @@
   在課程表的右下角添加備注.
 \end{function}
 
-\appendix \linespread{1.25}
+\clearpage \appendix \linespread{1.25}
 
 \section{工作範例} \label{mwe}
 
