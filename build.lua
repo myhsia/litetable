@@ -10,15 +10,15 @@
 --]==========================================]--
 
 module              = "litetable"
-version             = "v3.7A"
-date                = "2025-08-18"
+version             = "v3.7B"
+date                = "2025-08-20"
 maintainer          = "Mingyu Xia; Lijun Guo"
 uploader            = "Mingyu Xia"
 maintainid          = "myhsia"
 email               = "myhsia@outlook.com"
 repository          = "https://github.com/" .. maintainid .. "/" .. module
-announcement        = [[Version 3.7A released.
-- Initialed the `scale` key of the `litetable` environment.]]
+announcement        = [[Version 3.7B released.
+- Fixed a typo in the doc: `timeformat` key of the `\timelist` command.]]
 summary             = "A Colorful Timetable Design"
 description         = "The litetable package provides a colorful timetable design, developed by expl3 based on TikZ"
 
