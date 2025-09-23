@@ -10,15 +10,15 @@
 --]==========================================]--
 
 module              = "litetable"
-version             = "v3.7B"
-date                = "2025-08-20"
+version             = "v3.8A"
+date                = "2025-09-23"
 maintainer          = "Mingyu Xia; Lijun Guo"
 uploader            = "Mingyu Xia"
 maintainid          = "myhsia"
 email               = "myhsia@outlook.com"
 repository          = "https://github.com/" .. maintainid .. "/" .. module
-announcement        = [[Version 3.7B released.
-- Fixed a typo in the doc: `timeformat` key of the `\timelist` command.]]
+announcement        = [[Version 3.8A released.
+- Include the implementation part in the docs.]]
 summary             = "A Colorful Timetable Design"
 description         = "The litetable package provides a colorful timetable design, developed by expl3 based on TikZ"
 
@@ -32,8 +32,7 @@ cleanfiles          = {"*log", "*.pdf", "*.zip", "*.curlopt"}
 excludefiles        = {"*~"}
 tagfiles            = {"*.dtx", "*.tex"}
 textfiles           = {"*.md", "LICENSE", "*.lua"}
-typesetcmds         = "\\AtBeginDocument{\\ifdefined\\DisableImplementation" ..
-                      "\\DisableImplementation\\fi}"
+typesetcmds         = ""
 typesetdemofiles    = {module .. "-demo.tex"}
 typesetexe          = "latexmk -pdf"
 typesetfiles        = {"*.dtx", module .. "-zh-cn.tex", module .. "-zh-hk.tex"}
