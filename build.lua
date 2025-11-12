@@ -10,15 +10,15 @@
 --]==========================================]--
 
 module              = "litetable"
-version             = "v3.8A"
-date                = "2025-09-23"
+version             = "v3.8B"
+date                = "2025-11-12"
 maintainer          = "Mingyu Xia; Lijun Guo"
 uploader            = "Mingyu Xia"
 maintainid          = "myhsia"
 email               = "myhsia@outlook.com"
 repository          = "https://github.com/" .. maintainid .. "/" .. module
-announcement        = [[Version 3.8A released.
-- Include the implementation part in the docs.]]
+announcement        = [[Version 3.8B released.
+- Adjusted some layout in the manual.]]
 summary             = "A Colorful Timetable Design"
 description         = "The litetable package provides a colorful timetable design, developed by expl3 based on TikZ"
 
@@ -28,7 +28,7 @@ description         = "The litetable package provides a colorful timetable desig
 --]==========================================]--
 
 ctanzip             = module
-cleanfiles          = {"*log", "*.pdf", "*.zip", "*.curlopt"}
+cleanfiles          = {"*.log", "*.pdf", "*.zip", "*.curlopt"}
 excludefiles        = {"*~"}
 tagfiles            = {"*.dtx", "*.tex"}
 textfiles           = {"*.md", "LICENSE", "*.lua"}
