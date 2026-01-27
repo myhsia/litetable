@@ -2,6 +2,8 @@
 l3build
 latexmk
 makeindex
+pdftex
+xetex
 #
 # l3doc
 l3kernel
@@ -24,8 +26,14 @@ csquotes
 enumitem
 fancyvrb
 hypdoc
+hyperref
 lm
+manfnt
+metafont
+mfware
+oberdiek
 underscore
+xcolor
 #
 # Required
 pgf
