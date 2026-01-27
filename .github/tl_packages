@@ -34,5 +34,8 @@ pgf
 ctex
 libertine
 lxgw-fonts
+### Required by `pdfpages`
+pdflscape
+###
 pdfpages
 twemojis
