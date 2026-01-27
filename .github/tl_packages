@@ -31,9 +31,6 @@ pgf
 #
 # Preamble
 ctex
-### For twemojis
-jknapltx
-###
 libertine
 lxgw-fonts
 pdfpages
