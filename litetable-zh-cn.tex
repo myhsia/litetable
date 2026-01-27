@@ -1,8 +1,9 @@
 \documentclass[svgnames]{l3doc}
 \usepackage{pdfpages, twemojis}
-% \usepackage[osf, mono = false]{libertine}
+\usepackage[osf, mono = false]{libertine}
 \usepackage[fontset = lxgw, linespread = 1.0, autoindent = 0pt]{ctex}
 \ExplSyntaxOn \makeatletter
+\newcommand \mail[1]{\href{mailto:#1}{\ttfamily #1}}
 \DeclareDocumentCommand \key { s m }
   {
     \IfBooleanTF {#1} { \textcolor{red}{\ttfamily \bfseries #2} }
@@ -27,16 +28,12 @@
   \bfseries \cls{litetable} 宏包 --- 多彩的课程表\thanks{^^A
     \url{https://github.com/myhsia/litetable},
     \url{https://ctan.org/pkg/litetable}^^A
-  }^^A
-}
-\author{^^A
-  夏明宇 \texttt{<^^A
-    \href{mailto:xiamingyu@westlake.edu.cn}{xiamingyu@westlake.edu.cn}>^^A
   }\thanks{^^A
     \href{https://github.com/ljguo1020}{郭李军}^^A
     开发了解析 \meta{left} \texttt{->} \meta{right} 型数据结构的接口.^^A
   }^^A
 }
+\author{Mingyu Xia\thanks{\mail{xiamingyu@westlake.edu.cn}}}
 \date{Released 2026-01-31\quad \texttt{v3.9A}}
 
 \begin{document}

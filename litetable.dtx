@@ -100,8 +100,9 @@ The Current Maintainer of this work is **Mingyu Xia**.
 %<*driver>
 \documentclass[svgnames]{l3doc}
 \usepackage{pdfpages, twemojis}
-^^A \usepackage[osf, mono = false]{libertine}
+\usepackage[osf, mono = false]{libertine}
 \ExplSyntaxOn \makeatletter
+\newcommand \mail[1]{\href{mailto:#1}{\ttfamily #1}}
 \DeclareDocumentCommand \key { s m }
   {
     \IfBooleanTF {#1} { \textcolor{red}{\ttfamily \bfseries #2} }
@@ -130,17 +131,13 @@ The Current Maintainer of this work is **Mingyu Xia**.
 %   The \cls{litetable} Package --- Colorful Timetable\thanks{^^A
 %     \url{https://github.com/myhsia/litetable},
 %     \url{https://ctan.org/pkg/litetable}^^A
-%   }^^A
-% }
-%
-% \author{^^A
-%   Mingyu Xia \texttt{<^^A
-%     \href{mailto:xiamingyu@westlake.edu.cn}{xiamingyu@westlake.edu.cn}>^^A
 %   }\thanks{^^A
 %     \href{https://github.com/ljguo1020}{Lijun Guo} developed an interface
 %     to parse \meta{left} \texttt{->} \meta{right} data structures.^^A
 %   }^^A
 % }
+%
+% \author{Mingyu Xia\thanks{\mail{xiamingyu@westlake.edu.cn}}}
 %
 % \date{Released 2026-01-31\quad \texttt{v3.9A}}
 %
