@@ -1,46 +1,37 @@
-# The test framework itself
+# Shell
 l3build
+latexmk
+makeindex
 #
-# Base
+# l3doc
+l3kernel
+## Base
 latex
-latex-bin
-#
-# For the doc target and testing l3doc
+## Required
+graphics
+tools
+psnfss
+## Generic
+hologo
+## Contrib
 alphalph
+amsmath
 amsfonts
-bookmark
 booktabs
-catchfile
-cm-super
 colortbl
 csquotes
-ctex
-dvips
-ec
 enumitem
-epstopdf
-epstopdf-pkg
-everysel
 fancyvrb
-framed
-hologo
 hypdoc
-hyperref
-latexmk
-libertine
-lipsum
-listings
-makeindex
-mathpazo
-metalogo
-oberdiek
-pdflscape
-pdfpages
-pgf
-psnfss
-ragged2e
-siunitx
-times
-twemojis
+lm
 underscore
-units
+#
+# Required
+pgf
+#
+# Preamble
+ctex
+libertine
+lxgw-fonts
+pdfpages
+twemojis
