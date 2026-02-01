@@ -11,7 +11,7 @@
 
 module              = "litetable"
 version             = "v3.9A"
-date                = "2026-01-31"
+date                = "2026-02-07"
 maintainer          = "Mingyu Xia; Lijun Guo"
 uploader            = "Mingyu Xia"
 maintainid          = "myhsia"
