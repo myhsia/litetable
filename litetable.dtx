@@ -107,11 +107,12 @@ The Current Maintainer of this work is **Mingyu Xia**.
   {
     \IfBooleanTF {#1} { \textcolor{red}{\ttfamily \bfseries #2} }
       {
-        \ttfamily
+        \group_begin: \ttfamily
         \seq_set_from_clist:Nn \l_tmpa_seq {#2}
         \seq_set_map:NNn \l_tmpb_seq \l_tmpa_seq
           { \exp_not:n { \textcolor{red}{\bfseries ##1} } }
         \seq_use:Nn \l_tmpb_seq { ,~ } \:=\:
+        \group_end:
       }
   }
 \DeclareCommandCopy \val \meta
@@ -161,9 +162,9 @@ The Current Maintainer of this work is **Mingyu Xia**.
 %
 % To load this package, write the line
 % \begin{quote}
-%   |\usepackage{litetable}|
+%   |\usepackage [scale = |\meta{fp num}| ] {litetable}|
 % \end{quote}
-%
+% The \key*{scale} key can set the scale of the timetable (Default: |1.0|).
 % \DescribeEnv{litetable}
 % The \env{litetable} environment can create a blank timetable frame, and it
 % should be executed after commands \cs{timelist} and \cs{weeklist}.
@@ -175,7 +176,6 @@ The Current Maintainer of this work is **Mingyu Xia**.
 % The mandatory argument can set the title of the timetable, and the
 % optional argument accepts the following keys
 % \begin{keyval}
-%   \item [\key{scale}] \textcolor{gray}{\val{float} can set the scale of the timetable (Default: |1.0|).}
 %   \item [\key{color}] \val{string} can set the background color
 %   (Default: |gray|), this key's name could be omitted.
 %   \item [\key{sem}] \val{string} can set the semester information at the
@@ -340,6 +340,64 @@ The Current Maintainer of this work is **Mingyu Xia**.
 %
 % \subsection{User's Interface}
 %
+% \begin{variable}
+%   {
+%     \l_@@_textwidth_dim,
+%     \l_@@_textheight_dim,
+%     \l_@@_reswidth_dim,
+%     \l_@@_resheight_dim
+%   }
+%   Dimensions for the physical width and height of the timetable and margin,
+%   controlled by |\l_@@_scale_fp| in package option.
+%    \begin{macrocode}
+\dim_new:N \l_@@_textwidth_dim
+\dim_new:N \l_@@_textheight_dim
+\dim_new:N \l_@@_reswidth_dim
+\dim_new:N \l_@@_resheight_dim
+\keys_define:nn { litetable / pkgoption }
+  {
+    scale   .fp_set:N  = \l_@@_scale_fp,
+    scale   .initial:n = 1.0,
+    unknown .code:n    = \@@_unknown_option:n {#1}
+  }
+%    \end{macrocode}
+% \end{variable}
+% \begin{macro}{\@@_unknown_option:n}
+% Handel the unknown options.
+% \begin{variable}{\g_@@_base_options_clist}
+%    \begin{macrocode}
+\clist_new:N \g_@@_base_options_clist
+%    \end{macrocode}
+% \end{variable}
+%    \begin{macrocode}
+\cs_new_protected_nopar:Npn \@@_unknown_option:n #1
+  {
+    \tl_if_empty:nTF {#1}
+      {
+        \clist_gput_right:NV
+        \g_@@_base_options_clist \l_keys_key_str
+      }
+      {
+        \exp_args:NNx
+        \clist_gput_right:Nn \g_@@_base_options_clist
+          { \l_keys_key_str = \exp_not:n {#1} }
+      }
+  }
+%    \end{macrocode}
+% \end{macro}
+% Process the package option.
+%    \begin{macrocode}
+\ProcessKeyOptions [ litetable / pkgoption ]
+\dim_gset:Nn \l_@@_textwidth_dim
+  { \fp_eval:n { \l_@@_scale_fp     } \paperwidth    }
+\dim_gset:Nn \l_@@_textheight_dim
+  { \fp_eval:n { \l_@@_scale_fp     } \paperheight   }
+\dim_gset:Nn \l_@@_reswidth_dim
+  { \fp_eval:n { 1 - \l_@@_scale_fp } \paperwidth /2 }
+\dim_gset:Nn \l_@@_resheight_dim
+  { \fp_eval:n { 1 - \l_@@_scale_fp } \paperheight/2 }
+%    \end{macrocode}
+%
 % \begin{macro}{\weeklist}
 %   Set a list of working days and the width of each column at the top of the
 %   timetable.
@@ -391,14 +449,6 @@ The Current Maintainer of this work is **Mingyu Xia**.
 %    \end{macrocode}
 % \end{variable}
 % \end{macro}
-% \begin{variable}{\l_@@_textwidth_dim, \l_@@_textheight_dim}
-%   Dimensions for the physical width and height of the timetable,
-%   controlled by |\l_@@_scale_fp|.
-%    \begin{macrocode}
-\dim_new:N \l_@@_textwidth_dim
-\dim_new:N \l_@@_textheight_dim
-%    \end{macrocode}
-% \end{variable}
 % \begin{environment}{litetable}
 %   Create a blank timetable frame.
 %    \begin{macrocode}
@@ -406,26 +456,16 @@ The Current Maintainer of this work is **Mingyu Xia**.
   {
     \clearpage \thispagestyle{empty}
     \group_begin:
-    \dim_gset:Nn \l_@@_textwidth_dim
-      { \fp_eval:n { \l_@@_scale_fp } \paperwidth }
-    \dim_gset:Nn \l_@@_textheight_dim
-      { \fp_eval:n { \l_@@_scale_fp } \paperheight }
     \keys_set:nn { litetable / frame } { #1, #3 }
-    \tikzpicture [ remember~picture, overlay ]
+    \tikzpicture [ remember ~ picture, overlay ]
       \@@_maketable:n {#2}
   } { \endtikzpicture \group_end: \clearpage }
 %    \end{macrocode}
-% \begin{variable}
-%   {
-%     \l_@@_scale_fp,       \l_@@_bg_color_tl,
-%     \l_@@_hline_type_tl,  \l_@@_bg_sem_tl
-%   }
+% \begin{variable}{\l_@@_bg_color_tl, \l_@@_hline_type_tl,  \l_@@_bg_sem_tl}
 %   Key--value definitions for the \env{litetable} command.
 %    \begin{macrocode}
 \keys_define:nn { litetable / frame }
   {
-    scale   .fp_set:N  = \l_@@_scale_fp,
-      scale .initial:n = 1.0,
     color   .tl_set:N  = \l_@@_bg_color_tl,
       color .initial:n = gray,
     hline   .tl_set:N  = \l_@@_hline_type_tl,
@@ -490,7 +530,9 @@ The Current Maintainer of this work is **Mingyu Xia**.
   {
     \node [ yshift = .5\l_@@_time_vunit_dim, left = 1ex,
             darkgray, font = \small \bfseries
-          ] at (current~page.south~east) {#1};
+          ] at ([shift =
+              {(-\l_@@_reswidth_dim, \l_@@_resheight_dim)}
+                ]current ~ page.south ~ east) {#1};
   }
 %    \end{macrocode}
 % \end{macro}
@@ -548,7 +590,7 @@ The Current Maintainer of this work is **Mingyu Xia**.
           { \clist_count:N \l_@@_week_clist }
       }
     \dim_set:Nn \l_@@_week_hunit_dim
-      { \fp_eval:n { 14/\l_@@_week_num_fp/15 } \paperwidth }
+      { \fp_eval:n { 14/\l_@@_week_num_fp/15 } \l_@@_textwidth_dim }
   }
 %    \end{macrocode}
 % \end{macro}
@@ -568,7 +610,7 @@ The Current Maintainer of this work is **Mingyu Xia**.
     \clist_set:Nn \l_@@_time_clist {#1}
     \int_set:Nn \l_@@_time_num_int { \clist_count:N \l_@@_time_clist }
     \dim_set:Nn \l_@@_time_vunit_dim
-      { \fp_eval:n { 1/(2\l_@@_time_num_int + 3.5) } \paperheight }
+      { \fp_eval:n { 1/(2\l_@@_time_num_int + 3.5) } \l_@@_textheight_dim }
   }
 %    \end{macrocode}
 % \end{macro}
@@ -584,24 +626,49 @@ The Current Maintainer of this work is **Mingyu Xia**.
 \cs_new_protected_nopar:Npn \@@_maketable:n #1
   {
     \fill [ \l_@@_bg_color_tl!5 ]
-      (current~page.north~west) rectangle +
-      (\paperwidth, -1.5\l_@@_time_vunit_dim)
+      ([shift =
+        {(\l_@@_reswidth_dim, -\l_@@_resheight_dim)}
+       ]current ~ page.north ~ west) rectangle +
+      (\l_@@_textwidth_dim, -1.5\l_@@_time_vunit_dim)
      node [ midway, black, font = \huge \bfseries ] {#1};
     \tl_if_empty:NF \l_@@_bg_sem_tl
       {
         \node [ shift = {(-.02\paperwidth, -.75\l_@@_time_vunit_dim)},
                 left, rectangle, fill = DarkBlue!10, text = DarkBlue!60,
-                inner~sep = 2ex, rounded~corners = 8pt, font = \large
-              ] at (current~page.north~east) { \l_@@_bg_sem_tl };
+                inner ~ sep = 2ex, rounded ~ corners = 8pt, font = \large
+              ] at ([shift =
+                  {(-\l_@@_reswidth_dim, -\l_@@_resheight_dim)}
+                    ]current ~ page.north ~ east) { \l_@@_bg_sem_tl };
       }
     \int_step_inline:nnnn { 0 } { 2 } { \l_@@_time_num_int }
       {
-        \filldraw [ fill = \l_@@_bg_color_tl!5, thick,
-                    draw = gray, \l_@@_hline_type_tl ]
-          ([shift =
-            {(-.4pt, \fp_eval:n { -2 * ##1 - 2.5 } \l_@@_time_vunit_dim)}
-           ]current~page.north~west
-          ) rectangle + (\paperwidth + .8pt, -2\l_@@_time_vunit_dim);
+        \bool_lazy_and:nnTF
+          { \int_if_even_p:n { \l_@@_time_num_int }             }
+          { \int_compare_p:nNn { ##1 } = { \l_@@_time_num_int } }
+          {
+            \filldraw [ fill = \l_@@_bg_color_tl!5, thick,
+                        draw = gray, \l_@@_hline_type_tl ]
+              ([shift = {(
+                {-.4pt + \l_@@_reswidth_dim},
+                {\fp_eval:n { -2 * ##1 - 2.5 } \l_@@_time_vunit_dim
+                  - \l_@@_resheight_dim})}
+               ]current ~ page.north ~ west
+              ) rectangle
+              ([shift =
+                {(.4pt - \l_@@_reswidth_dim, .4pt + \l_@@_resheight_dim)}
+               ]current ~ page.south ~ east);
+          }
+          {
+            \filldraw [ fill = \l_@@_bg_color_tl!5, thick,
+                        draw = gray, \l_@@_hline_type_tl ]
+              ([shift = {(
+                {-.4pt + \l_@@_reswidth_dim},
+                {\fp_eval:n { -2 * ##1 - 2.5 } \l_@@_time_vunit_dim
+                  - \l_@@_resheight_dim})}
+               ]current ~ page.north ~ west
+              ) rectangle +
+              (\l_@@_textwidth_dim + .8pt, -2\l_@@_time_vunit_dim);
+          }
       }
     \bool_if:NTF \l_@@_timelist_hidetime_bool
       {
@@ -616,11 +683,13 @@ The Current Maintainer of this work is **Mingyu Xia**.
       {
         \node [ darkgray!80, shift =
                 {(
-                  \paperwidth/30,
+                  \l_@@_textwidth_dim/30,
                   -2 * ##1 \l_@@_time_vunit_dim +
                   \l_@@_timelist_shift_dim
                 )}, font = \large \l_@@_timelist_numformat_tl
-              ] at (current~page.north~west) {##1};
+              ] at ([shift =
+                  {(\l_@@_reswidth_dim, -\l_@@_resheight_dim)}
+                    ]current ~ page.north ~ west) {##1};
       }
     \bool_if:NF \l_@@_timelist_hidetime_bool
       {
@@ -632,10 +701,12 @@ The Current Maintainer of this work is **Mingyu Xia**.
               \l_@@_tmpb_tl
             \node [ gray, align = center, shift =
                     {(
-                      \paperwidth/30,
+                      \l_@@_textwidth_dim/30,
                       \fp_eval:n { -1.85 - 2 * ##1 } \l_@@_time_vunit_dim
                     )}, font = \l_@@_timelist_timeformat_tl
-                  ] at (current~page.north~west)
+                  ] at ([shift =
+                      {(\l_@@_reswidth_dim, -\l_@@_resheight_dim)}
+                        ]current ~ page.north ~ west)
               { \l_@@_tmpa_tl\\ \l_@@_tmpb_tl };
           }
       }
@@ -648,9 +719,12 @@ The Current Maintainer of this work is **Mingyu Xia**.
                         {
                           14 * \clist_item:Nn \l_@@_week_accum_clist {##1}/
                           \l_@@_week_num_fp/15 + 1/15
-                        } \paperwidth, -2\l_@@_time_vunit_dim
+                        } \l_@@_textwidth_dim, -2\l_@@_time_vunit_dim
                     )}, darkgray, font = \ttfamily
-                  ] at (current~page.north~west) { \l_@@_weeklist_sep_tl };
+                  ] at ([shift =
+                        {(\l_@@_reswidth_dim, -\l_@@_resheight_dim)}
+                        ]current ~ page.north ~ west)
+              { \l_@@_weeklist_sep_tl };
           }
         \@@_get_left:eN { \clist_item:Nn \l_@@_week_clist {##1} }
           \l_@@_tmpa_tl
@@ -661,10 +735,19 @@ The Current Maintainer of this work is **Mingyu Xia**.
                         \clist_item:Nn \l_@@_week_accum_clist {##1} -
                         \clist_item:Nn \l_@@_week_ratio_clist {##1}/2
                         )/\l_@@_week_num_fp/15 + 1/15
-                    } \paperwidth, -2\l_@@_time_vunit_dim
+                    } \l_@@_textwidth_dim, -2\l_@@_time_vunit_dim
                 )}, font = \large \l_@@_weeklist_format_tl
-              ] at (current~page.north~west) { \l_@@_tmpa_tl };
+              ] at ([shift =
+                  {(\l_@@_reswidth_dim, -\l_@@_resheight_dim)}
+                    ]current ~ page.north ~ west) { \l_@@_tmpa_tl };
       }
+    \draw [ gray, very ~ thick ]
+      ([shift =
+        {({-.4pt +\l_@@_reswidth_dim}, {-.4pt -\l_@@_resheight_dim})}
+       ]current ~ page.north ~ west) rectangle
+      ([shift =
+        {({.4pt - \l_@@_reswidth_dim}, {.4pt + \l_@@_resheight_dim})}
+       ]current ~ page.south ~ east);
   }
 %    \end{macrocode}
 % \end{macro}
@@ -680,9 +763,9 @@ The Current Maintainer of this work is **Mingyu Xia**.
 \cs_new_protected_nopar:Npn \@@_course_box_aux:nn #1#2
   {
     \begin{scope}
-      \clip [ preaction = { draw, ultra~thick, \l_@@_course_color_tl!60 },
+      \clip [ preaction = { draw, ultra ~ thick, \l_@@_course_color_tl!60 },
               preaction = { fill, \l_@@_course_color_tl!10 },
-              rounded~corners = 8pt ]
+              rounded ~ corners = 8pt ]
         ([shift =
           {(
             \fp_eval:n
@@ -691,9 +774,11 @@ The Current Maintainer of this work is **Mingyu Xia**.
                   { \l_@@_weekday_int } -
                 \clist_item:Nn \l_@@_week_ratio_clist
                   { \l_@@_weekday_int }
-              } \l_@@_week_hunit_dim + \paperwidth/15 + 1.2pt,
-            \fp_eval:n { -.5 - 2 * #1 } \l_@@_time_vunit_dim - 1.2pt
-        )}]current~page.north~west) rectangle +
+              } \l_@@_week_hunit_dim + \l_@@_textwidth_dim/15
+            + \l_@@_reswidth_dim + 1.2pt,
+            \fp_eval:n { -.5 - 2 * #1 } \l_@@_time_vunit_dim
+            - \l_@@_resheight_dim - 1.2pt
+        )}]current ~ page.north ~ west) rectangle +
         (
           \clist_item:Nn \l_@@_week_ratio_clist
             { \l_@@_weekday_int } \l_@@_week_hunit_dim - 2.4pt,
@@ -708,9 +793,11 @@ The Current Maintainer of this work is **Mingyu Xia**.
                   { \l_@@_weekday_int } -
                 \clist_item:Nn \l_@@_week_ratio_clist
                   { \l_@@_weekday_int }
-              } \l_@@_week_hunit_dim + \paperwidth/15,
+              } \l_@@_week_hunit_dim
+            + \l_@@_reswidth_dim + \l_@@_textwidth_dim/15,
             \fp_eval:n { -.5 - 2 * #1 } \l_@@_time_vunit_dim
-        )}]current~page.north~west) rectangle +
+            - \l_@@_resheight_dim
+        )}]current ~ page.north ~ west) rectangle +
         (
           \clist_item:Nn \l_@@_week_ratio_clist
             { \l_@@_weekday_int } \l_@@_week_hunit_dim,
@@ -733,10 +820,12 @@ The Current Maintainer of this work is **Mingyu Xia**.
                     { \l_@@_weekday_int } -
                   \clist_item:Nn \l_@@_week_ratio_clist
                     { \l_@@_weekday_int }/2
-                } \l_@@_week_hunit_dim + \paperwidth/15,
+                } \l_@@_week_hunit_dim + \l_@@_textwidth_dim/15,
               \fp_eval:n { -1.75 - #1 - #2 } \l_@@_time_vunit_dim
             )}, align = center, font = \bfseries
-          ] at (current~page.north~west) { \l_@@_course_subject_tl };
+          ] at ([shift =
+              {(\l_@@_reswidth_dim, -\l_@@_resheight_dim)}
+                ]current ~ page.north ~ west) { \l_@@_course_subject_tl };
         \bool_lazy_or:nnTF
           { \tl_if_empty_p:N \l_@@_course_location_tl }
           { \tl_if_empty_p:N \l_@@_course_lecture_tl  }
@@ -751,10 +840,12 @@ The Current Maintainer of this work is **Mingyu Xia**.
                     { \l_@@_weekday_int } -
                   \clist_item:Nn \l_@@_week_ratio_clist
                     { \l_@@_weekday_int }/2
-                } \l_@@_week_hunit_dim + \paperwidth/15,
+                } \l_@@_week_hunit_dim + \l_@@_textwidth_dim/15,
               \fp_eval:n { -1.75 - #1 - #2 } \l_@@_time_vunit_dim
             )}, below, \l_@@_course_color_tl!60, align = center
-          ] at (current~page.north~west)
+          ] at ([shift =
+              {(\l_@@_reswidth_dim, -\l_@@_resheight_dim)}
+                ]current ~ page.north ~ west)
           {
             \l_@@_course_location_tl
             \l_@@_s@course_sep_tl
@@ -764,7 +855,7 @@ The Current Maintainer of this work is **Mingyu Xia**.
       {
         \bool_lazy_and:nnTF
           { \tl_if_empty_p:N \l_@@_course_location_tl }
-          { \tl_if_empty_p:N \l_@@_course_lecture_tl }
+          { \tl_if_empty_p:N \l_@@_course_lecture_tl  }
           {
             \tl_set:Nn \l_@@_course_anchor_tl { }
             \dim_set:Nn \l_@@_course_shift_dim { 0pt }
@@ -782,11 +873,13 @@ The Current Maintainer of this work is **Mingyu Xia**.
                     { \l_@@_weekday_int } -
                   \clist_item:Nn \l_@@_week_ratio_clist
                     { \l_@@_weekday_int }/2
-                } \l_@@_week_hunit_dim + \paperwidth/15,
+                } \l_@@_week_hunit_dim + \l_@@_textwidth_dim/15,
               \fp_eval:n { -1.5 - #1 - #2 } \l_@@_time_vunit_dim +
               \l_@@_course_shift_dim
             )}, font = \large \bfseries, \l_@@_course_anchor_tl
-          ] at (current~page.north~west) { \l_@@_course_subject_tl };
+          ] at ([shift =
+              {(\l_@@_reswidth_dim, -\l_@@_resheight_dim)}
+                ]current ~ page.north ~ west) { \l_@@_course_subject_tl };
         \bool_lazy_or:nnTF
           { \tl_if_empty_p:N \l_@@_course_location_tl }
           { \tl_if_empty_p:N \l_@@_course_lecture_tl  }
@@ -801,10 +894,12 @@ The Current Maintainer of this work is **Mingyu Xia**.
                     { \l_@@_weekday_int } -
                   \clist_item:Nn \l_@@_week_ratio_clist
                     { \l_@@_weekday_int }/2
-                } \l_@@_week_hunit_dim + \paperwidth/15,
+                } \l_@@_week_hunit_dim + \l_@@_textwidth_dim/15,
               \fp_eval:n { -1.625 - #1 - #2 } \l_@@_time_vunit_dim
             )}, below, \l_@@_course_color_tl!60, align = center
-          ] at (current~page.north~west)
+          ] at ([shift =
+              {(\l_@@_reswidth_dim, -\l_@@_resheight_dim)}
+                ]current ~ page.north ~ west)
           {
             \l_@@_course_location_tl
             \l_@@_course_sep_tl
@@ -815,10 +910,12 @@ The Current Maintainer of this work is **Mingyu Xia**.
             {(
               \clist_item:Nn \l_@@_week_accum_clist
                 { \l_@@_weekday_int } \l_@@_week_hunit_dim +
-              \paperwidth/15,
+              \l_@@_textwidth_dim/15,
               \fp_eval:n { -2.5 - 2 * #2 } \l_@@_time_vunit_dim
-            )}, above~left, \l_@@_course_color_tl!60, outer~sep = .5ex
-          ] at (current~page.north~west) { \l_@@_course_comment_tl };
+            )}, above ~ left, \l_@@_course_color_tl!60, outer ~ sep = .5ex
+          ] at ([shift =
+              {(\l_@@_reswidth_dim, -\l_@@_resheight_dim)}
+                ]current ~ page.north ~ west) { \l_@@_course_comment_tl };
       }
   }
 %    \end{macrocode}
