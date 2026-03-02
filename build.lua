@@ -36,8 +36,8 @@ typesetexe          = "latexmk -pdf"
 typesetfiles        = {"*.dtx", module .. "-zh-cn.tex", module .. "-zh-hk.tex"}
 typesetruns         = 1
 specialtypesetting  = specialtypesetting or {}
-specialtypesetting["litetable-zh-cn.tex"] = {cmd = "latexmk -xelatex"}
-specialtypesetting["litetable-zh-hk.tex"] = {cmd = "latexmk -xelatex"}
+specialtypesetting["litetable-zh-cn.tex"] = {cmd = "latexmk -pdfxe"}
+specialtypesetting["litetable-zh-hk.tex"] = {cmd = "latexmk -pdfxe"}
 uploadconfig  = {
   announcement_file = "announcement.md",
   pkg               = module,
