@@ -233,13 +233,13 @@ explicitly and prominently states near the primary copyright notice in
 the Work that the Work can only be maintained by the Copyright Holder
 or simply that it is `author-maintained'.
 
-The Work has the status `maintained` if there is a Current Maintainer
+The Work has the status `maintained' if there is a Current Maintainer
 who has indicated in the Work that they are willing to receive error
 reports for the Work (for example, by supplying a valid e-mail
 address). It is not required for the Current Maintainer to acknowledge
 or act upon these error reports.
 
-The Work changes from status `maintained` to `unmaintained' if there
+The Work changes from status `maintained' to `unmaintained' if there
 is no Current Maintainer, or the person stated to be Current
 Maintainer of the work cannot be reached through the indicated means
 of communication for a period of six months, and there are no other
@@ -362,7 +362,7 @@ Here is an example of such a notice and statement:
   % and version 1.3c or later is part of all distributions of LaTeX
   % version 2008 or later.
   %
-  % This work has the LPPL maintenance status `maintained`.
+  % This work has the LPPL maintenance status `maintained'.
   % 
   % The Current Maintainer of this work is M. Y. Name.
   %
@@ -377,8 +377,8 @@ referring to any `LaTeX-Format', and both `Copyright Holder' and
 `Current Maintainer' referring to the person `M. Y. Name'.
 
 If you do not want the Maintenance section of LPPL to apply to your
-Work, change `maintained` above into `author-maintained'.  
-However, we recommend that you use `maintained`, as the Maintenance
+Work, change `maintained' above into `author-maintained'.  
+However, we recommend that you use `maintained', as the Maintenance
 section was added in order to ensure that your Work remains useful to
 the community even when you can no longer maintain and support it
 yourself.
